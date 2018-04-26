@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get( '/workouts', 'WorkoutsController@index' );
+Route::get( 'workouts', 'WorkoutsController@index' )->name('workouts.list');
 
-Route::post( '/workouts', 'WorkoutsController@store' );
+Route::post( 'workouts', 'WorkoutsController@store' );
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workout extends Model
 {
-    protected $guarded = [ 'user_id' ];
+    protected $guarded = [];
 }

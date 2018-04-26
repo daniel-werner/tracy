@@ -10,7 +10,7 @@ class WorkoutsController extends Controller
 {
     public function __construct()
     {
-//        $this->middleware( 'auth' );
+        $this->middleware( 'auth' );
     }
 
     /**
@@ -20,7 +20,9 @@ class WorkoutsController extends Controller
      */
     public function index()
     {
-       return view( 'workouts.index' );
+        $workouts = Workout::all();
+
+        return view( 'workouts.index' , compact( 'workouts' ));
     }
 
     /**
