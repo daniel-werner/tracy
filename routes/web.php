@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get( '/workouts', 'WorkoutsController@index' );
+
+Route::post( '/workouts', 'WorkoutsController@store' );
