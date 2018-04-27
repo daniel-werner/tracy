@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Utilities\WorkoutImport;
+namespace App\Utilities\WorkoutImport;
 
 /**
  *

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Utilities\WorkoutImport\Parsers;
+namespace App\Utilities\WorkoutImport\Parsers;
 
 interface Parser{
 	public function parse($fileName);

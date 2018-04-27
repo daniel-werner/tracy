@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Workout;
+use App\Point;
 use Illuminate\Support\Facades\Auth;
 use App\Utilities\WorkoutImport\Parsers\Gpx;
+use Illuminate\Support\Facades\DB;
 
 
 class WorkoutsController extends Controller
@@ -57,9 +59,21 @@ class WorkoutsController extends Controller
             'user_id' => Auth::id()
         ];
 
-        dd($workout);
+        $workout = Workout::create( $workout );
 
-        Workout::create( $workout );
+        $points = [];
+
+        foreach( $gpx as $point ){
+            $points[] = new Point([
+               'workout_id' => $workout->id,
+                'coordinates' => $point,
+                'heart_rate' => $point->getHeartRate(),
+                'elevation' => $point->getEvelation(),
+//                'time' => $point->getTime()
+            ]);
+        }
+
+        $workout->points()->saveMany( $points );
 
         return redirect( '/workouts' );
     }
