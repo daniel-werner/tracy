@@ -106,11 +106,11 @@ class Point
 	}
 
 	/**
-	 * @return string
+	 * @return \DateTime
 	 */
 	public function getTime()
 	{
-		return $this->time;
+		return new \DateTime($this->time);
 	}
 
 	/**

@@ -69,7 +69,7 @@ class WorkoutsController extends Controller
                 'coordinates' => $point,
                 'heart_rate' => $point->getHeartRate(),
                 'elevation' => $point->getEvelation(),
-//                'time' => $point->getTime()
+                'time' => $point->getTime()
             ]);
         }
 
