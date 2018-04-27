@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Workout;
 use Illuminate\Support\Facades\Auth;
+use App\Utilities\WorkoutImport\Parsers\Gpx;
+
 
 class WorkoutsController extends Controller
 {
@@ -39,11 +41,17 @@ class WorkoutsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  Gpx $gpx
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Gpx $gpx)
     {
         $path = $request->workout_file->storeAs('workouts', $request->workout_file->getClientOriginalName());
+
+        $path = storage_path('app/' . $path);
+        $data = $gpx->parse($path);
+
+        dd($data);
 
         $workout = [
             'title' => 'New workout',

@@ -13872,8 +13872,9 @@ module.exports = __webpack_require__(43);
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -13948,6 +13949,8 @@ if (token) {
  */
 
 // import Echo from 'laravel-echo'
+
+__webpack_require__(48);
 
 // window.Pusher = require('pusher-js');
 
@@ -47380,6 +47383,28 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */
+/***/ (function(module, exports) {
+
+$(document).ready(function (e) {
+	$("input[type=file]").change(function () {
+		var fieldVal = $(this).val();
+
+		// Change the node's value by removing the fake path (Chrome)
+		fieldVal = fieldVal.replace("C:\\fakepath\\", "");
+
+		if (fieldVal != undefined || fieldVal != "") {
+			$(this).next(".custom-file-label").attr('data-content', fieldVal);
+			$(this).next(".custom-file-label").text(fieldVal);
+		}
+	});
+});
 
 /***/ })
 /******/ ]);

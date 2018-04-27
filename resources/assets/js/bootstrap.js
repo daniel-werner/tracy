@@ -46,6 +46,8 @@ if (token) {
 
 // import Echo from 'laravel-echo'
 
+require('./workouts');
+
 // window.Pusher = require('pusher-js');
 
 // window.Echo = new Echo({
