@@ -51,13 +51,13 @@ class WorkoutsController extends Controller
         $path = storage_path('app/' . $path);
         $data = $gpx->parse($path);
 
-        dd($data);
-
         $workout = [
-            'title' => 'New workout',
+            'title' => $gpx->getType() ?? 'New workout',
             'import_filename' => $path,
             'user_id' => Auth::id()
         ];
+
+        dd($workout);
 
         Workout::create( $workout );
 

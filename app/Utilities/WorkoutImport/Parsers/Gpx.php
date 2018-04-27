@@ -14,7 +14,7 @@ class Gpx implements \Iterator, Parser
 	/**
 	 * @var string
 	 */
-	private $trackName;
+	private $type;
 
 	/**
 	 * @var int
@@ -34,9 +34,9 @@ class Gpx implements \Iterator, Parser
 	/**
 	 * @return string
 	 */
-	public function getTrackName()
+	public function getType()
 	{
-		return $this->trackName;
+		return $this->type;
 	}
 
 	/**
@@ -82,8 +82,8 @@ class Gpx implements \Iterator, Parser
 			$gpx = simplexml_load_file($file);
 
 			// save name
-			if (isset($gpx->trk->name)) {
-				$this->trackName = (string) $gpx->trk->name;
+			if (isset($gpx->trk->type)) {
+				$this->type = (string) $gpx->trk->type;
 			}
 
 			// push points to array
