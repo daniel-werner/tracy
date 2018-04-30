@@ -47,6 +47,7 @@ if (token) {
 // import Echo from 'laravel-echo'
 
 require('./workouts');
+require('./leaflet/leaflet');
 
 // window.Pusher = require('pusher-js');
 

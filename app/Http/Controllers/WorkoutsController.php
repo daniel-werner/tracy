@@ -24,8 +24,7 @@ class WorkoutsController extends Controller
      */
     public function index()
     {
-        $workouts = Workout::all();
-
+        $workouts = Workout::with('points')->get();
         return view( 'workouts.index' , compact( 'workouts' ));
     }
 

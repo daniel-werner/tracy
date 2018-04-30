@@ -18,9 +18,23 @@
         <div class="jumbotron">
             <h1>{{$workout->title}}</h1>
             <p class="lead">{{$workout->created_at}}</p>
+            <div class="workout-map" id="workout-map-{{$workout->id}}">
+
+            </div>
             <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
         </div>
     @endforeach
 </main>
+
+@endsection
+@section('scripts')
+    <script type="application/javascript">
+        document.addEventListener('DOMContentLoaded', function(){
+            var workouts = new Workouts();
+            var data = {!!$workouts->toJson()!!};
+            workouts.setWokroutData(data);
+            workouts.init();
+        }, false);
+    </script>
 
 @endsection
