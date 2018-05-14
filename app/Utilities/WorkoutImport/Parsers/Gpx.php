@@ -86,26 +86,29 @@ class Gpx implements \Iterator, Parser
 				$this->type = (string) $gpx->trk->type;
 			}
 
-			// push points to array
-			foreach($gpx->trk->trkseg->children() as $trkpt) {
-				$point = new Point(floatval($trkpt['lat']), floatval($trkpt['lon']) );
-				if( !empty($trkpt->ele) ){
-					$point->setEvelation( floatval($trkpt->ele->__toString()) );
-				};
+			foreach( $gpx->trk->trkseg as $trkseg ) {
 
-				if( !empty($trkpt->time) ){
-					$point->setTime( $trkpt->time->__toString() );
-				};
+				// push points to array
+				foreach ($trkseg->children() as $trkpt) {
+					$point = new Point(floatval($trkpt['lat']), floatval($trkpt['lon']));
+					if (!empty($trkpt->ele)) {
+						$point->setEvelation(floatval($trkpt->ele->__toString()));
+					};
 
-				$namespaces = $trkpt->getNamespaces(true);
-				if( !empty($namespaces['gpxtpx']) ){
-					$gpxtpx = $trkpt->extensions->children($namespaces['gpxtpx']);
-					$hr = intval($gpxtpx->TrackPointExtension->hr);
+					if (!empty($trkpt->time)) {
+						$point->setTime($trkpt->time->__toString());
+					};
 
-					$point->setHeartRate( $hr );
+					$namespaces = $trkpt->getNamespaces(true);
+					if (!empty($namespaces['gpxtpx'])) {
+						$gpxtpx = $trkpt->extensions->children($namespaces['gpxtpx']);
+						$hr = intval($gpxtpx->TrackPointExtension->hr);
 
+						$point->setHeartRate($hr);
+
+					}
+					$this->points[] = $point;
 				}
-				$this->points[] = $point;
 			}
 
 		} else {

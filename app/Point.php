@@ -10,7 +10,7 @@ class Point extends Model
 	protected $guarded = [];
 
 	public function setCoordinatesAttribute(Utilities\WorkoutImport\Point $point){
-		$this->attributes['coordinates'] = DB::raw(sprintf("GeomFromText('POINT(%s %s)')", $point->getLatitude(),$point->getLongitude() ) );
+		$this->attributes['coordinates'] = DB::raw(sprintf("GeomFromText('POINT(%s %s)')", $point->getLatitude(), $point->getLongitude() ) );
 	}
 
 	public function getCoordinatesAttribute($value){
