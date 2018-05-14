@@ -10,7 +10,7 @@ class Point extends Model
 	protected $guarded = [];
 
 	public function setCoordinatesAttribute(Utilities\WorkoutImport\Point $point){
-		$this->attributes['coordinates'] = DB::raw(sprintf("GeomFromText('POINT(%s %s)')", $point->getLatitude(), $point->getLongitude() ) );
+		$this->attributes['coordinates'] = DB::raw(sprintf("GeomFromText('POINT(%s %s)')", $point->getLongitude(), $point->getLatitude() ) );
 	}
 
 	public function getCoordinatesAttribute($value){
@@ -29,7 +29,7 @@ class Point extends Model
 	 */
 	public function newQuery($excludeDeleted = true)
 	{
-			$raw = 'ST_X(coordinates) as lat, ST_Y(coordinates) as lng ';
+			$raw = 'ST_X(coordinates) as lng, ST_Y(coordinates) as lat ';
 
 			return parent::newQuery($excludeDeleted)->addSelect('*', DB::raw($raw));
 

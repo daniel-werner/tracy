@@ -4,24 +4,32 @@
 
 @section('content')
 <main role="main" class="container">
-    <form method="POST" action="/workouts" enctype="multipart/form-data">
-        {{ csrf_field() }}
-        <div class="custom-file form-group">
-            <input type="file" class="custom-file-input" name="workout_file" id="workout_file">
-            <label class="custom-file-label" for="customFile">Choose file</label>
-        </div>
-        <div class="form-group"></div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <div class="mb-3">
+        <form method="POST" action="/workouts" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="custom-file form-group">
+                <input type="file" class="custom-file-input" name="workout_file" id="workout_file">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <div class="form-group"></div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 
     @foreach ($workouts as $workout)
-        <div class="jumbotron">
-            <h1>{{$workout->title}}</h1>
-            <p class="lead">{{$workout->created_at}}</p>
-            <div class="workout-map" id="workout-map-{{$workout->id}}">
-
+        <div class="jumbotron p-3">
+            <h2>{{$workout->title}}</h2>
+            <p class="small">{{$workout->points[0]->time}}</p>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="workout-map" id="workout-map-{{$workout->id}}"></div>
+                </div>
+                <div class="col-sm-6">
+                    <div>Distance: <span>{{$workout->distance}} km</span></div>
+                    <div>Duration: <span>{{$workout->duration}}</span></div>
+                </div>
             </div>
-            <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
+
         </div>
     @endforeach
 </main>
