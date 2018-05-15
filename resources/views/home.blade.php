@@ -11,25 +11,18 @@
                     <h5>{{$workout->title}} on <span class="small">{{$workout->points[0]->time}}</span></h5>
                 </div>
                     <div class="row bg-light m-0">
-                        <div class="col-6 p-0">
+                        <div class="col-8 p-0">
                             <div class="workout-map" id="workout-map-{{$workout->id}}"></div>
                         </div>
-                        <div class="col-6">
-                            <div class="card-body pt-3 pl-0">
+                        <div class="col-4">
+                            <div class="card-body pb-0 pt-2 pl-0">
                                 <div class="row">
                                     <div class="col-6">
-                                        <div>Distance: <span>{{$workout->distance}} km</span></div>
-                                        <div>Duration: <span>{{$workout->duration}}</span></div>
-                                        <div>Average speed: <span>{{$workout->duration}}</span></div>
-                                        <div>Max speed: <span>{{$workout->duration}}</span></div>
-                                        <div>Min speed: <span>{{$workout->duration}}</span></div>
+                                        <div>Distance: <h4>{{$workout->distance}} km</h4></div>
+                                        <div>Duration: <h4>{{$workout->duration}}</h4></div>
+                                        <div>Average speed: <h4>{{$workout->duration}}</h4></div>
                                     </div>
                                     <div class="col-6">
-                                        <div>Ascent: <span>{{$workout->duration}}</span></div>
-                                        <div>Descent: <span>{{$workout->duration}}</span></div>
-                                        <div>Average heart rate: <span>{{$workout->duration}}</span></div>
-                                        <div>Max heart rate: <span>{{$workout->duration}}</span></div>
-                                        <div>Min heart rate: <span>{{$workout->duration}}</span></div>
                                         <a href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}" class="btn btn-lg btn-primary mt-3">Show details</a>
                                     </div>
                                 </div>

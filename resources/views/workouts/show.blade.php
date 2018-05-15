@@ -9,25 +9,23 @@
             <h5>{{$workout->title}} on <span class="small">{{$workout->points[0]->time}}</span></h5>
         </div>
         <div class="row m-0">
-            <div class="col-7 p-0">
+            <div class="col-8 p-0">
                 <div class="workout-map" id="workout-map-{{$workout->id}}"></div>
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <div class="card-body pt-1 pl-0">
                     <div class="row">
                         <div class="col-6">
-                            <div>Distance: <span>{{$workout->distance}} km</span></div>
-                            <div>Duration: <span>{{$workout->duration}}</span></div>
-                            <div>Average speed: <span>{{$workout->duration}}</span></div>
-                            <div>Max speed: <span>{{$workout->duration}}</span></div>
-                            <div>Min speed: <span>{{$workout->duration}}</span></div>
+                            <div>Distance: <h5>{{$workout->distance}} km</h5></div>
+                            <div>Duration: <h5>{{$workout->duration}}</h5></div>
+                            <div>Average speed: <h5>{{$workout->duration}}</h5></div>
                         </div>
                         <div class="col-6">
-                            <div>Ascent: <span>{{$workout->duration}}</span></div>
-                            <div>Descent: <span>{{$workout->duration}}</span></div>
-                            <div>Average heart rate: <span>{{$workout->duration}}</span></div>
-                            <div>Max heart rate: <span>{{$workout->duration}}</span></div>
-                            <div>Min heart rate: <span>{{$workout->duration}}</span></div>
+                            <div>Min elevation: <h5>{{$workout->duration}}</h5></div>
+                            <div>Max elevation: <h5>{{$workout->duration}}</h5></div>
+                            <div>Average heart rate: <h5>{{$workout->duration}}</h5></div>
+                            <div>Min heart rate: <h5>{{$workout->duration}}</h5></div>
+                            <div>Max heart rate: <h5>{{$workout->duration}}</h5></div>
                         </div>
                     </div>
                 </div>
