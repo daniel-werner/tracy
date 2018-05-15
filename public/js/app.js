@@ -36053,7 +36053,7 @@ __webpack_require__(52);
 					chart: {
 						renderTo: chartItem,
 						type: 'spline',
-						backgroundColor: '#EEEEEE'
+						backgroundColor: '#F8F8F8'
 					},
 					title: {
 						text: 'Workout Analysis'

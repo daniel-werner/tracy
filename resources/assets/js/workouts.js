@@ -135,7 +135,7 @@ require('./point_utils');
 					chart: {
 						renderTo: chartItem,
 						type: 'spline',
-						backgroundColor:'#EEEEEE'
+						backgroundColor:'#F8F8F8'
 					},
 					title: {
 						text: 'Workout Analysis'
