@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-8">
+            <div class="col-12">
                 <div class="analysis-chart"></div>
             </div>
         </div>
