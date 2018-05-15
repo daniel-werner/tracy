@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Workout;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +22,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return view('home');
+        $workouts = Workout::with('points')
+                        ->orderBy( 'created_at', 'desc')
+                        ->limit(10)
+                        ->get();
+
+        return view( 'home' , compact( 'workouts' ));
     }
 }

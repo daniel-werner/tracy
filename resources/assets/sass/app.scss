@@ -16,5 +16,15 @@
 
 .workout-map{
   height: 200px;
-  width: 340px;
+}
+
+.workout-details{
+  .workout-map{
+      height: 300px;
+  }
+
+  .analysis-chart{
+      height: 300px;
+  }
+
 }

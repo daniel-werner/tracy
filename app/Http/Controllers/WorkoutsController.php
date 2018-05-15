@@ -86,7 +86,12 @@ class WorkoutsController extends Controller
      */
     public function show($id)
     {
-        //
+        $workout = Workout::with('points')
+            ->where(['id' => $id] )
+            ->first();
+
+
+        return view( 'workouts.show' , compact( 'workout' ));
     }
 
     /**

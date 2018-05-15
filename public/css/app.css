@@ -10396,6 +10396,13 @@ a.text-dark:focus {
 
 .workout-map {
   height: 200px;
-  width: 340px;
+}
+
+.workout-details .workout-map {
+  height: 300px;
+}
+
+.workout-details .analysis-chart {
+  height: 300px;
 }
 

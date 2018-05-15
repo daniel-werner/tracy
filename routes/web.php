@@ -11,13 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::get( 'workouts', 'WorkoutsController@index' )->name('workouts.list');
+
+Route::get('/workout/{post}', 'WorkoutsController@show');
 
 Route::post( 'workouts', 'WorkoutsController@store' );
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');

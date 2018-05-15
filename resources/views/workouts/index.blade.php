@@ -16,33 +16,25 @@
         </form>
     </div>
 
-    @foreach ($workouts as $workout)
-        <div class="jumbotron p-3">
-            <h2>{{$workout->title}}</h2>
-            <p class="small">{{$workout->points[0]->time}}</p>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="workout-map" id="workout-map-{{$workout->id}}"></div>
-                </div>
-                <div class="col-sm-6">
-                    <div>Distance: <span>{{$workout->distance}} km</span></div>
-                    <div>Duration: <span>{{$workout->duration}}</span></div>
-                </div>
+    <table class="table table-borderless table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Distance</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach ($workouts as $workout)
+            <tr>
+                <td><a href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}">{{$workout->points[0]->time}}</a></td>
+                <td>{{$workout->distance}} km</td>
+                <td>{{$workout->duration}}</td>
+            </tr>
             </div>
-
-        </div>
-    @endforeach
+        @endforeach
+        </tbody>
+    </table>
 </main>
-
-@endsection
-@section('scripts')
-    <script type="application/javascript">
-        document.addEventListener('DOMContentLoaded', function(){
-            var workouts = new Workouts();
-            var data = {!!$workouts->toJson()!!};
-            workouts.setWokroutData(data);
-            workouts.init();
-        }, false);
-    </script>
 
 @endsection
