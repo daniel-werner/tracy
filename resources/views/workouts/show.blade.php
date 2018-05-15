@@ -18,14 +18,14 @@
                         <div class="col-6">
                             <div>Distance: <h5>{{$workout->distance}} km</h5></div>
                             <div>Duration: <h5>{{$workout->duration}}</h5></div>
-                            <div>Average speed: <h5>{{$workout->duration}}</h5></div>
+                            <div>Average speed: <h5>{{$workout->avgspeed}}</h5></div>
                         </div>
                         <div class="col-6">
-                            <div>Min elevation: <h5>{{$workout->duration}}</h5></div>
-                            <div>Max elevation: <h5>{{$workout->duration}}</h5></div>
-                            <div>Average heart rate: <h5>{{$workout->duration}}</h5></div>
-                            <div>Min heart rate: <h5>{{$workout->duration}}</h5></div>
-                            <div>Max heart rate: <h5>{{$workout->duration}}</h5></div>
+                            <div>Min elevation: <h5>{{$workout->minelevation}}</h5></div>
+                            <div>Max elevation: <h5>{{$workout->maxelevation}}</h5></div>
+                            <div>Average heart rate: <h5>{{$workout->avghr}}</h5></div>
+                            <div>Min heart rate: <h5>{{$workout->minhr}}</h5></div>
+                            <div>Max heart rate: <h5>{{$workout->maxhr}}</h5></div>
                         </div>
                     </div>
                 </div>

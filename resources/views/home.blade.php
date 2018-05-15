@@ -8,7 +8,7 @@
         @foreach ($workouts as $workout)
             <div class="card mb-5 box-shadow">
                 <div class="card-header">
-                    <h5>{{$workout->title}} on <span class="small">{{$workout->points[0]->time}}</span></h5>
+                    <h5><a class="card-link" href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}">{{$workout->title}}</a> on <span class="small">{{$workout->points[0]->time}}</span></h5>
                 </div>
                     <div class="row bg-light m-0">
                         <div class="col-8 p-0">
@@ -20,7 +20,7 @@
                                     <div class="col-6">
                                         <div>Distance: <h4>{{$workout->distance}} km</h4></div>
                                         <div>Duration: <h4>{{$workout->duration}}</h4></div>
-                                        <div>Average speed: <h4>{{$workout->duration}}</h4></div>
+                                        <div>Average speed: <h4>{{$workout->avgspeed}}</h4></div>
                                     </div>
                                     <div class="col-6">
                                         <a href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}" class="btn btn-lg btn-primary mt-3">Show details</a>
