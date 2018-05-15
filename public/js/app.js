@@ -36108,6 +36108,7 @@ __webpack_require__(52);
 
 					plotOptions: {
 						series: {
+							turboThreshold: 20000,
 							label: {
 								connectorAllowed: false
 							},

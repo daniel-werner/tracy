@@ -194,6 +194,7 @@ require('./point_utils');
 
 					plotOptions: {
 						series: {
+							turboThreshold: 20000,
 							label: {
 								connectorAllowed: false
 							},
