@@ -35936,7 +35936,7 @@ __webpack_require__(52);
 
 ;(function (root) {
 
-	var Workouts = function Workouts() {
+	var Workouts = function Workouts(data) {
 
 		this.defaults = {
 			'mode': 'list'
@@ -35944,7 +35944,7 @@ __webpack_require__(52);
 
 		this.options = {};
 
-		this.data = null;
+		this.data = data;
 		this.maps = {};
 	};
 
@@ -35953,7 +35953,6 @@ __webpack_require__(52);
 
 			this.options = $.extend(this.defaults, options);
 
-			this.bind();
 			this.showMaps();
 			if (this.options.mode === 'details') {
 				this.showAnalysisChart();

@@ -9,7 +9,7 @@ require('./point_utils');
 
 ;(function( root ){
 
-	var Workouts = function()
+	var Workouts = function(data)
 	{
 
 		this.defaults = {
@@ -18,7 +18,7 @@ require('./point_utils');
 
 		this.options = {};
 
-		this.data = null;
+		this.data = data;
 		this.maps = {};
 	};
 
@@ -27,7 +27,6 @@ require('./point_utils');
 
 			this.options = $.extend( this.defaults, options );
 
-			this.bind();
 			this.showMaps();
 			if(this.options.mode === 'details'){
 				this.showAnalysisChart();

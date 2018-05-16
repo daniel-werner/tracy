@@ -44,9 +44,8 @@
 @section('scripts')
     <script type="application/javascript">
         document.addEventListener('DOMContentLoaded', function(){
-            var workouts = new Workouts();
             var data = {!!$workout->toJson()!!};
-            workouts.setWokroutData([data]);
+            var workouts = new Workouts([data]);
             workouts.init({
               mode: 'details'
             });
