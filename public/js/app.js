@@ -35959,19 +35959,6 @@ __webpack_require__(52);
 				this.showAnalysisChart();
 			}
 		},
-		bind: function bind() {
-			$("input[type=file]").change(function () {
-				var fieldVal = $(this).val();
-
-				// Change the node's value by removing the fake path (Chrome)
-				fieldVal = fieldVal.replace("C:\\fakepath\\", "");
-
-				if (fieldVal != undefined || fieldVal != "") {
-					$(this).next(".custom-file-label").attr('data-content', fieldVal);
-					$(this).next(".custom-file-label").text(fieldVal);
-				}
-			});
-		},
 		setWokroutData: function setWokroutData(data) {
 			this.data = data;
 		},
@@ -36194,7 +36181,6 @@ __webpack_require__(52);
 		}
 	};
 
-	// Expose classes
 	root.Workouts = Workouts;
 })(window);
 

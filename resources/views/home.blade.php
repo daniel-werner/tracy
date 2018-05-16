@@ -20,7 +20,7 @@
                                     <div class="col-6">
                                         <div>Distance: <h4>{{$workout->distance}} km</h4></div>
                                         <div>Duration: <h4>{{$workout->duration}}</h4></div>
-                                        <div>Average speed: <h4>{{$workout->avgspeed}}</h4></div>
+                                        <div>Average speed: <h4>{{$workout->avgspeed}} km/h</h4></div>
                                     </div>
                                     <div class="col-6">
                                         <a href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}" class="btn btn-lg btn-primary mt-3">Show details</a>

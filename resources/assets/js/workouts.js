@@ -26,27 +26,13 @@ require('./point_utils');
 		init: function(options){
 
 			this.options = $.extend( this.defaults, options );
-			
+
 			this.bind();
 			this.showMaps();
 			if(this.options.mode === 'details'){
 				this.showAnalysisChart();
 			}
 
-		},
-		bind: function(){
-			$("input[type=file]").change(function () {
-				var fieldVal = $(this).val();
-
-				// Change the node's value by removing the fake path (Chrome)
-				fieldVal = fieldVal.replace("C:\\fakepath\\", "");
-
-				if (fieldVal != undefined || fieldVal != "") {
-					$(this).next(".custom-file-label").attr('data-content', fieldVal);
-					$(this).next(".custom-file-label").text(fieldVal);
-				}
-
-			});
 		},
 		setWokroutData: function(data){
 			this.data = data;
@@ -279,6 +265,5 @@ require('./point_utils');
 		}
 	};
 
-	// Expose classes
 	root.Workouts = Workouts;
 })( window );
