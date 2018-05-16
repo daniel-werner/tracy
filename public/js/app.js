@@ -35937,23 +35937,27 @@ __webpack_require__(52);
 ;(function (root) {
 
 	var Workouts = function Workouts() {
-		if (Workouts.instance !== null) {
-			return Workouts.instance;
-		}
 
-		Workouts.instance = this;
-	};
+		this.defaults = {
+			'mode': 'list'
+		};
 
-	Workouts.instance = null;
-	Workouts.getInstance = function () {
-		return this.instance;
+		this.options = {};
+
+		this.data = null;
+		this.maps = {};
 	};
 
 	Workouts.prototype = {
-		init: function init() {
+		init: function init(options) {
+
+			this.options = $.extend(this.defaults, options);
+
 			this.bind();
 			this.showMaps();
-			this.showAnalysisChart();
+			if (this.options.mode === 'details') {
+				this.showAnalysisChart();
+			}
 		},
 		bind: function bind() {
 			$("input[type=file]").change(function () {
@@ -35974,12 +35978,15 @@ __webpack_require__(52);
 		showMaps: function showMaps() {
 			var _this = this;
 
-			$(".workout-map").each(function (index, item) {
+			this.data.forEach(function (item, index) {
+
 				var workoutId = item.id;
 
 				var lat = _this.data[index].points.length ? _this.data[index].points[0].lat : 0;
 				var lng = _this.data[index].points.length ? _this.data[index].points[0].lng : 0;
-				var map = L.map(workoutId).setView([lat, lng], 15);
+				var map = L.map('workout-map-' + workoutId).setView([lat, lng], 15);
+
+				_this.maps[workoutId] = map;
 
 				var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 				var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
@@ -35991,33 +35998,35 @@ __webpack_require__(52);
 				map.fitBounds(polyline.getBounds());
 			});
 		},
-		showAnalysisChart: function showAnalysisChart() {
-
+		getChartSeries: function getChartSeries(data) {
 			var speedData = {
+				id: 'speed',
 				name: 'Speed',
 				yAxis: 0,
 				data: []
 			};
 
 			var heartRateData = {
+				id: 'heart_rate',
 				name: 'Heart Rate',
 				yAxis: 1,
 				data: []
 			};
 
 			var elevationData = {
+				id: 'elevation',
 				name: 'Elevation',
 				yAxis: 2,
+				type: 'area',
 				data: []
 			};
 
 			var speed = 0;
 			var distanceSum = 0;
-			var duration = 0;
-			var firstPoint = this.data[0].points[0],
+			var firstPoint = data.points[0],
 			    prevPoint = firstPoint;
 
-			this.data[0].points.forEach(function (point, index) {
+			data.points.forEach(function (point, index) {
 
 				if (prevPoint) {
 					var distance = PointUtils.distance(prevPoint, point);
@@ -36031,7 +36040,8 @@ __webpack_require__(52);
 						speedData.data.push({
 							x: x,
 							y: speed,
-							duration: PointUtils.timeDifferenceFormatted(firstPoint, point)
+							duration: PointUtils.timeDifferenceFormatted(firstPoint, point),
+							coordinates: point.coordinates
 						});
 						heartRateData.data.push({
 							x: x,
@@ -36048,10 +36058,30 @@ __webpack_require__(52);
 
 			var series = [speedData, heartRateData, elevationData];
 
-			$('.analysis-chart').each(function (index, chartItem) {
+			return series;
+		},
+		setMarkerOnMap: function setMarkerOnMap(coordinates, workoutId) {
+			var map = this.maps[workoutId];
+
+			map.eachLayer(function (layer) {
+				if (layer.options.id === 'marker') {
+					layer.remove();
+				}
+			});
+
+			L.marker(coordinates, { id: 'marker' }).addTo(map);
+		},
+		showAnalysisChart: function showAnalysisChart() {
+			var _this = this;
+
+			Highcharts.setOptions({
+				colors: ["#7cb5ec", "#9B1D43", "#CCCCCC", "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"]
+			});
+
+			this.data.forEach(function (workout, index) {
 				var chart = new Highcharts.Chart({
 					chart: {
-						renderTo: chartItem,
+						renderTo: 'analysis-chart-' + workout.id,
 						type: 'spline',
 						backgroundColor: '#F8F8F8'
 					},
@@ -36061,10 +36091,19 @@ __webpack_require__(52);
 
 					tooltip: {
 						formatter: function formatter() {
-							var s = 'Duration: ' + this.points[0].point.duration + '<br/>' + 'Distance: ' + Math.round(this.x * 100) / 100 + ' ';
+
+							var unitMap = {
+								speed: 'km/h',
+								heart_rate: 'bpm',
+								elevation: 'm'
+							};
+
+							_this.setMarkerOnMap(this.points[0].point.coordinates, workout.id);
+
+							var s = 'Duration: ' + this.points[0].point.duration + '<br/>' + 'Distance: ' + Math.round(this.x * 100) / 100 + ' km';
 
 							$.each(this.points, function () {
-								s += '<br/>' + this.series.name + ': ' + this.y;
+								s += '<br/>' + this.series.name + ': ' + this.y + ' ' + unitMap[this.series.options.id];
 							});
 
 							return s;
@@ -36078,11 +36117,20 @@ __webpack_require__(52);
 							style: {
 								color: Highcharts.getOptions().colors[0]
 							}
+						},
+						labels: {
+							style: {
+								color: Highcharts.getOptions().colors[0]
+							}
 						}
-
 					}, {
 						title: {
 							text: 'Heart Rate (bpm)',
+							style: {
+								color: Highcharts.getOptions().colors[1]
+							}
+						},
+						labels: {
 							style: {
 								color: Highcharts.getOptions().colors[1]
 							}
@@ -36097,6 +36145,11 @@ __webpack_require__(52);
 								color: Highcharts.getOptions().colors[2]
 							}
 						},
+						tickInterval: 10,
+						min: Math.round(workout.minelevation / 10) * 10,
+						max: Math.round(workout.maxelevation / 10) * 10,
+						height: '40%',
+						top: '60%',
 						visible: false,
 						opposite: true
 					}],
@@ -36119,7 +36172,7 @@ __webpack_require__(52);
 						}
 					},
 
-					series: series,
+					series: _this.getChartSeries(workout),
 
 					responsive: {
 						rules: [{

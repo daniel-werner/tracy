@@ -33,7 +33,7 @@
         </div>
         <div class="row mt-3">
             <div class="col-12">
-                <div class="analysis-chart"></div>
+                <div class="analysis-chart" id="analysis-chart-{{$workout->id}}"></div>
             </div>
         </div>
     </div>
@@ -47,7 +47,9 @@
             var workouts = new Workouts();
             var data = {!!$workout->toJson()!!};
             workouts.setWokroutData([data]);
-            workouts.init();
+            workouts.init({
+              mode: 'details'
+            });
         }, false);
     </script>
 

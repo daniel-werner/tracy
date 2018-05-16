@@ -40,7 +40,9 @@
             var workouts = new Workouts();
             var data = {!!$workouts->toJson()!!};
             workouts.setWokroutData(data);
-            workouts.init();
+            workouts.init({
+                mode: 'list'
+            });
         }, false);
     </script>
 

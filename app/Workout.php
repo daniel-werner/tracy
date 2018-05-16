@@ -72,11 +72,14 @@ class Workout extends Model
     public function getMaxElevationAttribute(){
             $this->calculateParams();
 
+        $this->attributes['maxelevation'] = $this->params->max_elevation;
         return $this->params->max_elevation;
     }
 
     public function getMinElevationAttribute(){
         $this->calculateParams();
+
+        $this->attributes['minelevation'] = $this->params->min_elevation;
         return $this->params->min_elevation;
     }
 
