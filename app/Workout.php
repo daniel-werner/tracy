@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Workout extends Model
@@ -12,6 +14,31 @@ class Workout extends Model
     public function points(){
         return $this->hasMany('App\Point');
     }
+
+    const STATUS_DRAFT = 0;
+    const STATUS_ACTIVE = 1;
+
+    const TYPE_RUNNING = 1;
+    const TYPE_CYCLING = 2;
+
+    public $types = [
+        self::TYPE_RUNNING => 'Running',
+        self::TYPE_CYCLING => 'Cycling'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('user_id', function (Builder $builder) {
+            $builder->where('user_id', '=', Auth::id());
+        });
+
+        static::addGlobalScope('status', function (Builder $builder) {
+            $builder->where('status', '=', self::STATUS_ACTIVE);
+        });
+    }
+
 
     protected $params = null;
 
@@ -33,10 +60,7 @@ class Workout extends Model
                 ] )
                 ->first();
         }
-
-
     }
-
 
     public function getDurationAttribute(){
         $this->calculateParams();
@@ -87,5 +111,9 @@ class Workout extends Model
         $this->calculateParams();
 
         return round($this->params->avg_hr);
+    }
+
+    public function getTypeAttribute($type){
+       return $this->types[$type];
     }
 }

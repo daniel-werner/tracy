@@ -37,7 +37,7 @@ class WorkoutsController extends Controller
      */
     public function create()
     {
-        return view('workouts.create');
+        return view('workouts.create', ['workout' => new Workout()]);
     }
 
     /**
@@ -57,8 +57,10 @@ class WorkoutsController extends Controller
 
         $workout = [
             'title' => $gpx->getType() ?? 'New workout',
+            'type' => $request->type,
             'import_filename' => $path,
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
+            'status' => 1
         ];
 
         $workout = Workout::create( $workout );

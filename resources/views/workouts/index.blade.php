@@ -13,16 +13,18 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Type</th>
                 <th>Date</th>
                 <th>Distance</th>
                 <th>Duration</th>
-                <td>Actions</td>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         @foreach ($workouts as $workout)
             <tr>
                 <td><a href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}">{{$workout->title}}</a></td>
+                <td>{{$workout->type}}</td>
                 <td>{{$workout->points[0]->time}}</td>
                 <td>{{$workout->distance}} km</td>
                 <td>{{$workout->duration}}</td>

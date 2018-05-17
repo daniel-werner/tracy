@@ -11,6 +11,12 @@
     <div class="mb-3">
         <form method="POST" action="/workouts" enctype="multipart/form-data">
             {{ csrf_field() }}
+            <select class="custom-select mt-2 mb-2" name="type">
+                        <option value="">Select workout type</option>
+                    @foreach ( $workout->types as $type => $label )
+                        <option value="{{$type}}">{{$label}}</option>
+                    @endforeach
+            </select>
             <div class="custom-file form-group">
                 <input type="file" class="custom-file-input" name="workout_file" id="workout_file">
                 <label class="custom-file-label" for="customFile">Choose file</label>
