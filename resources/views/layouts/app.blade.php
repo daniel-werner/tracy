@@ -13,7 +13,7 @@
     <link href="{{ asset('css/leaflet.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/highcharts/highcharts.js') }}" defer></script>
 
     <!-- Fonts -->

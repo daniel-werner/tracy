@@ -43,13 +43,13 @@
 
 @section('scripts')
     <script type="application/javascript">
-        document.addEventListener('DOMContentLoaded', function(){
+        $(document).ready(function(e){
             var data = {!!$workout->toJson()!!};
             var workouts = new Workouts([data]);
             workouts.init({
               mode: 'details'
             });
-        }, false);
+        });
     </script>
 
 @endsection

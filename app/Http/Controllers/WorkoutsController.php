@@ -8,6 +8,7 @@ use App\Point;
 use Illuminate\Support\Facades\Auth;
 use App\Utilities\WorkoutImport\Parsers\Gpx;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class WorkoutsController extends Controller
@@ -24,7 +25,7 @@ class WorkoutsController extends Controller
      */
     public function index()
     {
-        $workouts = Workout::with('points')->orderBy( 'created_at', 'desc')->get();
+        $workouts = Workout::with('points')->orderBy( 'created_at', 'desc')->paginate(15);
 
         return view( 'workouts.index' , compact( 'workouts' ));
     }
@@ -36,7 +37,7 @@ class WorkoutsController extends Controller
      */
     public function create()
     {
-        //
+        return view('workouts.create');
     }
 
     /**
@@ -123,8 +124,16 @@ class WorkoutsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $workout = Workout::findOrFail($id);
+        if($workout->delete()){
+            $request->session()->flash('status', 'Workout deleted!');
+        }
+        else{
+            $request->session()->flash('status', 'Unable to delete workout!');
+        }
+
+        return redirect(action('WorkoutsController@index'));
     }
 }

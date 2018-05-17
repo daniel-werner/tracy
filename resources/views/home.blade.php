@@ -36,8 +36,7 @@
 @endsection
 @section('scripts')
     <script type="application/javascript">
-        document.addEventListener('DOMContentLoaded', function(){
-
+        $(document).ready(function(e){
             var data = {!!$workouts->toJson()!!};
             var workouts = new Workouts(data);
             workouts.init({
