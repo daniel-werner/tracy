@@ -60,7 +60,7 @@ class WorkoutsController extends Controller
             'type' => $request->type,
             'import_filename' => $path,
             'user_id' => Auth::id(),
-            'status' => 1
+            'status' => Workout::STATUS_ACTIVE
         ];
 
         $workout = Workout::create( $workout );
