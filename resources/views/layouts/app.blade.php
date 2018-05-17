@@ -38,7 +38,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link" href="{{ route('workouts.list') }}">{{ __('Workouts') }}</a></li>
+                        <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Workouts <span class="caret"></span>
+                        </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link dropdown-item" href="{{ action('WorkoutsController@create') }}">{{ __('Import') }}</a>
+                                <a class="nav-link dropdown-item" href="{{ route('workouts.list') }}">{{ __('History') }}</a>
+                            </div>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

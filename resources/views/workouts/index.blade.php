@@ -8,6 +8,7 @@
         <div class="alert alert-success">{{ Session::get('status') }}</div>
     @endif
 
+    <a href="{{action('WorkoutsController@create')}}" class="btn btn-success">Import workout</a>
     <table class="table table-borderless table-striped">
         <thead>
             <tr>

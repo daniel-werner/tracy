@@ -49,6 +49,7 @@ class WorkoutsController extends Controller
      */
     public function store(Request $request, Gpx $gpx)
     {
+        \Debugbar::disable();
         $path = $request->workout_file->storeAs('workouts', $request->workout_file->getClientOriginalName());
 
         $path = storage_path('app/' . $path);
@@ -66,7 +67,7 @@ class WorkoutsController extends Controller
 
         foreach( $gpx as $point ){
             $points[] = new Point([
-               'workout_id' => $workout->id,
+                'workout_id' => $workout->id,
                 'coordinates' => $point,
                 'heart_rate' => $point->getHeartRate(),
                 'elevation' => $point->getEvelation(),
