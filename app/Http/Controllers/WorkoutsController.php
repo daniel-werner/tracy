@@ -25,7 +25,9 @@ class WorkoutsController extends Controller
      */
     public function index()
     {
-        $workouts = Workout::with('points')->orderBy( 'created_at', 'desc')->paginate(15);
+        $workouts = Workout::with('points')
+            ->orderBy( 'created_at', 'desc')
+            ->paginate(10);
 
         return view( 'workouts.index' , compact( 'workouts' ));
     }
