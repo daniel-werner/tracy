@@ -11,13 +11,9 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 Route::get( 'workouts', 'WorkoutsController@index' )->name('workouts.list');
 
-Route::get( 'workouts/create', 'WorkoutsController@create' );
+Route::get( 'workouts/add', 'WorkoutsController@create' );
 
 Route::get('/workout/edit/{post}', 'WorkoutsController@edit');
 
