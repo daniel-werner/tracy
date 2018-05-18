@@ -46,7 +46,7 @@ class Workout extends Model
         if( $this->params === null ){
             $this->params = $this->points()->select(DB::raw(
                 'sum(ST_Distance_Sphere(B.coordinates, points.coordinates)) AS distance,
-                TIMEDIFF( max(points.time), min(points.time)) as duration,
+                SEC_TO_TIME( sum(TIME_TO_SEC(TIMEDIFF( B.time, points.time)))) as duration,
                 min(points.heart_rate) as min_hr,
                 max(points.heart_rate) as max_hr,
                 avg(points.heart_rate) as avg_hr,
