@@ -79,7 +79,7 @@ class WorkoutsController extends Controller
 
         $workout->points()->saveMany( $points );
 
-        return redirect( '/workouts' );
+        return redirect( action('WorkoutsController@edit', [ 'id' => $workout->id ] ) );
     }
 
     /**
@@ -106,7 +106,11 @@ class WorkoutsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $workout = Workout::with('points')
+            ->where(['id' => $id] )
+            ->first();
+
+        return view( 'workouts.edit' , compact( 'workout' ));
     }
 
     /**
@@ -118,7 +122,22 @@ class WorkoutsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $workout = Workout::where(['id' => $id] )->first();
+
+        $workout->fill([
+            'title' => $request->title,
+            'type' => $request->type,
+            'status' => Workout::STATUS_ACTIVE
+        ]);
+
+        if($workout->save()){
+            $request->session()->flash('status', 'Workout saved!');
+        }
+        else{
+            $request->session()->flash('status', 'Unable to save workout!');
+        }
+
+        return redirect(action('WorkoutsController@edit', ['id' => $workout->id]));
     }
 
     /**

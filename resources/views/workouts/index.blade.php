@@ -29,11 +29,14 @@
                 <td>{{$workout->distance}} km</td>
                 <td>{{$workout->duration}}</td>
                 <td>
-                    <form method="POST"  action="{{action('WorkoutsController@destroy', [ 'id' => $workout->id ])}}">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="_method" value="DELETE"></input>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    <div class="form-inline">
+                        <a href="{{action('WorkoutsController@edit', [ 'id' => $workout->id ])}}" class="btn btn-warning mr-2 btn-sm">Edit</a>
+                        <form method="POST"  action="{{action('WorkoutsController@destroy', [ 'id' => $workout->id ])}}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="_method" value="DELETE"/>
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             </div>
