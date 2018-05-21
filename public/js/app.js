@@ -36024,6 +36024,7 @@ __webpack_require__(52);
 						prevPoint = point;
 
 						speedData.data.push({
+							id: point.id,
 							x: x,
 							y: speed,
 							duration: PointUtils.timeDifferenceFormatted(firstPoint, point),
@@ -36086,7 +36087,7 @@ __webpack_require__(52);
 
 							_this.setMarkerOnMap(this.points[0].point.coordinates, workout.id);
 
-							var s = 'Duration: ' + this.points[0].point.duration + '<br/>' + 'Distance: ' + Math.round(this.x * 100) / 100 + ' km';
+							var s = 'Id: ' + this.points[0].point.id + '<br/>' + 'Duration: ' + this.points[0].point.duration + '<br/>' + 'Distance: ' + Math.round(this.x * 100) / 100 + ' km';
 
 							$.each(this.points, function () {
 								s += '<br/>' + this.series.name + ': ' + this.y + ' ' + unitMap[this.series.options.id];

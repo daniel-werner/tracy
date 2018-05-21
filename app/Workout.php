@@ -46,26 +46,47 @@ class Workout extends Model
         if( $this->params === null ){
             $this->params = $this->points()->select(DB::raw(
                 'sum(ST_Distance_Sphere(B.coordinates, points.coordinates)) AS distance,
-                SEC_TO_TIME( sum(TIME_TO_SEC(TIMEDIFF( B.time, points.time)))) as duration,
                 min(points.heart_rate) as min_hr,
                 max(points.heart_rate) as max_hr,
                 avg(points.heart_rate) as avg_hr,
                 min(points.elevation) as min_elevation,
                 max(points.elevation) as max_elevation'
             ))
-                ->join('points AS B', 'points.id', '=', DB::raw('B.id -1'))
+                ->join( 'points AS B', function($join){
+                    $join->on( 'points.id', '=', DB::raw('B.id -1') );
+                    $join->on( 'points.segment_index', '=', 'B.segment_index');
+                })
                 ->where( [
                     [ 'points.workout_id', '=', $this->id ],
                     [ 'B.workout_id', '=', $this->id ]
                 ] )
                 ->first();
+
+
+            $durations = $this->points()->select(DB::raw(
+                'TIME_TO_SEC(TIMEDIFF( max(points.time), min(points.time))) as duration'
+                ))
+                ->join('points AS B', 'points.id', '=', DB::raw('B.id -1'))
+                ->where( [
+                    [ 'points.workout_id', '=', $this->id ],
+                    [ 'B.workout_id', '=', $this->id ]
+                ] )
+                ->groupBy('points.segment_index')
+                ->having( 'duration', '>' , 0 )
+                ->get();
+
+            $this->params['duration'] = 0;
+
+            foreach( $durations as $duration ){
+                $this->params['duration'] += $duration->duration;
+            }
         }
     }
 
     public function getDurationAttribute(){
         $this->calculateParams();
 
-        return $this->params->duration;
+        return date( 'H:i:s', $this->params->duration );
     }
 
     public function getDistanceAttribute(){
@@ -77,7 +98,7 @@ class Workout extends Model
     public function getAvgSpeedAttribute(){
         $this->calculateParams();
 
-        $time = (strtotime($this->params->duration) - strtotime('TODAY'));
+        $time = $this->params->duration;
         return round( $this->params->distance / $time * 3.6, 2 );
     }
 

@@ -86,11 +86,15 @@ class Gpx implements \Iterator, Parser
 				$this->type = (string) $gpx->trk->type;
 			}
 
+			$index = 0;
 			foreach( $gpx->trk->trkseg as $trkseg ) {
 
 				// push points to array
 				foreach ($trkseg->children() as $trkpt) {
 					$point = new Point(floatval($trkpt['lat']), floatval($trkpt['lon']));
+
+					$point->setSegmentIndex( $index );
+
 					if (!empty($trkpt->ele)) {
 						$point->setEvelation(floatval($trkpt->ele->__toString()));
 					};
@@ -109,6 +113,8 @@ class Gpx implements \Iterator, Parser
 					}
 					$this->points[] = $point;
 				}
+
+				$index++;
 			}
 
 		} else {

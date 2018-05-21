@@ -100,6 +100,7 @@ require('./point_utils');
 						prevPoint = point;
 
 						speedData.data.push({
+							id: point.id,
 							x: x,
 							y: speed,
 							duration: PointUtils.timeDifferenceFormatted(firstPoint, point),
@@ -166,7 +167,8 @@ require('./point_utils');
 
 							_this.setMarkerOnMap(this.points[0].point.coordinates, workout.id);
 
-							var s = 'Duration: ' + this.points[0].point.duration + '<br/>' +
+							var s = 'Id: ' + this.points[0].point.id + '<br/>' +
+								'Duration: ' + this.points[0].point.duration + '<br/>' +
 								'Distance: ' + Math.round( this.x * 100 ) / 100 + ' km';
 
 							$.each(this.points, function () {

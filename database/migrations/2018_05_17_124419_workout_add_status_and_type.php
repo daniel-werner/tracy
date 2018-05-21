@@ -26,7 +26,7 @@ class WorkoutAddStatusAndType extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('workouts', function (Blueprint $table) {
             $table->dropColumn('status');
             $table->dropColumn('type');
         });

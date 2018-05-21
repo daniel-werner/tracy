@@ -72,6 +72,7 @@ class WorkoutsController extends Controller
         foreach( $gpx as $point ){
             $points[] = new Point([
                 'workout_id' => $workout->id,
+                'segment_index' => $point->getSegmentIndex(),
                 'coordinates' => $point,
                 'heart_rate' => $point->getHeartRate(),
                 'elevation' => $point->getEvelation(),

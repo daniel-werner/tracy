@@ -30,6 +30,24 @@ class Point
 
 	private $evelation;
 
+	private $segmentIndex;
+
+	/**
+	 * @return mixed
+	 */
+	public function getSegmentIndex()
+	{
+		return $this->segmentIndex;
+	}
+
+	/**
+	 * @param mixed $segmentIndex
+	 */
+	public function setSegmentIndex($segmentIndex)
+	{
+		$this->segmentIndex = $segmentIndex;
+	}
+
 	/**
 	 * @var string
 	 */
