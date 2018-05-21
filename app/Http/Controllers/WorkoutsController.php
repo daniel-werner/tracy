@@ -49,7 +49,7 @@ class WorkoutsController extends Controller
      * @param  Gpx $gpx
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Gpx $gpx)
+    public function import(Request $request, Gpx $gpx)
     {
         \Debugbar::disable();
         $path = $request->workout_file->storeAs('workouts', $request->workout_file->getClientOriginalName());
@@ -83,6 +83,16 @@ class WorkoutsController extends Controller
         $workout->points()->saveMany( $points );
 
         return redirect( action('WorkoutsController@edit', [ 'id' => $workout->id ] ) );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request){
+        dd($request->all());
     }
 
     /**

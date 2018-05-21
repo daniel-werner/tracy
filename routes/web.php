@@ -13,7 +13,9 @@
 
 Route::get( 'workouts', 'WorkoutsController@index' )->name('workouts.list');
 
-Route::get( 'workouts/add', 'WorkoutsController@create' );
+Route::get( 'workouts/import', 'WorkoutsController@create' );
+
+Route::post( 'workouts/import', 'WorkoutsController@import' );
 
 Route::get('/workout/edit/{post}', 'WorkoutsController@edit');
 
