@@ -11,21 +11,7 @@
 |
 */
 
-Route::get( 'workouts', 'WorkoutsController@index' )->name('workouts.list');
-
-Route::get( 'workouts/import', 'WorkoutsController@create' );
-
-Route::post( 'workouts/import', 'WorkoutsController@import' );
-
-Route::get('/workout/edit/{post}', 'WorkoutsController@edit');
-
-Route::get('/workout/{post}', 'WorkoutsController@show');
-
-Route::post( 'workouts', 'WorkoutsController@store' );
-
-Route::put( 'workouts/{post}', 'WorkoutsController@update' );
-
-Route::delete( 'workouts/{post}', 'WorkoutsController@destroy' );
+Route::resource('workouts', 'WorkoutsController')->middleware('auth');
 
 Auth::routes();
 

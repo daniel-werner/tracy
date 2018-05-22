@@ -9,7 +9,7 @@
     @endif
 
     <div class="mb-3">
-        <form method="POST" action="{{action('WorkoutsController@create')}}" enctype="multipart/form-data">
+        <form method="POST" action="{{action('WorkoutsController@store')}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <select class="custom-select mt-2 mb-2" name="type">
                         <option value="">Select workout type</option>

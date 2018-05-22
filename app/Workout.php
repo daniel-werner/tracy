@@ -64,7 +64,7 @@ class Workout extends Model
 
 
             $durations = $this->points()->select(DB::raw(
-                'TIME_TO_SEC(TIMEDIFF( max(points.time), min(points.time))) as duration'
+                'TIME_TO_SEC(TIMEDIFF( max(B.time), min(points.time))) as duration'
                 ))
                 ->join('points AS B', 'points.id', '=', DB::raw('B.id -1'))
                 ->where( [
@@ -99,7 +99,12 @@ class Workout extends Model
         $this->calculateParams();
 
         $time = $this->params->duration;
-        return round( $this->params->distance / $time * 3.6, 2 );
+        $avgSpeed = 0;
+
+        if( $time > 0 ){
+            $avgSpeed = round( $this->params->distance / $time * 3.6, 2 );
+        }
+        return $avgSpeed;
     }
 
     public function getMaxHrAttribute(){

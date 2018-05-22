@@ -44,7 +44,7 @@
                         </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="nav-link dropdown-item" href="{{ action('WorkoutsController@create') }}">{{ __('Import') }}</a>
-                                <a class="nav-link dropdown-item" href="{{ route('workouts.list') }}">{{ __('History') }}</a>
+                                <a class="nav-link dropdown-item" href="{{ action('WorkoutsController@index') }}">{{ __('History') }}</a>
                             </div>
                         </li>
                     </ul>
