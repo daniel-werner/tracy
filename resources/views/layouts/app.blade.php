@@ -11,10 +11,12 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <link href="{{ asset('css/leaflet.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/highcharts/highcharts.js') }}" defer></script>
+    <script src="{{ asset('js/datatables.min.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">

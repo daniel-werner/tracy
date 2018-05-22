@@ -8,8 +8,11 @@
         <div class="alert alert-success">{{ Session::get('status') }}</div>
     @endif
 
-    <a href="{{action('WorkoutsController@create')}}" class="btn btn-success">Import workout</a>
-    <table class="table table-borderless table-striped">
+    <div class="m-3">
+        <a href="{{action('WorkoutsController@create')}}" class="btn btn-success">Import workout</a>
+    </div>
+
+    <table class="table table-borderless table-striped" >
         <thead>
             <tr>
                 <th>Title</th>
@@ -43,11 +46,15 @@
         @endforeach
         </tbody>
     </table>
-    {{ $workouts->links() }}
+{{--    {{ $workouts->links() }}--}}
 </main>
 
 @endsection
 
 @section('scripts')
-
+    <script type="application/javascript" >
+        $(document).ready(function() {
+            $('.table').DataTable();
+        } );
+    </script>
 @endsection
