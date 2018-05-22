@@ -28,7 +28,7 @@ class Point
 	 * @var int
 	 */
 
-	private $evelation;
+	private $elevation;
 
 	private $segmentIndex;
 
@@ -96,15 +96,15 @@ class Point
 	 */
 	public function getEvelation()
 	{
-		return $this->evelation;
+		return $this->elevation;
 	}
 
 	/**
 	 * @param int $evelation
 	 */
-	public function setEvelation($evelation)
+	public function setEvelation($elevation)
 	{
-		$this->evelation = $evelation;
+		$this->elevation = $elevation;
 	}
 
 	/**
