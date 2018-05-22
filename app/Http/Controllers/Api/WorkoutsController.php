@@ -6,6 +6,7 @@ use App\Point;
 use App\Workout;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class WorkoutsController extends Controller
@@ -28,8 +29,21 @@ class WorkoutsController extends Controller
      */
     public function store(Request $request)
     {
+        $title = '';
+        $hours = Carbon::now()->format('H');
+        if(  $hours < 12 ){
+            $title = 'Morning ';
+        } else if( $hours < 19 ){
+            $title = 'Afternoon ';
+        }
+        else if( $hours < 23  ){
+            $title = 'Evening  ';
+        };
+
+        $title .= $request->type == Workout::TYPE_CYCLING ? 'ride' : 'run';
+
         $workout = [
-            'title' => $request->title ?? 'New workout',
+            'title' => $title,
             'type' => $request->type,
             'user_id' => Auth::id(),
             'status' => Workout::STATUS_ACTIVE
@@ -38,13 +52,17 @@ class WorkoutsController extends Controller
         $workout = Workout::create( $workout );
 
         foreach( $request->points as $point ){
+
+            //TODO: Replace with logged in user's timezone, need to create a user profile page first
+            $utcTime = Carbon::createFromTimeString( $point['time'], 'Europe/Budapest' );
+
             $points[] = new Point([
                 'workout_id' => $workout->id,
                 'segment_index' => $point['segment_index'],
                 'coordinates' => new \App\Utilities\WorkoutImport\Point($point['lat'],$point['lng']),
                 'heart_rate' => $point['heart_rate'],
                 'elevation' => $point['elevation'],
-                'time' => $point['time']
+                'time' => $utcTime->setTimezone('UTC')->toDateTimeString()
             ]);
         }
 
