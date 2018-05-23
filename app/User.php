@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -14,8 +15,30 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    const ROLE_SUPERADMIN = 1;
+    const ROLE_ADMIN = 2;
+    const ROLE_USER = 3;
+
+    public static function getRoles( $id = null )
+    {
+        $roles = [
+            self::ROLE_SUPERADMIN => __('Superadmin'),
+            self::ROLE_ADMIN => __('Admin'),
+            self::ROLE_USER => __('User')
+        ];
+
+        foreach( $roles as $id => $role ){
+            if( $id < Auth::user()->role_id ){
+                unset($roles[$id]);
+            }
+        }
+
+        return $roles;
+    }
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'role_id', 'name', 'email', 'password',
     ];
 
     /**

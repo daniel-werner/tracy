@@ -12,7 +12,9 @@
 */
 
 Route::resource('workouts', 'WorkoutsController')->middleware('auth');
-Route::resource('users', 'UsersController')->middleware('auth');
+Route::group(['middleware' => 'can:admin'], function() {
+    Route::resource('users', 'UsersController')->middleware('auth');
+});
 
 Auth::routes();
 

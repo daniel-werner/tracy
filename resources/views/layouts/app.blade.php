@@ -49,6 +49,7 @@
                                 <a class="nav-link dropdown-item" href="{{ action('WorkoutsController@index') }}">{{ __('History') }}</a>
                             </div>
                         </li>
+                        @can('admin')
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Admin <span class="caret"></span>
@@ -57,6 +58,7 @@
                                 <a class="nav-link" href="{{ action('UsersController@index') }}">{{ __('Users') }}</a>
                             </div>
                         </li>
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->

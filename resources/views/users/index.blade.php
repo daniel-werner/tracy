@@ -8,6 +8,10 @@
         <div class="alert alert-success">{{ Session::get('status') }}</div>
     @endif
 
+    <div class="m-3">
+        <a href="{{action('UsersController@create')}}" class="btn btn-success">New user</a>
+    </div>
+
     <table class="table table-borderless table-striped" >
         <thead>
             <tr>
