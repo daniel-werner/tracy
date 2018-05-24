@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUser;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,27 +13,6 @@ use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class UsersController extends Controller
 {
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255' . ( empty($data['id']) ? '|unique:users' : '' ),
-            'password' => 'required|string|min:6|confirmed',
-            'role_id' =>function($attribute, $value, $fail) {
-                if (!in_array( (int)$value, array_keys(User::getRoles())) ) {
-                    return $fail(__('Invalid role.'));
-                }
-            }
-        ]);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -60,9 +40,9 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
-        $this->validator($request->all())->validate();
+        $request->validated();
 
         return User::create([
             'name' => $request->name,
@@ -103,9 +83,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUser $request, $id)
     {
-        $this->validator($request->all())->validate();
+        $request->validated();
 
         $user = User::where(['id' => $id] )->first();
 
