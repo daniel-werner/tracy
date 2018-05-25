@@ -13867,7 +13867,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-module.exports = __webpack_require__(45);
+module.exports = __webpack_require__(46);
 
 
 /***/ }),
@@ -13883,7 +13883,7 @@ module.exports = __webpack_require__(45);
 
 __webpack_require__(13);
 
-window.Vue = __webpack_require__(38);
+window.Vue = __webpack_require__(39);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -13891,7 +13891,7 @@ window.Vue = __webpack_require__(38);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(41));
+Vue.component('example-component', __webpack_require__(42));
 
 //const app = new Vue({
 //    el: '#app'
@@ -13950,7 +13950,7 @@ if (token) {
 // import Echo from 'laravel-echo'
 
 __webpack_require__(36);
-__webpack_require__(37);
+__webpack_require__(38);
 
 // window.Pusher = require('pusher-js');
 
@@ -35932,7 +35932,7 @@ module.exports = function spread(callback) {
  |
  ********************************************************************************/
 
-__webpack_require__(52);
+__webpack_require__(37);
 
 ;(function (root) {
 
@@ -36186,6 +36186,68 @@ __webpack_require__(52);
 
 /***/ }),
 /* 37 */
+/***/ (function(module, exports) {
+
+;(function (root) {
+	// (mean) radius of Earth (meters)
+
+	var R = 6378137;
+
+	var squared = function squared(x) {
+		return x * x;
+	};
+
+	var toRad = function toRad(x) {
+		return x * Math.PI / 180.0;
+	};
+
+	var PointUtils = function PointUtils() {};
+
+	PointUtils.distance = function (pointA, pointB) {
+		var aLat = pointA.latitude || pointA.lat;
+		var bLat = pointB.latitude || pointB.lat;
+		var aLng = pointA.longitude || pointA.lng || pointA.lon;
+		var bLng = pointB.longitude || pointB.lng || pointB.lon;
+
+		var dLat = toRad(bLat - aLat);
+		var dLon = toRad(bLng - aLng);
+
+		var f = squared(Math.sin(dLat / 2.0)) + Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * squared(Math.sin(dLon / 2.0));
+		var c = 2 * Math.atan2(Math.sqrt(f), Math.sqrt(1 - f));
+
+		return R * c;
+	};
+
+	PointUtils.speed = function (pointA, pointB) {
+		var distance = PointUtils.distance(pointA, pointB),
+		    timeDiff = PointUtils.timeDifference(pointA, pointB);
+
+		var speed = Math.round(distance / timeDiff * 3.6);
+
+		return speed;
+	};
+
+	PointUtils.timeDifference = function (pointA, pointB) {
+		var timeA = Date.parse(pointA.time),
+		    timeB = Date.parse(pointB.time),
+		    timeDiff = (timeB - timeA) / 1000;
+
+		return timeDiff;
+	};
+
+	PointUtils.timeDifferenceFormatted = function (pointA, pointB) {
+		var date = new Date(null),
+		    timeDiff = PointUtils.timeDifference(pointA, pointB);
+
+		date.setSeconds(timeDiff);
+		return date.toISOString().substr(11, 8);
+	};
+
+	root.PointUtils = PointUtils;
+})(window);
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -38965,7 +39027,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 });
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49928,10 +49990,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(39).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(40).setImmediate))
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -49987,7 +50049,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(40);
+__webpack_require__(41);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -50001,7 +50063,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -50194,15 +50256,15 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(6)))
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(42)
+var normalizeComponent = __webpack_require__(43)
 /* script */
-var __vue_script__ = __webpack_require__(43)
+var __vue_script__ = __webpack_require__(44)
 /* template */
-var __vue_template__ = __webpack_require__(44)
+var __vue_template__ = __webpack_require__(45)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50241,7 +50303,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -50350,7 +50412,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50379,7 +50441,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50422,78 +50484,10 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */
-/***/ (function(module, exports) {
-
-;(function (root) {
-	// (mean) radius of Earth (meters)
-
-	var R = 6378137;
-
-	var squared = function squared(x) {
-		return x * x;
-	};
-
-	var toRad = function toRad(x) {
-		return x * Math.PI / 180.0;
-	};
-
-	var PointUtils = function PointUtils() {};
-
-	PointUtils.distance = function (pointA, pointB) {
-		var aLat = pointA.latitude || pointA.lat;
-		var bLat = pointB.latitude || pointB.lat;
-		var aLng = pointA.longitude || pointA.lng || pointA.lon;
-		var bLng = pointB.longitude || pointB.lng || pointB.lon;
-
-		var dLat = toRad(bLat - aLat);
-		var dLon = toRad(bLng - aLng);
-
-		var f = squared(Math.sin(dLat / 2.0)) + Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * squared(Math.sin(dLon / 2.0));
-		var c = 2 * Math.atan2(Math.sqrt(f), Math.sqrt(1 - f));
-
-		return R * c;
-	};
-
-	PointUtils.speed = function (pointA, pointB) {
-		var distance = PointUtils.distance(pointA, pointB),
-		    timeDiff = PointUtils.timeDifference(pointA, pointB);
-
-		var speed = Math.round(distance / timeDiff * 3.6);
-
-		return speed;
-	};
-
-	PointUtils.timeDifference = function (pointA, pointB) {
-		var timeA = Date.parse(pointA.time),
-		    timeB = Date.parse(pointB.time),
-		    timeDiff = (timeB - timeA) / 1000;
-
-		return timeDiff;
-	};
-
-	PointUtils.timeDifferenceFormatted = function (pointA, pointB) {
-		var date = new Date(null),
-		    timeDiff = PointUtils.timeDifference(pointA, pointB);
-
-		date.setSeconds(timeDiff);
-		return date.toISOString().substr(11, 8);
-	};
-
-	root.PointUtils = PointUtils;
-})(window);
 
 /***/ })
 /******/ ]);
