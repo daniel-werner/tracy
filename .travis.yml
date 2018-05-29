@@ -12,5 +12,5 @@ before_script:
 script:
   - vendor/bin/phpunit
 
-  notifications:
-    email: false
+notifications:
+  email: false
