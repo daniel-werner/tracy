@@ -14,5 +14,4 @@ yarn-error.log
 .env
 .DS_Store
 /.editorconfig
-/.env.testing
 /.DS_Store
