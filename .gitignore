@@ -15,3 +15,4 @@ yarn-error.log
 .DS_Store
 /.editorconfig
 /.env.testing
+/.DS_Store

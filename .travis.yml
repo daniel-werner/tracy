@@ -1,0 +1,13 @@
+language: php
+
+php:
+  - 7.2
+
+before_script:
+  - cp .env.testing .env
+  - mysql -e 'create database tracy_test;'
+  - composer self-update
+  - composer install --no-interaction
+
+script:
+  - vendor/bin/phpunit
