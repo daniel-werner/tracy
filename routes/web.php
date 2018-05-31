@@ -16,6 +16,8 @@ Route::group(['middleware' => 'can:admin'], function() {
     Route::resource('users', 'UsersController')->middleware('auth');
 });
 
+Route::get('/workout/{workout}', 'WorkoutsController@show_api');
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');

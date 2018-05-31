@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WorkoutResource;
 use Illuminate\Http\Request;
 use App\Workout;
 use App\Point;
@@ -100,6 +101,17 @@ class WorkoutsController extends Controller
 
 
         return view( 'workouts.show' , compact( 'workout' ));
+    }
+
+    public function show_api($id)
+    {
+        $workout = Workout::with('points')
+            ->where(['id' => $id] )
+            ->first();
+
+
+//        return view( 'workouts.show' , compact( 'workout' ));
+        return new WorkoutResource( $workout );
     }
 
     /**

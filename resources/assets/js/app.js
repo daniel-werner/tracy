@@ -16,7 +16,11 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('workout-details', require('./components/WorkoutDetails.vue'));
 
-//const app = new Vue({
-//    el: '#app'
-//});
+$(document).ready(function(){
+	const app = new Vue({
+		el: '#app'
+	});
+});
+
