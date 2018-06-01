@@ -1,11 +1,8 @@
 <template>
-    <div class="workout-details card mb-5 box-shadow bg-light">
-        <div class="card-header">
-            <h5>{{workout.title}} on <span class="small">{{workout.points[0].time}}</span></h5>
-        </div>
+    <div class="bg-light workout-details">
         <div class="row m-0">
             <div class="col-8 p-0">
-                <div class="workout-map" :id="'workout-map-' + id"></div>
+                <div class="workout-map" :id="'workout-map-' + workout.id"></div>
             </div>
             <div class="col-4">
                 <div class="card-body pt-1 pl-0">
@@ -28,7 +25,7 @@
         </div>
         <div class="row mt-3">
             <div class="col-12">
-                <div class="analysis-chart" :id="'analysis-chart-' + id">
+                <div class="analysis-chart" :id="'analysis-chart-' + workout.id">
                 </div>
             </div>
         </div>
@@ -37,25 +34,24 @@
 
 <script>
     export default {
-        props: ['id'],
+        props: ['workout'],
+//        data() {
+//            return {
+//                workout: {
+//                    points: [{}]
+//                }
+//            };
+//        },
         mounted() {
-            console.log('Workout details component mounted');
-            axios.get( this.endpoint + this.id )
-                    .then( ({data}) => {
-                    this.workout = data.data;
-                    var workouts = new Workouts([this.workout]);
-                    workouts.init({
-                        mode: 'details'
-                    });
-                });
-        },
-        data() {
-            return {
-                workout: {
-                    points: [{}]
-                },
-                endpoint: '/workout/'
-            };
+//            console.log('Workout details component mounted');
+//            axios.get('/workouts/' + this.id)
+//                    .then(({data}) => {
+//                this.workout = data.data;
+//                var workouts = new Workouts([this.workout]);
+//                workouts.init({
+//                    mode: 'details'
+//                });
+//            });
         }
     }
 </script>

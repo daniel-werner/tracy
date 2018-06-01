@@ -17,10 +17,13 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('workout-details', require('./components/WorkoutDetails.vue'));
+Vue.component('workout-list-item', require('./components/WorkoutListItem.vue'));
 
 $(document).ready(function(){
 	const app = new Vue({
-		el: '#app'
+		el: '#app',
+		data: {
+		}
 	});
 });
 

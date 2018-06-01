@@ -4,7 +4,6 @@
 
 @section('content')
     <main role="main" class="container">
-        {{--@includeWhen($workout->id, 'workouts.workout_details')--}}
-        <workout-details id="{{$workout->id}}"></workout-details>
+        @includeWhen($workout->id, 'workouts.workout_details')
     </main>
 @endsection

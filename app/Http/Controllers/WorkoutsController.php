@@ -93,25 +93,17 @@ class WorkoutsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $workout = Workout::with('points')
             ->where(['id' => $id] )
             ->first();
 
+        if( $request->ajax() ){
+            return new WorkoutResource( $workout );
+        }
 
         return view( 'workouts.show' , compact( 'workout' ));
-    }
-
-    public function show_api($id)
-    {
-        $workout = Workout::with('points')
-            ->where(['id' => $id] )
-            ->first();
-
-
-//        return view( 'workouts.show' , compact( 'workout' ));
-        return new WorkoutResource( $workout );
     }
 
     /**

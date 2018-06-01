@@ -43,6 +43,10 @@ require('./point_utils');
 
 				var workoutId = item.id;
 
+				if( _this.maps.hasOwnProperty(workoutId) ){
+					_this.maps[workoutId].remove();
+				}
+
 				var lat = _this.data[index].points.length ? _this.data[index].points[0].lat : 0;
 				var lng = _this.data[index].points.length ? _this.data[index].points[0].lng : 0;
 				var map = L.map('workout-map-' + workoutId).setView([lat, lng], 15);

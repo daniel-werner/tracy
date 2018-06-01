@@ -13940,10 +13940,12 @@ window.Vue = __webpack_require__(40);
 
 Vue.component('example-component', __webpack_require__(11));
 Vue.component('workout-details', __webpack_require__(51));
+Vue.component('workout-list-item', __webpack_require__(57));
 
 $(document).ready(function () {
   var app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {}
   });
 });
 
@@ -36018,6 +36020,10 @@ __webpack_require__(38);
 
 				var workoutId = item.id;
 
+				if (_this.maps.hasOwnProperty(workoutId)) {
+					_this.maps[workoutId].remove();
+				}
+
 				var lat = _this.data[index].points.length ? _this.data[index].points[0].lat : 0;
 				var lng = _this.data[index].points.length ? _this.data[index].points[0].lng : 0;
 				var map = L.map('workout-map-' + workoutId).setView([lat, lng], 15);
@@ -50583,33 +50589,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['id'],
+    props: ['workout'],
+    //        data() {
+    //            return {
+    //                workout: {
+    //                    points: [{}]
+    //                }
+    //            };
+    //        },
     mounted: function mounted() {
-        var _this = this;
-
-        console.log('Workout details component mounted');
-        axios.get(this.endpoint + this.id).then(function (_ref) {
-            var data = _ref.data;
-
-            _this.workout = data.data;
-            var workouts = new Workouts([_this.workout]);
-            workouts.init({
-                mode: 'details'
-            });
-        });
-    },
-    data: function data() {
-        return {
-            workout: {
-                points: [{}]
-            },
-            endpoint: '/workout/'
-        };
+        //            console.log('Workout details component mounted');
+        //            axios.get('/workouts/' + this.id)
+        //                    .then(({data}) => {
+        //                this.workout = data.data;
+        //                var workouts = new Workouts([this.workout]);
+        //                workouts.init({
+        //                    mode: 'details'
+        //                });
+        //            });
     }
 });
 
@@ -50621,88 +50620,75 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "workout-details card mb-5 box-shadow bg-light" },
-    [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h5", [
-          _vm._v(_vm._s(_vm.workout.title) + " on "),
-          _c("span", { staticClass: "small" }, [
-            _vm._v(_vm._s(_vm.workout.points[0].time))
-          ])
-        ])
+  return _c("div", { staticClass: "bg-light workout-details" }, [
+    _c("div", { staticClass: "row m-0" }, [
+      _c("div", { staticClass: "col-8 p-0" }, [
+        _c("div", {
+          staticClass: "workout-map",
+          attrs: { id: "workout-map-" + _vm.workout.id }
+        })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row m-0" }, [
-        _c("div", { staticClass: "col-8 p-0" }, [
-          _c("div", {
-            staticClass: "workout-map",
-            attrs: { id: "workout-map-" + _vm.id }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-4" }, [
-          _c("div", { staticClass: "card-body pt-1 pl-0" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-6" }, [
-                _c("div", [
-                  _vm._v("Distance: "),
-                  _c("h5", [_vm._v(_vm._s(_vm.workout.distance) + " km")])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("Duration: "),
-                  _c("h5", [_vm._v(_vm._s(_vm.workout.duration))])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("Average speed: "),
-                  _c("h5", [_vm._v(_vm._s(_vm.workout.avgspeed) + " km/h")])
-                ])
+      _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "card-body pt-1 pl-0" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-6" }, [
+              _c("div", [
+                _vm._v("Distance: "),
+                _c("h5", [_vm._v(_vm._s(_vm.workout.distance) + " km")])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-6" }, [
-                _c("div", [
-                  _vm._v("Min elevation: "),
-                  _c("h5", [_vm._v(_vm._s(_vm.workout.minelevation) + " m")])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("Max elevation: "),
-                  _c("h5", [_vm._v(_vm._s(_vm.workout.maxelevation) + " m")])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("Average heart rate: "),
-                  _c("h5", [_vm._v(_vm._s(_vm.workout.avghr) + " bpm")])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("Min heart rate: "),
-                  _c("h5", [_vm._v(_vm._s(_vm.workout.minhr) + " bpm")])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("Max heart rate: "),
-                  _c("h5", [_vm._v(_vm._s(_vm.workout.maxhr) + " bpm")])
-                ])
+              _c("div", [
+                _vm._v("Duration: "),
+                _c("h5", [_vm._v(_vm._s(_vm.workout.duration))])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("Average speed: "),
+                _c("h5", [_vm._v(_vm._s(_vm.workout.avgspeed) + " km/h")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6" }, [
+              _c("div", [
+                _vm._v("Min elevation: "),
+                _c("h5", [_vm._v(_vm._s(_vm.workout.minelevation) + " m")])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("Max elevation: "),
+                _c("h5", [_vm._v(_vm._s(_vm.workout.maxelevation) + " m")])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("Average heart rate: "),
+                _c("h5", [_vm._v(_vm._s(_vm.workout.avghr) + " bpm")])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("Min heart rate: "),
+                _c("h5", [_vm._v(_vm._s(_vm.workout.minhr) + " bpm")])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _vm._v("Max heart rate: "),
+                _c("h5", [_vm._v(_vm._s(_vm.workout.maxhr) + " bpm")])
               ])
             ])
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row mt-3" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", {
-            staticClass: "analysis-chart",
-            attrs: { id: "analysis-chart-" + _vm.id }
-          })
-        ])
       ])
-    ]
-  )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mt-3" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", {
+          staticClass: "analysis-chart",
+          attrs: { id: "analysis-chart-" + _vm.workout.id }
+        })
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50711,6 +50697,222 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-4587585c", module.exports)
+  }
+}
+
+/***/ }),
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(43)
+/* script */
+var __vue_script__ = __webpack_require__(58)
+/* template */
+var __vue_template__ = __webpack_require__(59)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/WorkoutListItem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c06422b2", Component.options)
+  } else {
+    hotAPI.reload("data-v-c06422b2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['id'],
+    data: function data() {
+        return {
+            detailsVisible: false,
+            workout: {
+                points: [{}]
+            }
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.get('/workouts/' + this.id).then(function (_ref) {
+            var data = _ref.data;
+
+            _this.workout = data.data;
+            _this.workouts = new Workouts([_this.workout]);
+        });
+    },
+    updated: function updated() {
+        this.workouts.init({
+            mode: this.detailsVisible ? 'details' : 'list'
+        });
+    },
+
+    methods: {
+        toggleDetails: function toggleDetails() {
+            this.detailsVisible = !this.detailsVisible;
+        }
+    }
+});
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "card mb-5 box-shadow" },
+    [
+      _c("div", { staticClass: "card-header" }, [
+        _c("h5", [
+          _c(
+            "a",
+            {
+              staticClass: "card-link",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  _vm.toggleDetails(_vm.workout.id)
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.workout.title))]
+          ),
+          _vm._v(" on "),
+          _c("span", { staticClass: "small" }, [
+            _vm._v(_vm._s(_vm.workout.points[0].time))
+          ]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-sm btn-primary float-right",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  _vm.toggleDetails(_vm.workout.id)
+                }
+              }
+            },
+            [_vm._v("Toggle details")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      !_vm.detailsVisible
+        ? _c("div", { staticClass: "row bg-light m-0" }, [
+            _c("div", { staticClass: "col-8 p-0" }, [
+              _c("div", {
+                staticClass: "workout-map",
+                attrs: { id: "workout-map-" + _vm.id }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-4" }, [
+              _c("div", { staticClass: "card-body pb-0 pt-2 pl-0" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-6" }, [
+                    _c("div", [
+                      _vm._v("Distance: "),
+                      _c("h4", [_vm._v(_vm._s(_vm.workout.distance) + " km")])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _vm._v("Duration: "),
+                      _c("h4", [_vm._v(_vm._s(_vm.workout.duration))])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _vm._v("Average speed: "),
+                      _c("h4", [_vm._v(_vm._s(_vm.workout.avgspeed) + " km/h")])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.detailsVisible
+        ? _c("workout-details", { attrs: { workout: _vm.workout } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c06422b2", module.exports)
   }
 }
 

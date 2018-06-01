@@ -25,7 +25,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $workouts = Workout::with('points')
+        $workouts = Workout::select('id')
                         ->orderBy( 'created_at', 'desc')
                         ->limit(10)
                         ->get();
