@@ -36,7 +36,6 @@ class ImportEndomondo extends Command
         parent::__construct();
 
         $this->endomondo = $endomondo;
-        $this->endomondo->login(env('ENDOMONDO_LOGIN', ''), env('ENDOMONDO_PASSWORD', ''));
     }
 
     /**
@@ -46,6 +45,7 @@ class ImportEndomondo extends Command
      */
     public function handle()
     {
+        $this->endomondo->login(env('ENDOMONDO_LOGIN', ''), env('ENDOMONDO_PASSWORD', ''));
 
         $user = User::where('email', env('ENDOMONDO_LOGIN', '') )->first();
         $this->info( 'Getting endomondo workouts...' );
