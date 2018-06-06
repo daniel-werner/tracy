@@ -25,11 +25,10 @@ class HomeController extends Controller
 
     public function index()
     {
-        $workouts = Workout::select('id')
-                        ->orderBy( 'created_at', 'desc')
-                        ->limit(10)
-                        ->get();
 
-        return view( 'home' , compact( 'workouts' ));
+        $types= json_encode( (new Workout())->types );
+
+        return view( 'home', compact('types') );
+//        return $workouts;
     }
 }

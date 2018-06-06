@@ -17,6 +17,8 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('workout-details', require('./components/WorkoutDetails.vue'));
+Vue.component('workout-list', require('./components/WorkoutList.vue'));
+Vue.component('workout-filter', require('./components/WorkoutFilter.vue'));
 Vue.component('workout-list-item', require('./components/WorkoutListItem.vue'));
 
 $(document).ready(function(){

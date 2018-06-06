@@ -6,10 +6,9 @@ use App\Http\Resources\WorkoutResource;
 use Illuminate\Http\Request;
 use App\Workout;
 use App\Point;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use App\Utilities\WorkoutImport\Parsers\Gpx;
-use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class WorkoutsController extends Controller
@@ -32,6 +31,18 @@ class WorkoutsController extends Controller
 //            ->paginate(10);
 
         return view( 'workouts.index' , compact( 'workouts' ));
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function search(){
+        $workouts = Workout::select('id')
+            ->orderBy( 'created_at', 'desc')
+            ->limit(10)
+            ->get();
+
+        return new JsonResource($workouts);
     }
 
     /**

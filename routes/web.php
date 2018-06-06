@@ -11,7 +11,11 @@
 |
 */
 
-Route::resource('workouts', 'WorkoutsController')->middleware('auth');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/workouts/search', 'WorkoutsController@search');
+    Route::resource('workouts', 'WorkoutsController');
+});
+
 Route::group(['middleware' => 'can:admin'], function() {
     Route::resource('users', 'UsersController')->middleware('auth');
 });
