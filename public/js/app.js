@@ -13919,8 +13919,11 @@ module.exports = __webpack_require__(46);
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eventBus", function() { return eventBus; });
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -13944,10 +13947,15 @@ Vue.component('workout-list', __webpack_require__(54));
 Vue.component('workout-filter', __webpack_require__(60));
 Vue.component('workout-list-item', __webpack_require__(57));
 
+var eventBus = new Vue();
+
 $(document).ready(function () {
+
   var app = new Vue({
     el: '#app',
-    data: {}
+    data: {
+      workouts: []
+    }
   });
 });
 
@@ -50755,6 +50763,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app__ = __webpack_require__(13);
 //
 //
 //
@@ -50763,6 +50772,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50770,13 +50781,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             workouts: []
         };
     },
+    created: function created() {
+        var _this2 = this;
+
+        // Using the service bus
+        __WEBPACK_IMPORTED_MODULE_0__app__["eventBus"].$on('workoutFiltered', function (workouts) {
+            var _this = _this2;
+            //Hack to force vuejs to re-render the html to avoid map initialization errors.
+            _this2.workouts = [];
+
+            setTimeout(function () {
+                _this.workouts = workouts;
+            }, 0);
+        });
+    },
     mounted: function mounted() {
-        var _this = this;
+        var _this3 = this;
 
         axios.get('/workouts/search').then(function (_ref) {
             var data = _ref.data;
 
-            _this.workouts = data.data;
+            _this3.workouts = data.data;
         });
     }
 });
@@ -50891,6 +50916,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['id'],
     data: function data() {
@@ -50912,9 +50938,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
     },
     updated: function updated() {
-        this.workouts.init({
-            mode: this.detailsVisible ? 'details' : 'list'
-        });
+        var _this2 = this;
+
+        if (this.id != this.workout.id) {
+            axios.get('/workouts/' + this.id).then(function (_ref2) {
+                var data = _ref2.data;
+
+                _this2.workout = data.data;
+                _this2.workouts = new Workouts([_this2.workout]);
+                _this2.workouts.init({
+                    mode: _this2.detailsVisible ? 'details' : 'list'
+                });
+            });
+        } else {
+            this.workouts.init({
+                mode: this.detailsVisible ? 'details' : 'list'
+            });
+        }
     },
 
     methods: {
@@ -51076,6 +51116,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app__ = __webpack_require__(13);
+//
 //
 //
 //
@@ -51097,12 +51139,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['types'],
     data: function data() {
         return {
-            data: {}
+            type: '1'
         };
+    },
+
+    methods: {
+        handleSubmit: function handleSubmit(e) {
+            axios.get('/workouts/search', {
+                params: {
+                    type: this.type
+                }
+            }).then(function (_ref) {
+                var data = _ref.data;
+
+                __WEBPACK_IMPORTED_MODULE_0__app__["eventBus"].$emit('workoutFiltered', data.data);
+            });
+        }
     }
 });
 
@@ -51118,33 +51176,74 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "p-2" }, [
-      _c("form", { attrs: { action: "#" } }, [
-        _c("div", { staticClass: "form-group row" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-sm-2 col-form-label",
-              attrs: { for: "exampleFormControlSelect1" }
-            },
-            [_vm._v("Workout type:")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
+      _c(
+        "form",
+        {
+          attrs: { action: "#" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.handleSubmit($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "form-group row" }, [
             _c(
-              "select",
+              "label",
               {
-                staticClass: "form-control col-9",
-                attrs: { id: "exampleFormControlSelect1" }
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "select-type" }
               },
-              _vm._l(_vm.types, function(type, index) {
-                return _c("option", { domProps: { value: index } }, [
-                  _vm._v(_vm._s(type))
-                ])
-              })
-            )
-          ])
-        ])
-      ])
+              [_vm._v("Workout type:")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-4" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.type,
+                      expression: "type"
+                    }
+                  ],
+                  staticClass: "form-control col-9",
+                  attrs: { id: "select-type" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.type = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.types, function(type, index) {
+                  return _c("option", { domProps: { value: index } }, [
+                    _vm._v(_vm._s(type))
+                  ])
+                })
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Submit")]
+          )
+        ]
+      )
     ])
   ])
 }

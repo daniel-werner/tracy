@@ -4,27 +4,42 @@
             <h5>Search for workout</h5>
         </div>
         <div class="p-2">
-            <form action="#">
+            <form action="#" @submit.prevent="handleSubmit">
                 <div class="form-group row">
-                    <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Workout type:</label>
+                    <label for="select-type" class="col-sm-2 col-form-label">Workout type:</label>
                     <div class="col-sm-4">
-                        <select class="form-control col-9" id="exampleFormControlSelect1">
+                        <select class="form-control col-9" id="select-type" v-model="type">
                             <option v-for="(type, index) in types" :value="index">{{type}}</option>
                         </select>
                     </div>
                 </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
 </template>
 
 <script>
+    import { eventBus } from '../app';
+
     export default {
         props: ['types'],
         data() {
             return {
-                data: {}
+                type: '1'
             };
+        },
+        methods: {
+            handleSubmit: function(e) {
+                axios.get('/workouts/search', {
+                            params: {
+                                type: this.type
+                            }
+                        })
+                        .then(({data}) => {
+                            eventBus.$emit('workoutFiltered', data.data );
+                });
+            }
         }
     }
 </script>

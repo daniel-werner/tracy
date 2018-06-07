@@ -21,10 +21,15 @@ Vue.component('workout-list', require('./components/WorkoutList.vue'));
 Vue.component('workout-filter', require('./components/WorkoutFilter.vue'));
 Vue.component('workout-list-item', require('./components/WorkoutListItem.vue'));
 
+export const eventBus = new Vue();
+
 $(document).ready(function(){
+
+
 	const app = new Vue({
 		el: '#app',
 		data: {
+			workouts: []
 		}
 	});
 });

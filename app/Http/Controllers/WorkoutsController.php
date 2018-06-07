@@ -35,11 +35,18 @@ class WorkoutsController extends Controller
 
     /**
      * @return \Illuminate\Http\Response
+     *
      */
-    public function search(){
+    public function search(Request $request){
+
+        $type = $request->get('type');
+
         $workouts = Workout::select('id')
-            ->orderBy( 'created_at', 'desc')
+            ->when($type, function ($query) use ($type) {
+                return $query->where('type', $type);
+            })
             ->limit(10)
+            ->orderBy( 'created_at', 'desc')
             ->get();
 
         return new JsonResource($workouts);

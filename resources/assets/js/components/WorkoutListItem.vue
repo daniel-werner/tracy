@@ -26,6 +26,7 @@
 </template>
 
 <script>
+
     export default {
         props: ['id'],
         data() {
@@ -44,9 +45,22 @@
                    });
         },
         updated(){
-            this.workouts.init({
-                mode: this.detailsVisible ? 'details' : 'list'
-            });
+
+            if( this.id != this.workout.id ){
+                axios.get('/workouts/' + this.id)
+                        .then(({data}) => {
+                    this.workout = data.data;
+                    this.workouts = new Workouts([this.workout]);
+                    this.workouts.init({
+                        mode: this.detailsVisible ? 'details' : 'list'
+                    });
+             });
+            }
+            else{
+                this.workouts.init({
+                    mode: this.detailsVisible ? 'details' : 'list'
+                });
+            }
         },
         methods: {
             toggleDetails: function() {
