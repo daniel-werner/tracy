@@ -9,6 +9,7 @@
                     <label for="select-type" class="col-sm-2 col-form-label">Workout type:</label>
                     <div class="col-sm-4">
                         <select class="form-control col-9" id="select-type" v-model="type">
+                            <option value="">All</option>
                             <option v-for="(type, index) in types" :value="index">{{type}}</option>
                         </select>
                     </div>
@@ -26,7 +27,7 @@
         props: ['types'],
         data() {
             return {
-                type: '1'
+                type: ''
             };
         },
         methods: {

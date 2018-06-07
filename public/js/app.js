@@ -51138,6 +51138,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -51145,7 +51146,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['types'],
     data: function data() {
         return {
-            type: '1'
+            type: ''
         };
     },
 
@@ -51228,11 +51229,16 @@ var render = function() {
                     }
                   }
                 },
-                _vm._l(_vm.types, function(type, index) {
-                  return _c("option", { domProps: { value: index } }, [
-                    _vm._v(_vm._s(type))
-                  ])
-                })
+                [
+                  _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.types, function(type, index) {
+                    return _c("option", { domProps: { value: index } }, [
+                      _vm._v(_vm._s(type))
+                    ])
+                  })
+                ],
+                2
               )
             ])
           ]),
