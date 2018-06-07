@@ -1,9 +1,9 @@
 <template>
     <div class="card mb-5 box-shadow">
         <div class="card-header">
-            <h5>Search for workout</h5>
+            <h5><a data-toggle="collapse" href="#collapse1">Search for workout</a></h5>
         </div>
-        <div class="p-2">
+        <div id="collapse1" class="p-2 collapse show">
             <form action="#" @submit.prevent="handleSubmit">
                 <div class="form-group row">
                     <label for="select-type" class="col-sm-2 col-form-label">Workout type:</label>

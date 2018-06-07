@@ -51176,81 +51176,85 @@ var render = function() {
   return _c("div", { staticClass: "card mb-5 box-shadow" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "p-2" }, [
-      _c(
-        "form",
-        {
-          attrs: { action: "#" },
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.handleSubmit($event)
+    _c(
+      "div",
+      { staticClass: "p-2 collapse show", attrs: { id: "collapse1" } },
+      [
+        _c(
+          "form",
+          {
+            attrs: { action: "#" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.handleSubmit($event)
+              }
             }
-          }
-        },
-        [
-          _c("div", { staticClass: "form-group row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-2 col-form-label",
-                attrs: { for: "select-type" }
-              },
-              [_vm._v("Workout type:")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-4" }, [
+          },
+          [
+            _c("div", { staticClass: "form-group row" }, [
               _c(
-                "select",
+                "label",
                 {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.type,
-                      expression: "type"
-                    }
-                  ],
-                  staticClass: "form-control col-9",
-                  attrs: { id: "select-type" },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.type = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
+                  staticClass: "col-sm-2 col-form-label",
+                  attrs: { for: "select-type" }
                 },
-                [
-                  _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
-                  _vm._v(" "),
-                  _vm._l(_vm.types, function(type, index) {
-                    return _c("option", { domProps: { value: index } }, [
-                      _vm._v(_vm._s(type))
-                    ])
-                  })
-                ],
-                2
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("Submit")]
-          )
-        ]
-      )
-    ])
+                [_vm._v("Workout type:")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.type,
+                        expression: "type"
+                      }
+                    ],
+                    staticClass: "form-control col-9",
+                    attrs: { id: "select-type" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.type = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
+                    _vm._v(" "),
+                    _vm._l(_vm.types, function(type, index) {
+                      return _c("option", { domProps: { value: index } }, [
+                        _vm._v(_vm._s(type))
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+              [_vm._v("Submit")]
+            )
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -51259,7 +51263,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", [_vm._v("Search for workout")])
+      _c("h5", [
+        _c("a", { attrs: { "data-toggle": "collapse", href: "#collapse1" } }, [
+          _vm._v("Search for workout")
+        ])
+      ])
     ])
   }
 ]
