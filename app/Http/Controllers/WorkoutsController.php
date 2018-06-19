@@ -46,7 +46,7 @@ class WorkoutsController extends Controller
                 return $query->where('type', $type);
             })
             ->limit(10)
-            ->orderBy( 'created_at', 'desc')
+            ->orderBy( 'time', 'desc')
             ->get();
 
         return new JsonResource($workouts);
@@ -86,21 +86,7 @@ class WorkoutsController extends Controller
         ];
 
         $workout = Workout::create( $workout );
-
-        $points = [];
-
-        foreach( $gpx as $point ){
-            $points[] = new Point([
-                'workout_id' => $workout->id,
-                'segment_index' => $point->getSegmentIndex(),
-                'coordinates' => $point,
-                'heart_rate' => $point->getHeartRate(),
-                'elevation' => $point->getEvelation(),
-                'time' => $point->getTime()
-            ]);
-        }
-
-        $workout->points()->saveMany( $points );
+        $workout->savePoints($gpx);
 
         return redirect( action('WorkoutsController@edit', [ 'id' => $workout->id ] ) );
     }

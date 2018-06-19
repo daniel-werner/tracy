@@ -142,4 +142,22 @@ class Workout extends Model
     public function getTypeAttribute($type){
        return $this->types[$type];
     }
+
+    public function savePoints(\Iterator $points){
+        $data = [];
+
+        foreach( $points as $point ){
+            $data[] = new Point([
+                'workout_id' => $this->id,
+                'segment_index' => $point->getSegmentIndex(),
+                'coordinates' => $point,
+                'heart_rate' => $point->getHeartRate(),
+                'elevation' => $point->getEvelation(),
+                'time' => $point->getTime()
+            ]);
+        }
+
+       return $this->points()->saveMany( $data );
+
+    }
 }
