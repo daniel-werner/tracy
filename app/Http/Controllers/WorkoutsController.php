@@ -71,7 +71,10 @@ class WorkoutsController extends Controller
      */
     public function store(Request $request, Gpx $gpx)
     {
-        \Debugbar::disable();
+        if(env('APP_DEBUG', false)){
+            \Debugbar::disable();
+        }
+
         $path = $request->workout_file->storeAs('workouts', $request->workout_file->getClientOriginalName());
 
         $path = storage_path('app/' . $path);
