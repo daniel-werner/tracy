@@ -4,6 +4,7 @@ namespace App\Utilities\WorkoutImport\Parsers;
 
 
 use App\Utilities\WorkoutImport\Point;
+
 /**
  * This library loads and parse gpx file
  *
@@ -37,6 +38,14 @@ class Gpx implements \Iterator, Parser
 	public function getType()
 	{
 		return $this->type;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTime()
+	{
+		return $this->points[0]->getTime();
 	}
 
 	/**

@@ -16,6 +16,10 @@ class GpxParserTest extends TestCase
         $path = dirname(__FILE__) . '/20180427_053327.gpx';
         $data = $gpx->parse($path);
 
+
+        $time = $gpx->getTime()->format('Y-m-d\TH:i:s');
+
+        $this->assertTrue( $time === '2018-04-27T05:33:27' );
         $this->assertInstanceOf( Point::class, $data[0] );
         $this->assertTrue( count($data) === 704 );
     }

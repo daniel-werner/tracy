@@ -81,6 +81,7 @@ class WorkoutsController extends Controller
             'title' => $gpx->getType() ?? 'New workout',
             'type' => $request->type,
             'import_filename' => $path,
+            'time' => $gpx->getTime()->setTimeZone(new \DateTimeZone('Europe/Budapest')),
             'user_id' => Auth::id(),
             'status' => Workout::STATUS_ACTIVE
         ];
