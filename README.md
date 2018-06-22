@@ -11,7 +11,7 @@ The main goal of this application is to learn the Laravel framework.
 
 ### Key features
 1. Import workout from GPX file
-2. Import workouts from [endomondo.com]
+2. Import workouts from [Endomondo](http://endomondo.com)
 3. Visualize workouts on the map
 4. Analyze workouts: speed, heart rate, and altitude
 
@@ -66,11 +66,11 @@ php artisan db:seed
 
 
 For any additional information on laravel installation please see 
-[https://laravel.com/docs/5.6/installation]
+https://laravel.com/docs/5.6/installation
 
 ### Usage
-#### Import workouts from [endomondo.com]
-Tracy uses an unofficial api ([https://github.com/fabulator/endomondo-api])
+#### Import workouts from [endomondo.com](http://endomondo.com)
+Tracy uses an unofficial api (https://github.com/fabulator/endomondo-api)
 to import the workouts from endomondo. The login details for endomondo 
 are stored in the `.env` file which is not ideal, but endomondo does not
 provide any public api. Import all workouts using the following command:
@@ -92,8 +92,8 @@ By default the import command only creates the new workouts, and skips the
  
  
 ### Demo
-Demo application can be found on [tracy.wernerd.info]
-A demo GPX file for testing could be found here: [https://www.mapbox.com/help/data/run.gpx]
+Demo application can be found on [tracy.wernerd.info](http://tracy.wernerd.info)
+A demo GPX file for testing could be found [here](https://www.mapbox.com/help/data/run.gpx)
  
 ### Lincence
 MIT Licence
