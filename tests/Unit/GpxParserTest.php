@@ -13,14 +13,13 @@ class GpxParserTest extends TestCase
     public function testRoles()
     {
         $gpx = new Gpx();
-        $path = dirname(__FILE__) . '/20180427_053327.gpx';
+        $path = dirname(__FILE__) . '/../run.gpx';
         $data = $gpx->parse($path);
 
 
         $time = $gpx->getTime()->format('Y-m-d\TH:i:s');
-
-        $this->assertTrue( $time === '2018-04-27T05:33:27' );
+        $this->assertTrue( $time === '2012-10-24T23:29:40' );
         $this->assertInstanceOf( Point::class, $data[0] );
-        $this->assertTrue( count($data) === 704 );
+        $this->assertTrue( count($data) === 206 );
     }
 }
