@@ -40,10 +40,18 @@ class WorkoutsController extends Controller
     public function search(Request $request){
 
         $type = $request->get('type');
+        $from = $request->get('from');
+        $to = $request->get('to');
 
         $workouts = Workout::select('id')
             ->when($type, function ($query) use ($type) {
                 return $query->where('type', $type);
+            })
+            ->when( !empty($from), function($query) use($from){
+                $query->whereDate('time', '>=', $from );
+            })
+            ->when( !empty($to), function($query) use($to){
+                $query->whereDate('time', '<=', $to );
             })
             ->limit(10)
             ->orderBy( 'time', 'desc')

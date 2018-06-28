@@ -14,6 +14,18 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <span class="col-sm-2 col-form-label">From:</span>
+                    <div class="col-sm-4">
+                        <input type="date" v-model="from"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <span class="col-sm-2 col-form-label">From:</span>
+                    <div class="col-sm-4">
+                        <input type="date" v-model="to"/>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -27,14 +39,18 @@
         props: ['types'],
         data() {
             return {
-                type: ''
+                type: '',
+                from: new Date().toISOString().slice(0, 10),
+                to: new Date().toISOString().slice(0, 10)
             };
         },
         methods: {
             handleSubmit: function(e) {
                 axios.get('/workouts/search', {
                             params: {
-                                type: this.type
+                                type: this.type,
+                                from: this.from,
+                                to: this.to
                             }
                         })
                         .then(({data}) => {

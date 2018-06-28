@@ -22,28 +22,64 @@ class WorkoutTest extends TestCase
         $user = factory(User::class)->create();
         $workouts = factory(Workout::class,2)->create([
             'user_id' => $user->id,
-            'type' => Workout::TYPE_RUNNING
+            'type' => Workout::TYPE_RUNNING,
+            'time' => '2018-07-28 14:01:01'
         ]);
 
-        $workoutIds = [];
+        $workouts = $workouts->map(function ($workout) {
+            return ['id' => $workout->id];
+        });
 
-        foreach( $workouts as $workout ){
-            $workoutIds[] = array(
-                'id' => $workout->id
-            );
-        }
-
-        $workouts = $workouts->merge(factory(Workout::class,2)->create([
+        $workoutsBefore = factory(Workout::class,2)->create([
             'user_id' => $user->id,
-            'type' => Workout::TYPE_CYCLING
-        ]));
+            'type' => Workout::TYPE_CYCLING,
+            'time' => '2018-07-26 14:01:01'
+        ]);
+
+        $workoutsBefore = $workoutsBefore->map(function ($workout) {
+            return ['id' => $workout->id];
+        });
+
+        $workoutsAfter = factory(Workout::class,2)->create([
+            'user_id' => $user->id,
+            'type' => Workout::TYPE_CYCLING,
+            'time' => '2018-07-30 14:01:01'
+        ]);
+
+        $workoutsAfter = $workoutsAfter->map(function ($workout) {
+            return ['id' => $workout->id];
+        });
 
         $request = $this
             ->actingAs($user)
             ->json( 'get', '/workouts/search', ['type' => Workout::TYPE_RUNNING]);
 
-        $request->assertJson([
-            'data' => $workoutIds
+        $request->assertExactJson([
+            'data' => $workouts
+        ]);
+
+        $request = $this
+            ->actingAs($user)
+            ->json( 'get', '/workouts/search', [ 'from' => '2018-07-27', 'to' => '2018-07-29']);
+
+        $request->assertExactJson([
+            'data' => $workouts
+        ]);
+
+        $request = $this
+            ->actingAs($user)
+            ->json( 'get', '/workouts/search', ['to' => '2018-07-27']);
+
+        $request->assertExactJson([
+            'data' => $workoutsBefore
+        ]);
+
+        $request = $this
+            ->actingAs($user)
+            ->json( 'get', '/workouts/search', ['from' => '2018-07-29']);
+
+        $request->assertExactJson([
+            'data' => $workoutsAfter
         ]);
     }
 

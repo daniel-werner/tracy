@@ -511,48 +511,6 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eventBus", function() { return eventBus; });
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-__webpack_require__(14);
-
-window.Vue = __webpack_require__(40);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', __webpack_require__(43));
-Vue.component('workout-details', __webpack_require__(46));
-Vue.component('workout-list', __webpack_require__(49));
-Vue.component('workout-filter', __webpack_require__(52));
-Vue.component('workout-list-item', __webpack_require__(55));
-
-var eventBus = new Vue();
-
-$(document).ready(function () {
-
-  var app = new Vue({
-    el: '#app',
-    data: {
-      workouts: []
-    }
-  });
-});
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -654,6 +612,48 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eventBus", function() { return eventBus; });
+
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+__webpack_require__(14);
+
+window.Vue = __webpack_require__(40);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+Vue.component('example-component', __webpack_require__(43));
+Vue.component('workout-details', __webpack_require__(46));
+Vue.component('workout-list', __webpack_require__(49));
+Vue.component('workout-filter', __webpack_require__(52));
+Vue.component('workout-list-item', __webpack_require__(55));
+
+var eventBus = new Vue();
+
+$(document).ready(function () {
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      workouts: []
+    }
+  });
+});
 
 /***/ }),
 /* 5 */
@@ -14017,7 +14017,7 @@ module.exports = Cancel;
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(3);
+__webpack_require__(4);
 module.exports = __webpack_require__(58);
 
 
@@ -35173,7 +35173,7 @@ module.exports = __webpack_require__(19);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(7);
 var Axios = __webpack_require__(21);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(3);
 
 /**
  * Create an instance of Axios
@@ -35256,7 +35256,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(3);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(30);
 var dispatchRequest = __webpack_require__(31);
@@ -35795,7 +35795,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(32);
 var isCancel = __webpack_require__(11);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(3);
 var isAbsoluteURL = __webpack_require__(33);
 var combineURLs = __webpack_require__(34);
 
@@ -50753,7 +50753,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app__ = __webpack_require__(4);
 //
 //
 //
@@ -50878,7 +50878,19 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -50908,7 +50920,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['types'],
     data: function data() {
         return {
-            type: ''
+            type: '',
+            from: new Date().toISOString().slice(0, 10),
+            to: new Date().toISOString().slice(0, 10)
         };
     },
 
@@ -50916,7 +50930,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         handleSubmit: function handleSubmit(e) {
             axios.get('/workouts/search', {
                 params: {
-                    type: this.type
+                    type: this.type,
+                    from: this.from,
+                    to: this.to
                 }
             }).then(function (_ref) {
                 var data = _ref.data;
@@ -51005,6 +51021,64 @@ var render = function() {
                   ],
                   2
                 )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("span", { staticClass: "col-sm-2 col-form-label" }, [
+                _vm._v("From:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.from,
+                      expression: "from"
+                    }
+                  ],
+                  attrs: { type: "date" },
+                  domProps: { value: _vm.from },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.from = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("span", { staticClass: "col-sm-2 col-form-label" }, [
+                _vm._v("From:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-4" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.to,
+                      expression: "to"
+                    }
+                  ],
+                  attrs: { type: "date" },
+                  domProps: { value: _vm.to },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.to = $event.target.value
+                    }
+                  }
+                })
               ])
             ]),
             _vm._v(" "),

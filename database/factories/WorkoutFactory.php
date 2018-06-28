@@ -17,6 +17,7 @@ $factory->define(App\Workout::class, function (Faker $faker) {
     return [
         'type' => $faker->numberBetween(1,2),
         'title' => $faker->text(50),
-        'status' => \App\Workout::STATUS_ACTIVE
+        'status' => \App\Workout::STATUS_ACTIVE,
+        'time' => $faker->dateTime()
     ];
 });
