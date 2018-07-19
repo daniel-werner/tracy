@@ -96,8 +96,12 @@ By default the import command only creates the new workouts, and skips the
 
 ### Demo
 Demo application can be found on [tracy.wernerd.info](http://tracy.wernerd.info),
-for demo purposed you can use the following credentials:
+for demo purposes please use the following credentials:
+
+
 Email: demo@email.com
+
+
 Password: 123123
 
 A demo GPX file for testing could be found [here](https://www.mapbox.com/help/data/run.gpx)
