@@ -8,7 +8,7 @@
                 <div class="form-group row">
                     <label for="select-type" class="col-sm-2 col-form-label">Workout type:</label>
                     <div class="col-sm-4">
-                        <select class="form-control col-9" id="select-type" v-model="type">
+                        <select @change="handleSubmit" class="form-control col-9" id="select-type" v-model="type">
                             <option value="">All</option>
                             <option v-for="(type, index) in types" :value="index">{{type}}</option>
                         </select>
@@ -17,16 +17,16 @@
                 <div class="form-group row">
                     <span class="col-sm-2 col-form-label">From:</span>
                     <div class="col-sm-4">
-                        <input type="date" v-model="from"/>
+                        <date-picker @change="handleSubmit" v-model="from" :first-day-of-week="1" :lang="lang"></date-picker>
                     </div>
                 </div>
                 <div class="form-group row">
                     <span class="col-sm-2 col-form-label">From:</span>
                     <div class="col-sm-4">
-                        <input type="date" v-model="to"/>
+                        <date-picker @change="handleSubmit" v-model="to" :first-day-of-week="1" :lang="lang"></date-picker>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <!--<button type="submit" class="btn btn-primary">Submit</button>-->
             </form>
         </div>
     </div>
@@ -34,14 +34,17 @@
 
 <script>
     import { eventBus } from '../app';
+    import DatePicker from 'vue2-datepicker'
 
     export default {
+        components: { DatePicker },
         props: ['types'],
         data() {
             return {
+                lang: 'en',
                 type: '',
-                from: new Date().toISOString().slice(0, 10),
-                to: new Date().toISOString().slice(0, 10)
+                from: '',
+                to: ''
             };
         },
         methods: {
