@@ -4,6 +4,8 @@ namespace Tests\Unit;
 
 use App\Utilities\WorkoutImport\Parsers\Gpx;
 use App\Utilities\WorkoutImport\Parsers\ParserFactory;
+use ErrorException;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Tests\TestCase;
 use App\Utilities\WorkoutImport\Parsers\Tcx;
 use App\Utilities\WorkoutImport\Point;
@@ -41,11 +43,20 @@ class ParserTest extends TestCase
     {
         $tcxPath = dirname(__FILE__) . '/../sample_file.tcx';
         $gpxPath = dirname(__FILE__) . '/../run.gpx';
+        $invalidFile = __FILE__;
+        $nonExistingFile = 'non_existing_file';
 
         $parser = ParserFactory::create($tcxPath);
         $this->assertInstanceOf( Tcx::class, $parser );
 
         $parser = ParserFactory::create($gpxPath);
         $this->assertInstanceOf( Gpx::class, $parser );
+
+
+        $this->expectException( FileNotFoundException::class );
+        $parser = ParserFactory::create($nonExistingFile);
+
+        $this->expectException( ErrorException::class );
+        $parser = ParserFactory::create($invalidFile);
     }
 }
