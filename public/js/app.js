@@ -51059,7 +51059,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "form-group row" }, [
               _c("span", { staticClass: "col-sm-2 col-form-label" }, [
-                _vm._v("From:")
+                _vm._v("To:")
               ]),
               _vm._v(" "),
               _c(

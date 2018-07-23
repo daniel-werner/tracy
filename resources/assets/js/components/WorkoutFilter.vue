@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <span class="col-sm-2 col-form-label">From:</span>
+                    <span class="col-sm-2 col-form-label">To:</span>
                     <div class="col-sm-4">
                         <date-picker @change="handleSubmit" v-model="to" :first-day-of-week="1" :lang="lang"></date-picker>
                     </div>
