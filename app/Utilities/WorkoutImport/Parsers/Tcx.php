@@ -36,22 +36,17 @@ class Tcx extends Parser implements \Iterator, ParserInterface
 
 					$point->setSegmentIndex( $index );
 
-					if (!empty($trkpt->AltitudeMeters)) {
+					if( !empty($trkpt->AltitudeMeters)) {
 						$point->setEvelation(floatval($trkpt->AltitudeMeters));
 					};
 
-					if (!empty($trkpt->Time)) {
+					if( !empty($trkpt->Time)) {
 						$point->setTime($trkpt->Time->__toString());
 					};
 
-//					$namespaces = $trkpt->getNamespaces(true);
-//					if (!empty($namespaces['gpxtpx'])) {
-//						$gpxtpx = $trkpt->extensions->children($namespaces['gpxtpx']);
-//						$hr = intval($gpxtpx->TrackPointExtension->hr);
-//
-//						$point->setHeartRate($hr);
-//
-//					}
+					if( !empty($trkpt->HeartRateBpm) ){
+						$point->setHeartRate(intval($trkpt->HeartRateBpm->Value));
+					}
 					$this->points[] = $point;
 				}
 
