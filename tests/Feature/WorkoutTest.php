@@ -100,4 +100,22 @@ class WorkoutTest extends TestCase
 
         $this->assertTrue(count($workout->points) === 206);
     }
+
+    public function testImportTcx()
+    {
+        $user = factory(User::class)->create([]);
+        $this->actingAs($user);
+
+        $response = $this->post( '/workouts', [
+            'type' => Workout::TYPE_RUNNING,
+            'workout_file' => new UploadedFile(base_path('tests/sample_file.tcx'), 'sample_file.tcx')
+        ]);
+
+        $response->assertStatus(302);
+
+        $workout = Workout::with('points')->first();
+
+        $this->assertTrue($workout->time === '2015-01-20 14:26:30');
+        $this->assertTrue(count($workout->points) === 260);
+    }
 }

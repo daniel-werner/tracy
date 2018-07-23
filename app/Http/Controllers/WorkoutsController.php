@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\WorkoutResource;
+use App\Utilities\WorkoutImport\Parsers\ParserFactory;
 use Illuminate\Http\Request;
 use App\Workout;
 use App\Point;
@@ -77,7 +78,7 @@ class WorkoutsController extends Controller
      * @param  Gpx $gpx
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Gpx $gpx)
+    public function store(Request $request)
     {
         if(env('APP_DEBUG', false)){
             \Debugbar::disable();
@@ -86,19 +87,21 @@ class WorkoutsController extends Controller
         $path = $request->workout_file->storeAs('workouts', $request->workout_file->getClientOriginalName());
 
         $path = storage_path('app/' . $path);
-        $data = $gpx->parse($path);
+
+        $parser = ParserFactory::create($path);
+        $data = $parser->parse($path);
 
         $workout = [
-            'title' => $gpx->getType() ?? 'New workout',
+            'title' => $parser->getType() ?? 'New workout',
             'type' => $request->type,
             'import_filename' => $path,
-            'time' => $gpx->getTime()->setTimeZone(new \DateTimeZone('Europe/Budapest')),
+            'time' => $parser->getTime()->setTimeZone(new \DateTimeZone('Europe/Budapest')),
             'user_id' => Auth::id(),
             'status' => Workout::STATUS_ACTIVE
         ];
 
         $workout = Workout::create( $workout );
-        $workout->savePoints($gpx);
+        $workout->savePoints($parser);
 
         return redirect( action('WorkoutsController@edit', [ 'id' => $workout->id ] ) );
     }
