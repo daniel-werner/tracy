@@ -87,11 +87,9 @@ By default the import command only creates the new workouts, and skips the
  associated with your user. The email address of the Tracy user should be the same
  as the endomondo login email.
 
- #### Import from GPX file
- Use the Workouts/import menu to import a workout from a GPX file.
-
- #### Import from TCX file
- Coming soon...
+ #### Import from GPX or TCX file
+ Use the Workouts/import menu to import a workout from a GPX or TCX file.
+ The system automatically recognises the file type (gpx or tcx).
 
 
 ### Demo
