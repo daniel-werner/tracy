@@ -23,3 +23,6 @@ Route::group(['middleware' => 'can:admin'], function() {
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

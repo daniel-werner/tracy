@@ -3,8 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
+/**
+ * Class LoginController
+ * @package App\Http\Controllers\Auth
+ */
 class LoginController extends Controller
 {
     /*
@@ -25,7 +32,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -35,5 +42,59 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @param string $provider Social auth provider
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)
+                    ->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @param string $provider Social auth provider
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback($provider)
+    {
+        $user = Socialite::driver($provider)->user();
+
+        $authUser = $this->findOrCreateUser($user, $provider);
+        Auth::login($authUser);
+        return redirect($this->redirectTo);
+    }
+
+    /**
+     * If a user has registered before using social auth, return the user
+     * else, create a new user object.
+     * @param  $user Socialite user object
+     * @param $provider Social auth provider
+     * @return  User
+     */
+    protected function findOrCreateUser($user, $provider)
+    {
+        $authUser = User::where('email', $user->email)->first();
+        if ($authUser) {
+            $authUser->name = $user->name;
+            $authUser->provider = $provider;
+            $authUser->provider_id = $user->id;
+            $authUser->save();
+
+            return $authUser;
+        }
+        return User::create([
+            'name'     => $user->name,
+            'email'    => $user->email,
+            'role_id' => User::ROLE_USER,
+            'provider' => $provider,
+            'provider_id' => $user->id
+        ]);
     }
 }

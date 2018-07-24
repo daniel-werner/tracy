@@ -12,6 +12,12 @@
                         @csrf
 
                         <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                <a href="{{ url('/login/google') }}" class="btn btn-danger"><i class="fab fa-google"></i> Sign in with Google</a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
                             <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
