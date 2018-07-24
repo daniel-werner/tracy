@@ -1,7 +1,4 @@
 
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 // Variables
 @import "variables";
 
@@ -20,6 +17,15 @@ a{
 
 .workout-map{
   height: 200px;
+}
+
+.no-border {
+    border: 0;
+    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+}
+
+.select-workout-type{
+    height: 35px !important;
 }
 
 .workout-details{

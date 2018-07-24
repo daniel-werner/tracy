@@ -50962,12 +50962,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card mb-5 box-shadow" }, [
+  return _c("div", { staticClass: "card mb-4 box-shadow" }, [
     _vm._m(0),
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "p-2 collapse show", attrs: { id: "collapse1" } },
+      {
+        staticClass: "pt-3 pl-3 m-0 collapse show",
+        attrs: { id: "collapse1" }
+      },
       [
         _c(
           "form",
@@ -50981,111 +50984,102 @@ var render = function() {
             }
           },
           [
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "select-type" }
-                },
-                [_vm._v("Workout type:")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-4" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.type,
-                        expression: "type"
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-3" }, [
+                _c("div", [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.type,
+                          expression: "type"
+                        }
+                      ],
+                      staticClass: "form-control select-workout-type",
+                      attrs: { id: "select-type" },
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.type = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                          _vm.handleSubmit
+                        ]
                       }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Select workout type")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.types, function(type, index) {
+                        return _c("option", { domProps: { value: index } }, [
+                          _vm._v(_vm._s(type))
+                        ])
+                      })
                     ],
-                    staticClass: "form-control col-9",
-                    attrs: { id: "select-type" },
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.type = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        },
-                        _vm.handleSubmit
-                      ]
-                    }
-                  },
+                    2
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-4" }, [
+                _c(
+                  "div",
                   [
-                    _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
-                    _vm._v(" "),
-                    _vm._l(_vm.types, function(type, index) {
-                      return _c("option", { domProps: { value: index } }, [
-                        _vm._v(_vm._s(type))
-                      ])
+                    _c("date-picker", {
+                      staticClass: "form-control no-border p-0 col-12",
+                      attrs: { "first-day-of-week": 1, lang: _vm.lang },
+                      on: { change: _vm.handleSubmit },
+                      model: {
+                        value: _vm.from,
+                        callback: function($$v) {
+                          _vm.from = $$v
+                        },
+                        expression: "from"
+                      }
                     })
                   ],
-                  2
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-0 pt-2 pl-2 pr-2" }, [
+                _vm._v("to")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-4" }, [
+                _c(
+                  "div",
+                  [
+                    _c("date-picker", {
+                      staticClass: "p-0 col-12",
+                      attrs: { "first-day-of-week": 1, lang: _vm.lang },
+                      on: { change: _vm.handleSubmit },
+                      model: {
+                        value: _vm.to,
+                        callback: function($$v) {
+                          _vm.to = $$v
+                        },
+                        expression: "to"
+                      }
+                    })
+                  ],
+                  1
                 )
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("span", { staticClass: "col-sm-2 col-form-label" }, [
-                _vm._v("From:")
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-sm-4" },
-                [
-                  _c("date-picker", {
-                    attrs: { "first-day-of-week": 1, lang: _vm.lang },
-                    on: { change: _vm.handleSubmit },
-                    model: {
-                      value: _vm.from,
-                      callback: function($$v) {
-                        _vm.from = $$v
-                      },
-                      expression: "from"
-                    }
-                  })
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("span", { staticClass: "col-sm-2 col-form-label" }, [
-                _vm._v("To:")
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-sm-4" },
-                [
-                  _c("date-picker", {
-                    attrs: { "first-day-of-week": 1, lang: _vm.lang },
-                    on: { change: _vm.handleSubmit },
-                    model: {
-                      value: _vm.to,
-                      callback: function($$v) {
-                        _vm.to = $$v
-                      },
-                      expression: "to"
-                    }
-                  })
-                ],
-                1
-              )
             ])
           ]
         )
@@ -51098,10 +51092,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h5", [
+    return _c("div", { staticClass: "card-header p-2" }, [
+      _c("h5", { staticClass: "m-1" }, [
         _c("a", { attrs: { "data-toggle": "collapse", href: "#collapse1" } }, [
-          _vm._v("Search for workout")
+          _vm._v("Search workouts")
         ])
       ])
     ])
@@ -51196,6 +51190,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -51257,8 +51252,8 @@ var render = function() {
     "div",
     { staticClass: "card mb-5 box-shadow" },
     [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h5", [
+      _c("div", { staticClass: "card-header p-2" }, [
+        _c("h5", { staticClass: "m-1" }, [
           _c(
             "a",
             {

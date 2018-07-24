@@ -1,6 +1,6 @@
 <div class="workout-details card mb-5 box-shadow bg-light">
-    <div class="card-header">
-        <h5>{{$workout->title}} on <span class="small">{{$workout->points[0]->time}}</span></h5>
+    <div class="card-header p-2">
+        <h5 class="m-1">{{$workout->title}} on <span class="small">{{$workout->points[0]->time}}</span></h5>
     </div>
     <div class="row m-0">
         <div class="col-8 p-0">

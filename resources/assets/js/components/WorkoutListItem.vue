@@ -1,9 +1,10 @@
 <template>
     <div class="card mb-5 box-shadow">
-        <div class="card-header">
-            <h5>
+        <div class="card-header p-2">
+            <h5 class="m-1">
                 <a class="card-link" href="#" v-on:click="toggleDetails(workout.id)">{{workout.title}}</a> on <span class="small">{{workout.points[0].time}}</span>
-                <a href="#" v-on:click="toggleDetails(workout.id)" class="btn btn-sm btn-primary float-right">Toggle details</a></h5>
+                <a href="#" v-on:click="toggleDetails(workout.id)" class="btn btn-sm btn-primary float-right">Toggle details</a>
+            </h5>
         </div>
         <div class="row bg-light m-0" v-if="!detailsVisible">
             <div class="col-8 p-0">

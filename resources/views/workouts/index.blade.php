@@ -26,12 +26,12 @@
         <tbody>
         @foreach ($workouts as $workout)
             <tr>
-                <td><a href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}">{{$workout->title}}</a></td>
-                <td>{{$workout->type}}</td>
-                <td>{{$workout->points[0]->time}}</td>
-                <td>{{$workout->distance}} km</td>
-                <td>{{$workout->duration}}</td>
-                <td>
+                <td class="p-2"><a href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}">{{$workout->title}}</a></td>
+                <td class="p-2">{{$workout->type}}</td>
+                <td class="p-2">{{$workout->points[0]->time}}</td>
+                <td class="p-2">{{$workout->distance}} km</td>
+                <td class="p-2">{{$workout->duration}}</td>
+                <td class="p-2">
                     <div class="form-inline">
                         <a href="{{action('WorkoutsController@edit', [ 'id' => $workout->id ])}}" class="btn btn-warning mr-2 btn-sm">Edit</a>
                         <form method="POST"  action="{{action('WorkoutsController@destroy', [ 'id' => $workout->id ])}}">
