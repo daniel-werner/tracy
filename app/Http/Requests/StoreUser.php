@@ -28,7 +28,7 @@ class StoreUser extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255' . ( $this->method() == 'POST' ? '|unique:users' : '' ),
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'string|min:6|confirmed|' . ( $this->method() == 'PUT' ? 'nullable' : 'required' ),
             'role_id' => new UserRole
         ];
     }

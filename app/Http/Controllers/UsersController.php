@@ -42,13 +42,9 @@ class UsersController extends Controller
      */
     public function store(StoreUser $request)
     {
-        $request->validated();
+        $user = $this->save($request);
 
-        return User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        return redirect( action('UsersController@edit', [ 'id' => $user->id ] ) );
     }
 
     /**
@@ -77,6 +73,59 @@ class UsersController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function profile()
+    {
+
+        $user = User::where(['id' => Auth::id()] )
+            ->first();
+
+        return view( 'users.profile' )->with('user', $user);;
+    }
+
+
+    public function profile_update(StoreUser $request)
+    {
+        $this->save($request, Auth::id());
+
+        return back();
+    }
+
+    protected function save(StoreUser $request, $id = null)
+    {
+        $request->validated();
+
+        $data = [
+            'name' => $request->name,
+            'role_id' => $request->role_id,
+            'email' => $request->email,
+        ];
+
+        if( !empty( $request->password ) ){
+            $data['password'] = Hash::make($request->password);
+        }
+
+        if(!empty($id)){
+            $user = User::where(['id' => $id] )->first();
+
+            if( $user->role_id < Auth::user()->role_id ){
+                abort(403, __('Not allowed!') );
+            }
+
+            $user->fill($data);
+            $user->save();
+        }
+        else{
+            $user = User::create($data);
+        }
+
+        return $user;
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -85,22 +134,7 @@ class UsersController extends Controller
      */
     public function update(StoreUser $request, $id)
     {
-        $request->validated();
-
-        $user = User::where(['id' => $id] )->first();
-
-        if( $user->role_id < Auth::user()->role_id ){
-            abort(403, __('Not allowed!') );
-        }
-
-        $user->fill([
-            'name' => $request->name,
-            'role_id' => $request->role_id,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        $user->save();
+        $this->save($request, $id);
 
         return back();
     }
@@ -111,8 +145,16 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        if($user->delete()){
+            $request->session()->flash('status', 'The user has been deleted!');
+        }
+        else{
+            $request->session()->flash('status', 'Unable to delete user!');
+        }
+
+        return redirect(action('UsersController@index'));
     }
 }
