@@ -13,6 +13,17 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function getUserData(){
+        $data = [
+            'role_id' => User::ROLE_USER,
+            'name' => 'Test User',
+            'email' => 'email@emai.com',
+            'timezone' => 'Europe/Budapest'
+        ];
+
+        return $data;
+    }
+
     public function testCreateUserAsUser()
     {
         $user = factory(User::class)->create([
@@ -20,11 +31,7 @@ class UserTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $data = [
-            'role_id' => User::ROLE_USER,
-            'name' => 'Test User',
-            'email' => 'email@emai.com'
-        ];
+        $data = $this->getUserData();
 
         $data['password'] = '123123';
         $data['password_confirmation']  = '123123';
@@ -42,12 +49,8 @@ class UserTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $data = [
-            'id' => $user->id,
-            'role_id' => User::ROLE_USER,
-            'name' => 'Test User',
-            'email' => 'email@emai.com'
-        ];
+        $data = $this->getUserData();
+        $data['id'] = $user->id;
 
         $response = $this->put( '/users/' . $user->id, $data);
 
@@ -63,11 +66,7 @@ class UserTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $data = [
-            'role_id' => User::ROLE_USER,
-            'name' => 'Test User',
-            'email' => 'email@emai.com'
-        ];
+        $data = $this->getUserData();
 
         $response = $this->post( '/users', $data);
         $response->assertSessionHasErrors('password');
@@ -93,12 +92,8 @@ class UserTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $data = [
-            'id' => $user->id,
-            'role_id' => User::ROLE_USER,
-            'name' => 'Test User',
-            'email' => 'email@emai.com'
-        ];
+        $data = $this->getUserData();
+        $data['id'] = $user->id;
 
         $response = $this->put( '/users/' . $user->id, $data);
 
@@ -128,11 +123,8 @@ class UserTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $data = [
-            'role_id' => User::ROLE_ADMIN,
-            'name' => 'Test User',
-            'email' => 'email@emai.com'
-        ];
+        $data = $this->getUserData();
+        $data['role_id'] = User::ROLE_ADMIN;
 
         $response = $this->put( '/users/profile', $data);
         $response->assertSessionHasErrors('role_id');

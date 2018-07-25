@@ -48,7 +48,24 @@
         @endif
     </div>
 </div>
+<div class="form-group row">
+    <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Timezone') }}</label>
 
+    <div class="col-md-6">
+        <select id="role_id" class="form-control{{ $errors->has('timezone') ? ' is-invalid' : '' }}" name="timezone" required autofocus>
+            <option value="">{{__('Please select')}}</option>
+            @foreach( $timezones as $id => $label )
+                <option value="{{$label}}" @if(old('role_id', $user->timezone ?? '') == $label) selected @endif>{{$label}}</option>
+            @endforeach
+        </select>
+
+        @if ($errors->has('timezone'))
+            <span class="invalid-feedback">
+            <strong>{{ $errors->first('timezone') }}</strong>
+        </span>
+        @endif
+    </div>
+</div>
 <div class="form-group row">
     <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 

@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use DateTimeZone;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -31,7 +32,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+        return view('users.create')->with(compact('timezones'));
     }
 
     /**
@@ -66,10 +68,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
         $user = User::where(['id' => $id] )
             ->first();
 
-        return view( 'users.edit' )->with('user', $user);;
+        return view( 'users.edit' )->with(compact('user','timezones'));
     }
 
     /**
@@ -79,19 +82,17 @@ class UsersController extends Controller
      */
     public function profile()
     {
-
+        $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
         $user = User::where(['id' => Auth::id()] )
             ->first();
 
-        return view( 'users.profile' )->with('user', $user);;
+        return view( 'users.profile' )->with(compact('user','timezones'));
     }
 
 
     public function profile_update(StoreUser $request)
     {
-
         $this->save($request, Auth::id());
-
         return back();
     }
 
@@ -102,6 +103,7 @@ class UsersController extends Controller
         $data = [
             'name' => $request->name,
             'email' => $request->email,
+            'timezone' => $request->timezone
         ];
 
         if( !empty($request->role_id) ){
@@ -139,7 +141,6 @@ class UsersController extends Controller
     public function update(StoreUser $request, $id)
     {
         $this->save($request, $id);
-
         return back();
     }
 
