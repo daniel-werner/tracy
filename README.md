@@ -9,7 +9,7 @@ Tracy is an open source fitness tracking application with focus on simplicity
 inspired by the awesome Endomondo application. 
 It has only the basic features like visualization on map and basic analytics.
 Users need to register an account to use the application: Tracy supports form
-based and Google Oauth 2 authentication.
+based and Oauth2 authentication (Google and GitHub).
 Workouts can be imported from standard gps xml files (GPX or TCX), 
 or can be imported from the endomondo.com.
 
@@ -19,7 +19,7 @@ are created with open street maps, leafletjs, and Highcharts.
 The main goal of this application is to learn the Laravel framework.
 
 ### Key features
-1. Form based login/registration and Google Oauth2
+1. Form based login/registration and Oauth2 (Google and GitHub)
 2. Import workouts from GPX or TCX file
 3. Import workouts from [Endomondo](http://endomondo.com)
 4. Visualize workouts on the map
@@ -109,7 +109,7 @@ Email: demo@email.com
 
 Password: 123123
 
-A demo GPX file for testing could be found [here](https://www.mapbox.com/help/data/run.gpx)
+A demo GPX file for testing can be found [here](https://www.mapbox.com/help/data/run.gpx)
 
 ### Lincence
 MIT Licence
