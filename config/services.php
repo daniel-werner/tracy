@@ -41,4 +41,10 @@ return [
         'redirect' => '/login/google/callback',
     ],
 
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),         // Your Google Client ID
+        'client_secret' => env('GITHUB_CLIENT_SECRET'), // Your Google Client Secret
+        'redirect' => '/login/github/callback',
+    ],
+
 ];
