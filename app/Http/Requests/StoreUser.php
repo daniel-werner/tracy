@@ -15,7 +15,7 @@ class StoreUser extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->role_id <= User::ROLE_ADMIN;
+        return true;
     }
 
     /**

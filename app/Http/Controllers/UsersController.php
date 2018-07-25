@@ -89,6 +89,7 @@ class UsersController extends Controller
 
     public function profile_update(StoreUser $request)
     {
+
         $this->save($request, Auth::id());
 
         return back();
@@ -100,9 +101,12 @@ class UsersController extends Controller
 
         $data = [
             'name' => $request->name,
-            'role_id' => $request->role_id,
             'email' => $request->email,
         ];
+
+        if( !empty($request->role_id) ){
+            $data['role_id'] = $request->role_id;
+        }
 
         if( !empty( $request->password ) ){
             $data['password'] = Hash::make($request->password);
