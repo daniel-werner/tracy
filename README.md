@@ -13,6 +13,10 @@ based and Oauth2 authentication (Google and GitHub).
 Workouts can be imported from standard gps xml files (GPX or TCX), 
 or can be imported from the endomondo.com.
 
+The backend is written in Laravel framework, the frontend uses vue.js, and the analytics
+are created with open street maps, leafletjs, and Highcharts.
+The main goal of this application is to learn the Laravel framework.
+
 ### Demo
 Demo application can be found on [tracy.wernerd.info](http://tracy.wernerd.info),
 for demo purposes please use the following credentials:
@@ -31,10 +35,6 @@ A demo GPX file for testing can be found [here](https://www.mapbox.com/help/data
 ![tracy-workouts](https://user-images.githubusercontent.com/38726367/43262320-026995ee-90e0-11e8-9952-3383c7cfbb5f.png)
 #### Workout details
 ![tracy-workout-details](https://user-images.githubusercontent.com/38726367/43262422-5af3a394-90e0-11e8-957c-94d0c8014e93.png)
-
-The backend is written in Laravel framework, the frontend uses vue.js, and the analytics
-are created with open street maps, leafletjs, and Highcharts.
-The main goal of this application is to learn the Laravel framework.
 
 ### Key features
 1. Form based login/registration and Oauth2 (Google and GitHub)
