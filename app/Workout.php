@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -153,11 +154,16 @@ class Workout extends Model
                 'coordinates' => $point,
                 'heart_rate' => $point->getHeartRate(),
                 'elevation' => $point->getEvelation(),
-                'time' => $point->getTime()
+                'time' => $point->getTime()->setTimeZone(new \DateTimeZone('UTC')),
             ]);
         }
 
        return $this->points()->saveMany( $data );
 
+    }
+
+    public function getTimeAttribute($time){
+        $time = new Carbon($time);
+        return $time->setTimezone(Auth::user()->timezone)->format('Y-m-d H:i:s');
     }
 }

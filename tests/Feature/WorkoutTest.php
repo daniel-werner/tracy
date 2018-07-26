@@ -85,7 +85,9 @@ class WorkoutTest extends TestCase
 
     public function testImportGpx()
     {
-        $user = factory(User::class)->create([]);
+        $user = factory(User::class)->create([
+            'timezone' => 'Europe/Budapest'
+        ]);
         $this->actingAs($user);
 
         $response = $this->post( '/workouts', [
@@ -96,6 +98,8 @@ class WorkoutTest extends TestCase
         $response->assertStatus(302);
 
         $workout = Workout::with('points')->first();
+
+        $this->assertTrue($workout->points[0]->time === '2012-10-25 01:29:40');
         $this->assertTrue($workout->time === '2012-10-25 01:29:40');
 
         $this->assertTrue(count($workout->points) === 206);
@@ -103,7 +107,9 @@ class WorkoutTest extends TestCase
 
     public function testImportTcx()
     {
-        $user = factory(User::class)->create([]);
+        $user = factory(User::class)->create([
+            'timezone' => 'Europe/Budapest'
+        ]);
         $this->actingAs($user);
 
         $response = $this->post( '/workouts', [
@@ -115,6 +121,7 @@ class WorkoutTest extends TestCase
 
         $workout = Workout::with('points')->first();
 
+        $this->assertTrue($workout->points[0]->time === '2015-01-20 14:26:30');
         $this->assertTrue($workout->time === '2015-01-20 14:26:30');
         $this->assertTrue(count($workout->points) === 260);
     }

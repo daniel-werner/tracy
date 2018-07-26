@@ -28,7 +28,7 @@
             <tr>
                 <td class="p-2"><a href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}">{{$workout->title}}</a></td>
                 <td class="p-2">{{$workout->type}}</td>
-                <td class="p-2">{{$workout->points[0]->time}}</td>
+                <td class="p-2">{{$workout->time}}</td>
                 <td class="p-2">{{$workout->distance}} km</td>
                 <td class="p-2">{{$workout->duration}}</td>
                 <td class="p-2">

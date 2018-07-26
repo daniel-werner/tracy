@@ -41,6 +41,11 @@ class ParserFactory
 		return $parserType;
 	}
 
+	/**
+	 * @param string $file
+	 * @return Parser
+	 * @throws Exception
+     */
 	public static function create($file){
 		$parser = self::detectParser($file);
 		if(class_exists($parser))

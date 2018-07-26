@@ -88,7 +88,7 @@ class ImportEndomondo extends Command
                 $workout = [
                     'external_id' => $externalId,
                     'title' => 'Endomondo workout',
-                    'time' => $endomondoWorkout->getStart(),
+                    'time' => $endomondoWorkout->getStart()->setTimeZone(new \DateTimeZone('UTC')),
                     'type' => $typeMap[$type],
                     'import_filename' => '',
                     'user_id' => $user->id,
@@ -106,7 +106,7 @@ class ImportEndomondo extends Command
                         'coordinates' => $point,
                         'heart_rate' => $point->getHeartRate(),
                         'elevation' => $point->getAltitude(),
-                        'time' => $point->getTime()
+                        'time' => $point->getTime()->setTimeZone(new \DateTimeZone('UTC')),
                     ]);
                 }
 

@@ -2,7 +2,7 @@
     <div class="card mb-5 box-shadow">
         <div class="card-header p-2">
             <h5 class="m-1">
-                <a class="card-link" href="#" v-on:click="toggleDetails(workout.id)">{{workout.title}}</a> on <span class="small">{{workout.points[0].time}}</span>
+                <a class="card-link" href="#" v-on:click="toggleDetails(workout.id)">{{workout.title}}</a> on <span class="small">{{workout.time}}</span>
                 <a href="#" v-on:click="toggleDetails(workout.id)" class="btn btn-sm btn-primary float-right">Toggle details</a>
             </h5>
         </div>

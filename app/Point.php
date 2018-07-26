@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Point extends Model
@@ -34,5 +36,10 @@ class Point extends Model
 			return parent::newQuery($excludeDeleted)->addSelect('*', DB::raw($raw));
 
 		return parent::newQuery($excludeDeleted);
+	}
+
+	public function getTimeAttribute($time){
+		$time = new Carbon($time);
+		return $time->setTimezone(Auth::user()->timezone)->format('Y-m-d H:i:s');
 	}
 }

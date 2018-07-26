@@ -95,7 +95,7 @@ class WorkoutsController extends Controller
             'title' => $parser->getType() ?? 'New workout',
             'type' => $request->type,
             'import_filename' => $path,
-            'time' => $parser->getTime()->setTimeZone(new \DateTimeZone('Europe/Budapest')),
+            'time' => $parser->getTime(),
             'user_id' => Auth::id(),
             'status' => Workout::STATUS_ACTIVE
         ];

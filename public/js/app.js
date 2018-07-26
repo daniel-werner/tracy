@@ -51269,7 +51269,7 @@ var render = function() {
           ),
           _vm._v(" on "),
           _c("span", { staticClass: "small" }, [
-            _vm._v(_vm._s(_vm.workout.points[0].time))
+            _vm._v(_vm._s(_vm.workout.time))
           ]),
           _vm._v(" "),
           _c(
