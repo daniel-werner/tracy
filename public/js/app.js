@@ -36109,7 +36109,7 @@ __webpack_require__(38);
 				map.addLayer(osm);
 
 				var polyline = L.polyline(_this.data[index].points, { color: 'blue' }).addTo(map);
-				map.fitBounds(polyline.getBounds());
+				map.fitBounds(polyline.getBounds(), { animate: false });
 			});
 		},
 		getChartSeries: function getChartSeries(data) {
@@ -51261,6 +51261,7 @@ var render = function() {
               attrs: { href: "#" },
               on: {
                 click: function($event) {
+                  $event.preventDefault()
                   _vm.toggleDetails(_vm.workout.id)
                 }
               }
@@ -51279,6 +51280,7 @@ var render = function() {
               attrs: { href: "#" },
               on: {
                 click: function($event) {
+                  $event.preventDefault()
                   _vm.toggleDetails(_vm.workout.id)
                 }
               }

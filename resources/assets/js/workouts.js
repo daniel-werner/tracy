@@ -60,7 +60,7 @@ require('./point_utils');
 				map.addLayer(osm);
 
 				var polyline = L.polyline(_this.data[index].points, {color: 'blue'}).addTo(map);
-				map.fitBounds(polyline.getBounds());
+				map.fitBounds(polyline.getBounds(), {animate: false});
 
 			});
 		},
