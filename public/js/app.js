@@ -36102,8 +36102,8 @@ __webpack_require__(38);
 
 				_this.maps[workoutId] = map;
 
-				var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-				var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+				var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+				var osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
 				var osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 25, attribution: osmAttrib });
 
 				map.addLayer(osm);
