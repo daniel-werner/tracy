@@ -42,10 +42,14 @@ class WorkoutsController extends Controller
 
         $title .= $request->type == Workout::TYPE_CYCLING ? 'ride' : 'run';
 
+        $firstPoint = $request->points[0] ?? [];
+        $utcTime = Carbon::createFromTimeString( $firstPoint['time'], Auth::user()->timezone );
+
         $workout = [
             'title' => $title,
             'type' => $request->type,
             'user_id' => Auth::id(),
+            'time' => $utcTime->setTimezone('UTC')->toDateTimeString(),
             'status' => Workout::STATUS_ACTIVE
         ];
 
@@ -53,8 +57,7 @@ class WorkoutsController extends Controller
 
         foreach( $request->points as $point ){
 
-            //TODO: Replace with logged in user's timezone, need to create a user profile page first
-            $utcTime = Carbon::createFromTimeString( $point['time'], 'Europe/Budapest' );
+            $utcTime = Carbon::createFromTimeString( $point['time'], Auth::user()->timezone );
 
             $points[] = new Point([
                 'workout_id' => $workout->id,
