@@ -18,7 +18,7 @@ are created with open street maps, leafletjs, and Highcharts.
 The main goal of this application is to learn the Laravel framework.
 
 ### Demo
-Demo application can be found on [tracy.wernerd.info](http://tracy.wernerd.info),
+Demo application can be found on the following address: [tracy.wernerd.info](https://tracy.wernerd.info),
 for demo purposes please use the following credentials:
 
 
@@ -26,7 +26,7 @@ Email: demo@email.com
 
 Password: 123123
 
-or sign it using a Google or GitHub account
+or sign in using a Google or GitHub account
 
 A demo GPX file for testing can be found [here](https://www.mapbox.com/help/data/run.gpx)
 
