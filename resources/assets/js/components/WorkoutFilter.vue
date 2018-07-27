@@ -4,7 +4,7 @@
             <h5 class="m-1"><a data-toggle="collapse" href="#collapse1">Search workouts</a></h5>
         </div>
         <div id="collapse1" class="pt-3 pl-3 m-0 collapse show">
-            <form action="#" @submit.prevent="handleSubmit">
+            <form action="#" @submit.prevent="handleSubmit" autocomplete="off">
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <div>

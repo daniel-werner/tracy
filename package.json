@@ -18,6 +18,7 @@
         "lodash": "^4.17.4",
         "popper.js": "^1.12",
         "vue": "^2.5.7",
-        "vue2-datepicker": "^2.0.4"
-    }
+        "vuejs-datepicker": "^1.5.2"
+    },
+    "dependencies": {}
 }
