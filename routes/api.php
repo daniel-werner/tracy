@@ -17,4 +17,4 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::apiResource('/workouts', 'Api\WorkoutsController')->middleware('auth.basic.once');;
+Route::apiResource('/workouts', 'Api\WorkoutsController')->middleware('auth:api');

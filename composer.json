@@ -16,6 +16,7 @@
         "fabulator/endomondo-api": "^1.1.1",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.6.*",
+        "laravel/passport": "^6.0",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "^1.0"
     },
