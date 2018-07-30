@@ -110,14 +110,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Autoloaded Service Providers
+    | Google Analytics tracking id
     |--------------------------------------------------------------------------
-    |
-    | The service providers listed here will be automatically loaded on the
-    | request to your application. Feel free to add your own services to
-    | this array to grant expanded functionality to your applications.
-    |
     */
+
+    'google_analytics_tracking_id' => env('GOOGLE_ANALYTICS_TRACKING_ID', ''),
+
+/*
+|--------------------------------------------------------------------------
+| Autoloaded Service Providers
+|--------------------------------------------------------------------------
+|
+| The service providers listed here will be automatically loaded on the
+| request to your application. Feel free to add your own services to
+| this array to grant expanded functionality to your applications.
+|
+*/
 
     'providers' => [
 
