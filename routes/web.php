@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function() {
 /* Only admins have access to these routes */
 Route::group(['middleware' => 'can:admin'], function() {
     Route::resource('users', 'UsersController')->middleware('auth');
+    Route::get('/workouts/geo_mock/{id}', 'WorkoutsController@geo_mock');
 });
 
 Auth::routes();

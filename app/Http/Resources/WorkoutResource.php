@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class WorkoutResource extends JsonResource
@@ -28,8 +29,26 @@ class WorkoutResource extends JsonResource
 
         ]);
 
-//        dd($workout);
-
         return $workout;
+    }
+
+    public function toGeoMockJson($request)
+    {
+        $workout = parent::toArray( $request );
+        $points = [];
+
+        foreach($workout['points'] as $point){
+            $points[] = [
+                'coords' => [
+                    'latitude' => $point['coordinates']['lat'],
+                    'longitude' => $point['coordinates']['lng'],
+                    'accuracy' => 150,
+                    'altitude' => $point['elevation']
+                ],
+                'timestamp' => Carbon::createFromTimeString( $point['time'] )->timestamp
+            ];
+        }
+
+        return $points;
     }
 }

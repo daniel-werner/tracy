@@ -126,6 +126,21 @@ class WorkoutsController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function geo_mock(Request $request, $id)
+    {
+        $workout = Workout::with('points')
+            ->where(['id' => $id] )
+            ->first();
+
+        return ( new WorkoutResource( $workout ) )->toGeoMockJson($request);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
