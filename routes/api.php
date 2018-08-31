@@ -18,3 +18,4 @@ use Illuminate\Http\Request;
 //});
 
 Route::apiResource('/workouts', 'Api\WorkoutsController')->middleware('auth:api');
+Route::post( '/login', 'Api\LoginController@login' );

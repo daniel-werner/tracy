@@ -18,7 +18,7 @@ class WorkoutsController extends Controller
      */
     public function index()
     {
-        dd('indexing');
+//        dump('indexing');
     }
 
     /**

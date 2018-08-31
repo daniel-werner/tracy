@@ -83,4 +83,54 @@ class ApiTest extends TestCase
 
         $this->assertDatabaseHas('points', $data['points'][0]);
     }
+
+    public function testLoginWithPersonalToken()
+    {
+        $user = factory(User::class)->create( [
+                'timezone' => 'Europe/Budapest',
+                'password' => Hash::make( '123456' )
+            ]
+        );
+
+        $this->artisan('passport:client', ['--password' => null, '--no-interaction' => true, '--personal' => true] );
+
+        $accessToken = $user->createToken('API token')->accessToken;
+
+        $headers = [
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer '. $accessToken,
+        ];
+
+        $response = $this->get('/api/workouts', $headers);
+
+        $response->assertStatus(200);
+    }
+
+    public function testSimpleApiLogin()
+    {
+        $user = factory(User::class)->create( [
+                'timezone' => 'Europe/Budapest',
+                'password' => Hash::make( '123456' )
+            ]
+        );
+
+        $this->artisan('passport:client', ['--password' => null, '--no-interaction' => true, '--personal' => true] );
+
+        $response = $this->post('/api/login', [
+            'email' => $user->email,
+            'password' => '123456'
+        ]);
+
+        $response->assertStatus( 200 );
+
+        $accessToken = json_decode((string) $response->getContent());
+
+        $headers = [
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer '. $accessToken,
+        ];
+
+        $request = $this->get( '/api/workouts', $headers );
+        $request->assertStatus( 200 );
+    }
 }
