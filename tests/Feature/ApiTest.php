@@ -24,26 +24,31 @@ class ApiTest extends TestCase
             ]
         );
 
-        $data = [
-            'type' => 1,
-            'points' => [
+        $requestData = [
+            'data' =>
                 [
-                    'segment_index' => 0,
-                    'lat' => 46.126671,
-                    'lng' => 19.642862,
-                    'heart_rate' => 163,
-                    'elevation' => 110,
-                    'time' => '2018-04-22 09:23:10'
-                ],
-                [
-                    'segment_index' => 0,
-                    'lat' => 46.126671,
-                    'lng' => 19.642862,
-                    'heart_rate' => 164,
-                    'elevation' => 111,
-                    'time' => '2018-04-22 09:23:13'
+                    [
+                        'type' => 1,
+                        'points' => [
+                            [
+                                'segment_index' => 0,
+                                'lat' => 46.126671,
+                                'lng' => 19.642862,
+                                'heart_rate' => 163,
+                                'elevation' => 110,
+                                'time' => 1524510914
+                            ],
+                            [
+                                'segment_index' => 0,
+                                'lat' => 46.126671,
+                                'lng' => 19.642862,
+                                'heart_rate' => 164,
+                                'elevation' => 111,
+                                'time' => 1524510914
+                            ]
+                        ]
+                    ]
                 ]
-            ]
         ];
 
         $this->artisan('passport:client', ['--password' => null, '--no-interaction' => true] );
@@ -68,14 +73,16 @@ class ApiTest extends TestCase
             'Authorization' => 'Bearer '. $accessToken,
         ];
 
-        $request = $this->post( '/api/workouts', $data, $headers );
+        $request = $this->post( '/api/workouts', $requestData, $headers );
         $request->assertStatus( 200 );
 
         $workouts = Workout::with('points')->get();
 
         $this->assertTrue( count($workouts) == 1 );
         $this->assertTrue( count($workouts[0]->points) == 2);
-        $this->assertTrue( $workouts[0]->time == '2018-04-22 09:23:10');
+        $this->assertTrue( $workouts[0]->time == '2018-04-23 21:15:14');
+
+        $data = $requestData['data'][0];
 
         unset($data['points'][0]['time']);
         unset($data['points'][0]['lat']);

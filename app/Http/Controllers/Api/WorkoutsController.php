@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class WorkoutsController extends Controller
 {
@@ -42,34 +43,41 @@ class WorkoutsController extends Controller
 
         $title .= $request->type == Workout::TYPE_CYCLING ? 'ride' : 'run';
 
-        $firstPoint = $request->points[0] ?? [];
-        $utcTime = Carbon::createFromTimeString( $firstPoint['time'], Auth::user()->timezone );
+        $workouts = $request->data;
 
-        $workout = [
-            'title' => $title,
-            'type' => $request->type,
-            'user_id' => Auth::id(),
-            'time' => $utcTime->setTimezone('UTC')->toDateTimeString(),
-            'status' => Workout::STATUS_ACTIVE
-        ];
+        foreach( $workouts as $data ){
+            $firstPoint = $data['points'][0] ?? [];
 
-        $workout = Workout::create( $workout );
 
-        foreach( $request->points as $point ){
+            $utcTime = Carbon::createFromTimestamp( $firstPoint['time'], Auth::user()->timezone );
 
-            $utcTime = Carbon::createFromTimeString( $point['time'], Auth::user()->timezone );
+            $workout = [
+                'title' => $title,
+                'type' => $data['type'],
+                'user_id' => Auth::id(),
+                'time' => $utcTime->setTimezone('UTC')->toDateTimeString(),
+                'status' => Workout::STATUS_ACTIVE
+            ];
 
-            $points[] = new Point([
-                'workout_id' => $workout->id,
-                'segment_index' => $point['segment_index'],
-                'coordinates' => new \App\Utilities\WorkoutImport\Point($point['lat'],$point['lng']),
-                'heart_rate' => $point['heart_rate'],
-                'elevation' => $point['elevation'],
-                'time' => $utcTime->setTimezone('UTC')->toDateTimeString()
-            ]);
+            $workout = Workout::create( $workout );
+
+            foreach( $data['points'] as $point ){
+
+                $utcTime = Carbon::createFromTimestamp( $point['time'], Auth::user()->timezone );
+
+                $points[] = new Point([
+                    'workout_id' => $workout->id,
+                    'segment_index' => $point['segment_index'],
+                    'coordinates' => new \App\Utilities\WorkoutImport\Point($point['lat'], $point['lng']),
+                    'heart_rate' => $point['heart_rate'],
+                    'elevation' => $point['elevation'],
+                    'time' => $utcTime->setTimezone('UTC')->toDateTimeString()
+                ]);
+            }
+
+            $workout->points()->saveMany( $points );
         }
 
-        $workout->points()->saveMany( $points );
     }
 
     /**
