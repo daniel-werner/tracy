@@ -36,7 +36,7 @@ class ApiTest extends TestCase
                                 'lng' => 19.642862,
                                 'heart_rate' => 163,
                                 'elevation' => 110,
-                                'time' => 1524510914
+                                'time' => 1524503714000
                             ],
                             [
                                 'segment_index' => 0,
@@ -44,7 +44,7 @@ class ApiTest extends TestCase
                                 'lng' => 19.642862,
                                 'heart_rate' => 164,
                                 'elevation' => 111,
-                                'time' => 1524510914
+                                'time' => 1524503714000
                             ]
                         ]
                     ]
@@ -80,7 +80,7 @@ class ApiTest extends TestCase
 
         $this->assertTrue( count($workouts) == 1 );
         $this->assertTrue( count($workouts[0]->points) == 2);
-        $this->assertTrue( $workouts[0]->time == '2018-04-23 21:15:14');
+        $this->assertTrue( $workouts[0]->time == '2018-04-23 19:15:14');
 
         $data = $requestData['data'][0];
 
@@ -139,5 +139,15 @@ class ApiTest extends TestCase
 
         $request = $this->get( '/api/workouts', $headers );
         $request->assertStatus( 200 );
+    }
+
+    public function testIncorrectTokenLogin(){
+        $headers = [
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer invalid:auth:header'
+        ];
+
+        $request = $this->post( '/api/workouts', [], $headers );
+        $request->assertStatus( 401 );
     }
 }
