@@ -30,32 +30,31 @@ class WorkoutsController extends Controller
      */
     public function store(Request $request)
     {
-        $title = '';
-        $hours = Carbon::now()->format('H');
-        if(  $hours < 12 ){
-            $title = 'Morning ';
-        } else if( $hours < 19 ){
-            $title = 'Afternoon ';
-        }
-        else if( $hours < 23  ){
-            $title = 'Evening  ';
-        };
-
-        $title .= $request->type == Workout::TYPE_CYCLING ? 'ride' : 'run';
-
         $workouts = $request->data;
 
         foreach( $workouts as $data ){
             $firstPoint = $data['points'][0] ?? [];
 
 
-            $utcTime = Carbon::createFromTimestamp( $firstPoint['time'], Auth::user()->timezone );
+            $utcTime = Carbon::createFromTimestampMs( $firstPoint['time'] );
+            $title = '';
+            $hours = $utcTime->format('H');
+            if(  $hours < 12 ){
+                $title = 'Morning ';
+            } else if( $hours < 19 ){
+                $title = 'Afternoon ';
+            }
+            else if( $hours < 23  ){
+                $title = 'Evening  ';
+            };
+
+            $title .= $request->type == Workout::TYPE_CYCLING ? 'ride' : 'run';
 
             $workout = [
                 'title' => $title,
                 'type' => $data['type'],
                 'user_id' => Auth::id(),
-                'time' => $utcTime->setTimezone('UTC')->toDateTimeString(),
+                'time' => $utcTime->toDateTimeString(),
                 'status' => Workout::STATUS_ACTIVE
             ];
 
@@ -63,7 +62,7 @@ class WorkoutsController extends Controller
 
             foreach( $data['points'] as $point ){
 
-                $utcTime = Carbon::createFromTimestamp( $point['time'], Auth::user()->timezone );
+                $utcTime = Carbon::createFromTimestampMs( $point['time'] );
 
                 $points[] = new Point([
                     'workout_id' => $workout->id,
@@ -71,7 +70,7 @@ class WorkoutsController extends Controller
                     'coordinates' => new \App\Utilities\WorkoutImport\Point($point['lat'], $point['lng']),
                     'heart_rate' => $point['heart_rate'],
                     'elevation' => $point['elevation'],
-                    'time' => $utcTime->setTimezone('UTC')->toDateTimeString()
+                    'time' => $utcTime->toDateTimeString()
                 ]);
             }
 
