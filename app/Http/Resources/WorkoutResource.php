@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class WorkoutResource extends JsonResource
 {
@@ -36,7 +37,6 @@ class WorkoutResource extends JsonResource
     {
         $workout = parent::toArray( $request );
         $points = [];
-
         foreach($workout['points'] as $point){
             $points[] = [
                 'coords' => [
@@ -45,7 +45,7 @@ class WorkoutResource extends JsonResource
                     'accuracy' => 150,
                     'altitude' => $point['elevation']
                 ],
-                'timestamp' => Carbon::createFromTimeString( $point['time'] )->timestamp
+                'timestamp' => Carbon::createFromTimeString( $point['time'] )->timestamp * 1000
             ];
         }
 
