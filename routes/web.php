@@ -29,5 +29,6 @@ Auth::routes();
 
 /* Guest users have access to these routes */
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/demo', 'Auth\LoginController@demo')->name('demo_login');
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

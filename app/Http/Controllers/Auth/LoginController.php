@@ -97,4 +97,10 @@ class LoginController extends Controller
             'provider_id' => $user->id
         ]);
     }
+
+    public function demo(){
+        $user = User::where('email', env('DEMO_USER_EMAIL'))->first();
+        Auth::login($user);
+        return redirect($this->redirectTo);
+    }
 }
