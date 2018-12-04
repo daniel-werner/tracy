@@ -5,12 +5,12 @@
 ## Track Running And Cycling
 
 ### Introduction
-Tracy is an open source fitness tracking application with focus on simplicity 
-inspired by the awesome Endomondo application. 
+Tracy is an open source fitness tracking application with focus on simplicity
+inspired by the awesome Endomondo application.
 It has only the basic features like visualization on map and basic analytics.
 Users need to register an account to use the application: Tracy supports form
 based and Oauth2 authentication (Google and GitHub).
-Workouts can be imported from standard gps xml files (GPX or TCX), 
+Workouts can be imported from standard gps xml files (GPX or TCX),
 or can be imported from the endomondo.com.
 
 The backend is written in Laravel framework, the frontend uses vue.js, and the analytics
@@ -18,13 +18,7 @@ are created with open street maps, leafletjs, and Highcharts.
 The main goal of this application is to learn the Laravel framework.
 
 ### Demo
-Demo application can be found on the following address: [tracy.wernerd.info](https://tracy.wernerd.info),
-for demo purposes please use the following credentials:
-
-
-Email: demo@email.com
-
-Password: 123123
+Demo application can be found on the following address: [tracy.wernerd.info/demo](https://tracy.wernerd.info/demo),
 
 or sign in using a Google or GitHub account
 
