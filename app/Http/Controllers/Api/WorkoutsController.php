@@ -60,13 +60,14 @@ class WorkoutsController extends Controller
 
             $workout = Workout::create( $workout );
 
-            foreach( $data['points'] as $point ){
+            foreach( $data['points'] as $index => $point ){
 
                 $utcTime = Carbon::createFromTimestampMs( $point['time'] );
 
                 $points[] = new Point([
                     'workout_id' => $workout->id,
                     'segment_index' => $point['segment_index'],
+                    'index' => $index,
                     'coordinates' => new \App\Utilities\WorkoutImport\Point($point['lat'], $point['lng']),
                     'heart_rate' => $point['heart_rate'],
                     'elevation' => $point['elevation'],

@@ -26,7 +26,7 @@ class WorkoutCalculationsTest extends TestCase
         $user = User::find(1);
         $this->actingAs($user);
 
-        $workout = Workout::find(13);
+        $workout = Workout::find(1);
 
         $expectedDistance = 28.89;
         $this->assertEquals($expectedDistance, $workout->distance);

@@ -99,10 +99,11 @@ class ImportEndomondo extends Command
 
                 $points = [];
 
-                foreach ($endomondoWorkout->getPoints() as $point) {
+                foreach ($endomondoWorkout->getPoints() as $index => $point) {
                     $points[] = new Point([
                         'workout_id' => $workout->id,
                         'segment_index' => 0,
+                        'index' => $index,
                         'coordinates' => $point,
                         'heart_rate' => $point->getHeartRate(),
                         'elevation' => $point->getAltitude(),

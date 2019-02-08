@@ -19,7 +19,7 @@ class WorkoutsTableSeeder extends Seeder
         \DB::table('workouts')->insert(array (
             0 => 
             array (
-                'id' => 13,
+                'id' => 1,
                 'external_id' => 1034753061,
                 'type' => 2,
                 'user_id' => 1,
