@@ -116,6 +116,8 @@ return [
 
     'google_analytics_tracking_id' => env('GOOGLE_ANALYTICS_TRACKING_ID', ''),
 
+    'demo_user_email' => env('DEMO_USER_EMAIL', ''),
+
 /*
 |--------------------------------------------------------------------------
 | Autoloaded Service Providers

@@ -99,7 +99,7 @@ class LoginController extends Controller
     }
 
     public function demo(){
-        $user = User::where('email', env('DEMO_USER_EMAIL'))->first();
+        $user = User::where('email', config('app.demo_user_email'))->first();
         Auth::login($user);
         return redirect($this->redirectTo);
     }
