@@ -118,6 +118,14 @@ return [
 
     'demo_user_email' => env('DEMO_USER_EMAIL', ''),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Login details for endomondo import
+    |--------------------------------------------------------------------------
+    */
+    'endomondo_user_email' => env('ENDOMONDO_LOGIN', ''),
+    'endomondo_user_password' => env('ENDOMONDO_PASSWORD', ''),
+
 /*
 |--------------------------------------------------------------------------
 | Autoloaded Service Providers
