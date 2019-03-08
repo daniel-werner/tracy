@@ -45,10 +45,13 @@ class ImportEndomondo extends Command
      */
     public function handle()
     {
-        $this->endomondo->login(env('ENDOMONDO_LOGIN', ''), env('ENDOMONDO_PASSWORD', ''));
+        $email = config('app.endomondo_user_email', '');
+        $password = config('app.endomondo_user_password', '');
 
-        $user = User::where('email', env('ENDOMONDO_LOGIN', '') )->first();
-        $this->info( 'Getting endomondo workouts...' );
+        $this->endomondo->login($email, $password);
+
+        $user = User::where('email', $email)->first();
+        $this->info('Getting endomondo workouts...');
 
         $typeMap = [
             WorkoutType::RUNNING => Workout::TYPE_RUNNING,
@@ -59,29 +62,30 @@ class ImportEndomondo extends Command
 
         $data = [];
 
-        foreach( $typeMap as $endomondoType => $mappedType ){
-            $data = array_merge_recursive( $data, $this->endomondo->getWorkouts(['sport' => $endomondoType]));
+        foreach ($typeMap as $endomondoType => $mappedType) {
+            $data = array_merge_recursive($data, $this->endomondo->getWorkouts(['sport' => $endomondoType]));
         }
 
         $data['workouts'] = array_reverse($data['workouts']);
 
-        if( $this->option('clear') ) {
+        if ($this->option('clear')) {
             $this->info('Deleting workouts...');
             DB::table('workouts')->where('user_id', '=', $user->id)->delete();
         }
 
-        $workoutExternalIds = Workout::withoutGlobalScope('user_id')->whereNotNull( 'external_id' )->pluck('id', 'external_id');
+        $workoutExternalIds = Workout::withoutGlobalScope('user_id')->whereNotNull('external_id')->pluck('id',
+            'external_id');
 
-        $this->info( 'Importing workouts...' );
+        $this->info('Importing workouts...');
 
         $importCount = 0;
         $bar = $this->output->createProgressBar(count($data['workouts']));
-        foreach( $data['workouts'] as $index => $endomondoWorkout ){
+        foreach ($data['workouts'] as $index => $endomondoWorkout) {
 
             $type = $endomondoWorkout->getTypeId();
             $externalId = $endomondoWorkout->getId();
 
-            if( isset( $typeMap[$type] ) && empty( $workoutExternalIds[$externalId] ) ) {
+            if (isset($typeMap[$type]) && empty($workoutExternalIds[$externalId])) {
 
                 $importCount++;
 
@@ -119,6 +123,7 @@ class ImportEndomondo extends Command
         $bar->finish();
         $this->output->newLine();
 
-        $this->info(  sprintf("Imported %s new workouts from Endomondo, skipped the existing: %s", $importCount, count($data['workouts']) - $importCount ) );
+        $this->info(sprintf("Imported %s new workouts from Endomondo, skipped the existing: %s", $importCount,
+            count($data['workouts']) - $importCount));
     }
 }
