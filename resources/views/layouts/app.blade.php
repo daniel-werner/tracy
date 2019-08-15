@@ -106,6 +106,6 @@
         </main>
     </div>
 
-    @yield('scripts');
+    @yield('scripts')
 </body>
 </html>
