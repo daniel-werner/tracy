@@ -11,7 +11,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use App\Utilities\WorkoutImport\Parsers\Gpx;
 
-
 class WorkoutsController extends Controller
 {
     public function __construct()
@@ -27,19 +26,19 @@ class WorkoutsController extends Controller
     public function index()
     {
         $workouts = Workout::with('points')
-            ->orderBy( 'created_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
 //            ->paginate(10);
 
-        return view( 'workouts.index' , compact( 'workouts' ));
+        return view('workouts.index', compact('workouts'));
     }
 
     /**
      * @return \Illuminate\Http\Response
      *
      */
-    public function search(Request $request){
-
+    public function search(Request $request)
+    {
         $type = $request->get('type');
         $from = $request->get('from');
         $to = $request->get('to');
@@ -48,14 +47,14 @@ class WorkoutsController extends Controller
             ->when($type, function ($query) use ($type) {
                 return $query->where('type', $type);
             })
-            ->when( !empty($from), function($query) use($from){
-                $query->whereDate('time', '>=', $from );
+            ->when(!empty($from), function ($query) use ($from) {
+                $query->whereDate('time', '>=', $from);
             })
-            ->when( !empty($to), function($query) use($to){
-                $query->whereDate('time', '<=', $to );
+            ->when(!empty($to), function ($query) use ($to) {
+                $query->whereDate('time', '<=', $to);
             })
             ->limit(10)
-            ->orderBy( 'time', 'desc')
+            ->orderBy('time', 'desc')
             ->get();
 
         return new JsonResource($workouts);
@@ -80,7 +79,7 @@ class WorkoutsController extends Controller
      */
     public function store(Request $request)
     {
-        if(env('APP_DEBUG', false)){
+        if (env('APP_DEBUG', false)) {
             \Debugbar::disable();
         }
 
@@ -100,10 +99,10 @@ class WorkoutsController extends Controller
             'status' => Workout::STATUS_ACTIVE
         ];
 
-        $workout = Workout::create( $workout );
+        $workout = Workout::create($workout);
         $workout->savePoints($parser);
 
-        return redirect( action('WorkoutsController@edit', [ 'id' => $workout->id ] ) );
+        return redirect(action('WorkoutsController@edit', [ 'id' => $workout->id ]));
     }
 
     /**
@@ -115,14 +114,14 @@ class WorkoutsController extends Controller
     public function show(Request $request, $id)
     {
         $workout = Workout::with('points')
-            ->where(['id' => $id] )
+            ->where(['id' => $id])
             ->first();
 
-        if( $request->ajax() ){
-            return new WorkoutResource( $workout );
+        if ($request->ajax()) {
+            return new WorkoutResource($workout);
         }
 
-        return view( 'workouts.show' , compact( 'workout' ));
+        return view('workouts.show', compact('workout'));
     }
 
     /**
@@ -134,10 +133,10 @@ class WorkoutsController extends Controller
     public function geo_mock(Request $request, $id)
     {
         $workout = Workout::with('points')
-            ->where(['id' => $id] )
+            ->where(['id' => $id])
             ->first();
 
-        return ( new WorkoutResource( $workout ) )->toGeoMockJson($request);
+        return ( new WorkoutResource($workout) )->toGeoMockJson($request);
     }
 
     /**
@@ -149,10 +148,10 @@ class WorkoutsController extends Controller
     public function edit($id)
     {
         $workout = Workout::with('points')
-            ->where(['id' => $id] )
+            ->where(['id' => $id])
             ->first();
 
-        return view( 'workouts.edit' , compact( 'workout' ));
+        return view('workouts.edit', compact('workout'));
     }
 
     /**
@@ -164,7 +163,7 @@ class WorkoutsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $workout = Workout::where(['id' => $id] )->first();
+        $workout = Workout::where(['id' => $id])->first();
 
         $workout->fill([
             'title' => $request->title,
@@ -172,10 +171,9 @@ class WorkoutsController extends Controller
             'status' => Workout::STATUS_ACTIVE
         ]);
 
-        if($workout->save()){
+        if ($workout->save()) {
             $request->session()->flash('status', 'Workout saved!');
-        }
-        else{
+        } else {
             $request->session()->flash('status', 'Unable to save workout!');
         }
 
@@ -191,10 +189,9 @@ class WorkoutsController extends Controller
     public function destroy(Request $request, $id)
     {
         $workout = Workout::findOrFail($id);
-        if($workout->delete()){
+        if ($workout->delete()) {
             $request->session()->flash('status', 'Workout deleted!');
-        }
-        else{
+        } else {
             $request->session()->flash('status', 'Unable to delete workout!');
         }
 

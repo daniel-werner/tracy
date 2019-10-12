@@ -16,9 +16,9 @@ class WorkoutResource extends JsonResource
      */
     public function toArray($request)
     {
-        $workout = parent::toArray( $request );
+        $workout = parent::toArray($request);
 
-        $workout = array_merge( $workout, [
+        $workout = array_merge($workout, [
             'distance' => $this->distance,
             'duration' => $this->duration,
             'avgspeed' => $this->avgspeed,
@@ -35,9 +35,9 @@ class WorkoutResource extends JsonResource
 
     public function toGeoMockJson($request)
     {
-        $workout = parent::toArray( $request );
+        $workout = parent::toArray($request);
         $points = [];
-        foreach($workout['points'] as $point){
+        foreach ($workout['points'] as $point) {
             $points[] = [
                 'coords' => [
                     'latitude' => $point['coordinates']['lat'],
@@ -45,7 +45,7 @@ class WorkoutResource extends JsonResource
                     'accuracy' => 150,
                     'altitude' => $point['elevation']
                 ],
-                'timestamp' => Carbon::createFromTimeString( $point['time'] )->timestamp * 1000
+                'timestamp' => Carbon::createFromTimeString($point['time'])->timestamp * 1000
             ];
         }
 

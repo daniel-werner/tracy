@@ -73,20 +73,20 @@ class ImportEndomondo extends Command
             DB::table('workouts')->where('user_id', '=', $user->id)->delete();
         }
 
-        $workoutExternalIds = Workout::withoutGlobalScope('user_id')->whereNotNull('external_id')->pluck('id',
-            'external_id');
+        $workoutExternalIds = Workout::withoutGlobalScope('user_id')->whereNotNull('external_id')->pluck(
+            'id',
+            'external_id'
+        );
 
         $this->info('Importing workouts...');
 
         $importCount = 0;
         $bar = $this->output->createProgressBar(count($data['workouts']));
         foreach ($data['workouts'] as $index => $endomondoWorkout) {
-
             $type = $endomondoWorkout->getTypeId();
             $externalId = $endomondoWorkout->getId();
 
             if (isset($typeMap[$type]) && empty($workoutExternalIds[$externalId])) {
-
                 $importCount++;
 
                 $workout = [
@@ -124,7 +124,10 @@ class ImportEndomondo extends Command
         $bar->finish();
         $this->output->newLine();
 
-        $this->info(sprintf("Imported %s new workouts from Endomondo, skipped the existing: %s", $importCount,
-            count($data['workouts']) - $importCount));
+        $this->info(sprintf(
+            "Imported %s new workouts from Endomondo, skipped the existing: %s",
+            $importCount,
+            count($data['workouts']) - $importCount
+        ));
     }
 }

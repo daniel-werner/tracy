@@ -176,7 +176,6 @@ class Workout extends Model
         }
 
         return $this->points()->saveMany($data);
-
     }
 
     public function getTimeAttribute($time)

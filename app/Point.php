@@ -9,37 +9,40 @@ use Illuminate\Support\Facades\DB;
 
 class Point extends Model
 {
-	protected $guarded = [];
+    protected $guarded = [];
 
-	public function setCoordinatesAttribute($point){
-		$this->attributes['coordinates'] = DB::raw(sprintf("GeomFromText('POINT(%s %s)')", $point->getLongitude(), $point->getLatitude() ) );
-	}
+    public function setCoordinatesAttribute($point)
+    {
+        $this->attributes['coordinates'] = DB::raw(sprintf("GeomFromText('POINT(%s %s)')", $point->getLongitude(), $point->getLatitude()));
+    }
 
-	public function getCoordinatesAttribute($value){
-		return [
-			'lat' => $this->lat,
-			'lng' => $this->lng ];
-	}
+    public function getCoordinatesAttribute($value)
+    {
+        return [
+            'lat' => $this->lat,
+            'lng' => $this->lng ];
+    }
 
-	/**
-	 * Get a new query builder for the model's table.
-	 * Manipulate in case we need to convert geometrical fields to text.
-	 *
-	 * @param  bool $excludeDeleted
-	 *
-	 * @return \Illuminate\Database\Eloquent\Builder
-	 */
-	public function newQuery($excludeDeleted = true)
-	{
-			$raw = 'ST_X(coordinates) as lng, ST_Y(coordinates) as lat ';
+    /**
+     * Get a new query builder for the model's table.
+     * Manipulate in case we need to convert geometrical fields to text.
+     *
+     * @param  bool $excludeDeleted
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function newQuery($excludeDeleted = true)
+    {
+        $raw = 'ST_X(coordinates) as lng, ST_Y(coordinates) as lat ';
 
-			return parent::newQuery($excludeDeleted)->addSelect('*', DB::raw($raw));
+        return parent::newQuery($excludeDeleted)->addSelect('*', DB::raw($raw));
 
-		return parent::newQuery($excludeDeleted);
-	}
+        return parent::newQuery($excludeDeleted);
+    }
 
-	public function getTimeAttribute($time){
-		$time = new Carbon($time);
-		return $time->setTimezone(Auth::user()->timezone)->format('Y-m-d H:i:s');
-	}
+    public function getTimeAttribute($time)
+    {
+        $time = new Carbon($time);
+        return $time->setTimezone(Auth::user()->timezone)->format('Y-m-d H:i:s');
+    }
 }

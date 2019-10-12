@@ -17,8 +17,7 @@ class LoginController extends Controller
             $token = $user->createToken('Token Name')->accessToken;
 
             return response()->json($token);
-        }
-        else{
+        } else {
             abort(401);
         }
     }

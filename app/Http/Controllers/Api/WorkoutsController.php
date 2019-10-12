@@ -32,19 +32,18 @@ class WorkoutsController extends Controller
     {
         $workouts = $request->data;
 
-        foreach( $workouts as $data ){
+        foreach ($workouts as $data) {
             $firstPoint = $data['points'][0] ?? [];
 
 
-            $utcTime = Carbon::createFromTimestampMs( $firstPoint['time'] );
+            $utcTime = Carbon::createFromTimestampMs($firstPoint['time']);
             $title = '';
             $hours = $utcTime->format('H');
-            if(  $hours < 12 ){
+            if ($hours < 12) {
                 $title = 'Morning ';
-            } else if( $hours < 19 ){
+            } elseif ($hours < 19) {
                 $title = 'Afternoon ';
-            }
-            else if( $hours < 23  ){
+            } elseif ($hours < 23) {
                 $title = 'Evening  ';
             };
 
@@ -58,11 +57,10 @@ class WorkoutsController extends Controller
                 'status' => Workout::STATUS_ACTIVE
             ];
 
-            $workout = Workout::create( $workout );
+            $workout = Workout::create($workout);
 
-            foreach( $data['points'] as $index => $point ){
-
-                $utcTime = Carbon::createFromTimestampMs( $point['time'] );
+            foreach ($data['points'] as $index => $point) {
+                $utcTime = Carbon::createFromTimestampMs($point['time']);
 
                 $points[] = new Point([
                     'workout_id' => $workout->id,
@@ -75,9 +73,8 @@ class WorkoutsController extends Controller
                 ]);
             }
 
-            $workout->points()->saveMany( $points );
+            $workout->points()->saveMany($points);
         }
-
     }
 
     /**
@@ -89,7 +86,7 @@ class WorkoutsController extends Controller
     public function show($id)
     {
         $workout = Workout::with('points')
-            ->where(['id' => $id] )
+            ->where(['id' => $id])
             ->first();
 
         return $workout;

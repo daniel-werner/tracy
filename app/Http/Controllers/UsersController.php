@@ -19,7 +19,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::paginate(10);
-        return view( 'users.index', compact( 'users' ) );
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -43,7 +43,7 @@ class UsersController extends Controller
     {
         $user = $this->save($request);
 
-        return redirect( action('UsersController@edit', [ 'id' => $user->id ] ) );
+        return redirect(action('UsersController@edit', [ 'id' => $user->id ]));
     }
 
     /**
@@ -66,10 +66,10 @@ class UsersController extends Controller
     public function edit($id)
     {
         $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
-        $user = User::where(['id' => $id] )
+        $user = User::where(['id' => $id])
             ->first();
 
-        return view( 'users.edit' )->with(compact('user','timezones'));
+        return view('users.edit')->with(compact('user', 'timezones'));
     }
 
     /**
@@ -80,10 +80,10 @@ class UsersController extends Controller
     public function profile()
     {
         $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
-        $user = User::where(['id' => Auth::id()] )
+        $user = User::where(['id' => Auth::id()])
             ->first();
 
-        return view( 'users.profile' )->with(compact('user','timezones'));
+        return view('users.profile')->with(compact('user', 'timezones'));
     }
 
 
@@ -103,25 +103,24 @@ class UsersController extends Controller
             'timezone' => $request->timezone
         ];
 
-        if( !empty($request->role_id) ){
+        if (!empty($request->role_id)) {
             $data['role_id'] = $request->role_id;
         }
 
-        if( !empty( $request->password ) ){
+        if (!empty($request->password)) {
             $data['password'] = Hash::make($request->password);
         }
 
-        if(!empty($id)){
-            $user = User::where(['id' => $id] )->first();
+        if (!empty($id)) {
+            $user = User::where(['id' => $id])->first();
 
-            if( $user->role_id < Auth::user()->role_id ){
-                abort(403, __('Not allowed!') );
+            if ($user->role_id < Auth::user()->role_id) {
+                abort(403, __('Not allowed!'));
             }
 
             $user->fill($data);
             $user->save();
-        }
-        else{
+        } else {
             $user = User::create($data);
         }
 
@@ -150,10 +149,9 @@ class UsersController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        if($user->delete()){
+        if ($user->delete()) {
             $request->session()->flash('status', 'The user has been deleted!');
-        }
-        else{
+        } else {
             $request->session()->flash('status', 'Unable to delete user!');
         }
 

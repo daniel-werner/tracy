@@ -21,7 +21,7 @@ class User extends Authenticatable
     const ROLE_ADMIN = 2;
     const ROLE_USER = 3;
 
-    public static function getRoles( $id = null )
+    public static function getRoles($id = null)
     {
         $roles = [
             self::ROLE_SUPERADMIN => __('Superadmin'),
@@ -29,8 +29,8 @@ class User extends Authenticatable
             self::ROLE_USER => __('User')
         ];
 
-        foreach( $roles as $id => $role ){
-            if( $id < Auth::user()->role_id ){
+        foreach ($roles as $id => $role) {
+            if ($id < Auth::user()->role_id) {
                 unset($roles[$id]);
             }
         }

@@ -8,134 +8,134 @@ namespace App\Utilities\WorkoutImport;
 class Point
 {
 
-	/**
-	 * @var float
-	 */
-	private $latitude;
+    /**
+     * @var float
+     */
+    private $latitude;
 
-	/**
-	 * @var float
-	 */
-	private $longitude;
+    /**
+     * @var float
+     */
+    private $longitude;
 
-	/**
-	 * @var int
-	 */
+    /**
+     * @var int
+     */
 
-	private $heartRate;
+    private $heartRate;
 
-	/**
-	 * @var int
-	 */
+    /**
+     * @var int
+     */
 
-	private $elevation;
+    private $elevation;
 
-	private $segmentIndex;
+    private $segmentIndex;
 
-	/**
-	 * @return mixed
-	 */
-	public function getSegmentIndex()
-	{
-		return $this->segmentIndex;
-	}
+    /**
+     * @return mixed
+     */
+    public function getSegmentIndex()
+    {
+        return $this->segmentIndex;
+    }
 
-	/**
-	 * @param mixed $segmentIndex
-	 */
-	public function setSegmentIndex($segmentIndex)
-	{
-		$this->segmentIndex = $segmentIndex;
-	}
+    /**
+     * @param mixed $segmentIndex
+     */
+    public function setSegmentIndex($segmentIndex)
+    {
+        $this->segmentIndex = $segmentIndex;
+    }
 
-	/**
-	 * @var string
-	 */
-	private $time;
+    /**
+     * @var string
+     */
+    private $time;
 
-	public function __construct($latitude, $longitude)
-	{
-		$this->latitude = $latitude;
-		$this->longitude = $longitude;
-	}
+    public function __construct($latitude, $longitude)
+    {
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
+    }
 
-	/**
-	 * @return float
-	 */
-	public function getLatitude()
-	{
-		return $this->latitude;
-	}
+    /**
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
 
-	/**
-	 * @param float $latitude
-	 */
-	public function setLatitude($latitude)
-	{
-		$this->latitude = $latitude;
-	}
+    /**
+     * @param float $latitude
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
 
-	/**
-	 * @return float
-	 */
-	public function getLongitude()
-	{
-		return $this->longitude;
-	}
+    /**
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
 
-	/**
-	 * @param float $longitude
-	 */
-	public function setLongitude($longitude)
-	{
-		$this->longitude = $longitude;
-	}
+    /**
+     * @param float $longitude
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getEvelation()
-	{
-		return $this->elevation;
-	}
+    /**
+     * @return int
+     */
+    public function getEvelation()
+    {
+        return $this->elevation;
+    }
 
-	/**
-	 * @param int $evelation
-	 */
-	public function setEvelation($elevation)
-	{
-		$this->elevation = $elevation;
-	}
+    /**
+     * @param int $evelation
+     */
+    public function setEvelation($elevation)
+    {
+        $this->elevation = $elevation;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getHeartRate()
-	{
-		return $this->heartRate;
-	}
+    /**
+     * @return int
+     */
+    public function getHeartRate()
+    {
+        return $this->heartRate;
+    }
 
-	/**
-	 * @param int $heartRate
-	 */
-	public function setHeartRate($heartRate)
-	{
-		$this->heartRate = $heartRate;
-	}
+    /**
+     * @param int $heartRate
+     */
+    public function setHeartRate($heartRate)
+    {
+        $this->heartRate = $heartRate;
+    }
 
-	/**
-	 * @return \DateTime
-	 */
-	public function getTime()
-	{
-		return new \DateTime($this->time);
-	}
+    /**
+     * @return \DateTime
+     */
+    public function getTime()
+    {
+        return new \DateTime($this->time);
+    }
 
-	/**
-	 * @param string $time
-	 */
-	public function setTime($time)
-	{
-		$this->time = $time;
-	}
+    /**
+     * @param string $time
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+    }
 }

@@ -25,10 +25,9 @@ class HomeController extends Controller
 
     public function index()
     {
+        $types= json_encode((new Workout())->types);
 
-        $types= json_encode( (new Workout())->types );
-
-        return view( 'home', compact('types') );
+        return view('home', compact('types'));
 //        return $workouts;
     }
 }
