@@ -31,7 +31,10 @@ class Tcx extends Parser implements \Iterator, ParserInterface
             foreach ($activityNode->Lap as $lap) {
                 // push points to array
                 foreach ($lap->Track->Trackpoint as $trkpt) {
-                    $point = new Point(floatval($trkpt->Position->LatitudeDegrees), floatval($trkpt->Position->LongitudeDegrees));
+                    $point = new Point(
+                        floatval($trkpt->Position->LatitudeDegrees),
+                        floatval($trkpt->Position->LongitudeDegrees)
+                    );
 
                     $point->setSegmentIndex($index);
 

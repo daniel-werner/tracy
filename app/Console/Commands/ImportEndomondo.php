@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\DB;
 class ImportEndomondo extends Command
 {
     /**
+     * @var EndomondoApi $endomondo
+     */
+    protected $endomondo;
+
+    /**
      * The name and signature of the console command.
      *
      * @var string

@@ -16,13 +16,13 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/workouts/search', 'WorkoutsController@search');
     Route::resource('workouts', 'WorkoutsController');
     Route::get('/users/profile', 'UsersController@profile')->name('profile');
-    Route::put('/users/profile', 'UsersController@profile_update');
+    Route::put('/users/profile', 'UsersController@profileUpdate');
 });
 
 /* Only admins have access to these routes */
 Route::group(['middleware' => 'can:admin'], function() {
     Route::resource('users', 'UsersController')->middleware('auth');
-    Route::get('/workouts/geo_mock/{id}', 'WorkoutsController@geo_mock');
+    Route::get('/workouts/geoMock/{id}', 'WorkoutsController@geo_mock');
 });
 
 Auth::routes();

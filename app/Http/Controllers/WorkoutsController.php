@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\WorkoutResource;
 use App\Utilities\WorkoutImport\Parsers\ParserFactory;
+use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use App\Workout;
 use App\Point;
@@ -79,10 +80,6 @@ class WorkoutsController extends Controller
      */
     public function store(Request $request)
     {
-        if (env('APP_DEBUG', false)) {
-            \Debugbar::disable();
-        }
-
         $path = $request->workout_file->storeAs('workouts', $request->workout_file->getClientOriginalName());
 
         $path = storage_path('app/' . $path);
@@ -130,7 +127,7 @@ class WorkoutsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function geo_mock(Request $request, $id)
+    public function geoMock(Request $request, $id)
     {
         $workout = Workout::with('points')
             ->where(['id' => $id])

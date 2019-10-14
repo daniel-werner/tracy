@@ -13,7 +13,11 @@ class Point extends Model
 
     public function setCoordinatesAttribute($point)
     {
-        $this->attributes['coordinates'] = DB::raw(sprintf("GeomFromText('POINT(%s %s)')", $point->getLongitude(), $point->getLatitude()));
+        $this->attributes['coordinates'] = DB::raw(sprintf(
+            "GeomFromText('POINT(%s %s)')",
+            $point->getLongitude(),
+            $point->getLatitude()
+        ));
     }
 
     public function getCoordinatesAttribute($value)
@@ -27,17 +31,14 @@ class Point extends Model
      * Get a new query builder for the model's table.
      * Manipulate in case we need to convert geometrical fields to text.
      *
-     * @param  bool $excludeDeleted
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function newQuery($excludeDeleted = true)
+    public function newQuery()
     {
         $raw = 'ST_X(coordinates) as lng, ST_Y(coordinates) as lat ';
 
-        return parent::newQuery($excludeDeleted)->addSelect('*', DB::raw($raw));
-
-        return parent::newQuery($excludeDeleted);
+        return parent::newQuery()->addSelect('*', DB::raw($raw));
     }
 
     public function getTimeAttribute($time)

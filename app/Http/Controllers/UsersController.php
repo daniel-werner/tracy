@@ -87,7 +87,7 @@ class UsersController extends Controller
     }
 
 
-    public function profile_update(StoreUser $request)
+    public function profileUpdate(StoreUser $request)
     {
         $this->save($request, Auth::id());
         return back();

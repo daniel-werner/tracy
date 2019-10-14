@@ -14,7 +14,7 @@ abstract class Parser implements \Iterator, ParserInterface
     /**
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
      * @var int
