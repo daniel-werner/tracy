@@ -16,7 +16,7 @@ script:
   - vendor/bin/phpunit
 
 before_deploy:
-  - git checkout -- .
+  - git reset --hard
 
 deploy:
   provider: script
