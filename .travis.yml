@@ -4,7 +4,6 @@ php:
   - 7.2
 
 before_script:
-  - cp .env.travis .env.testing
   - mysql -e 'create database tracy_test;'
   - composer self-update
   - composer install --no-interaction
@@ -13,10 +12,8 @@ services:
   - mysql
 
 script:
+  - cp .env.travis .env.testing
   - vendor/bin/phpunit
-
-before_deploy:
-  - git reset --hard
 
 deploy:
   provider: script
