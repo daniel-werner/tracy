@@ -2,6 +2,7 @@ language: php
 php:
   - 7.2
 before_script:
+  - cp .env.travis .env.testing
   - mysql -e 'create database tracy_test;'
   - composer self-update
   - composer install --no-interaction
@@ -9,10 +10,8 @@ before_script:
 services:
   - mysql
 script:
-  - cp .env.travis .env.testing
   - vendor/bin/phpunit
 before_deploy:
-  - git stash --all
   - openssl aes-256-cbc -K $encrypted_40647c782b71_key -iv $encrypted_40647c782b71_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
   - eval "$(ssh-agent -s)"
   - chmod 600 /tmp/deploy_rsa
