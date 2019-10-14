@@ -10,8 +10,7 @@ before_script:
   - composer install --no-interaction
   - php artisan passport:keys
   - curl -LO https://deployer.org/deployer.phar
-  - mv deployer.phar /usr/local/bin/dep
-  - chmod +x /usr/local/bin/dep
+  - chmod +x ./deployer.phar
 services:
   - mysql
 
@@ -20,7 +19,7 @@ script:
 
 deploy:
   provider: script
-  script: dep deploy
+  script: deployer.phar deploy
   on:
     branch: develop
 
