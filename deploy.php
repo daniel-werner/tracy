@@ -23,7 +23,6 @@ add('writable_dirs', []);
 // Hosts
 
 host('wernerd.info')
-    ->stage('production')
     ->set('user', 'deploy')
     ->set('deploy_path', '/var/www/vhosts/tracy.wernerd.info');
 
