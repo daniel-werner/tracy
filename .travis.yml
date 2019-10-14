@@ -1,25 +1,24 @@
 language: php
-
 php:
-  - 7.2
-
+- 7.2
 before_script:
-  - mysql -e 'create database tracy_test;'
-  - composer self-update
-  - composer install --no-interaction
-  - php artisan passport:keys
+- mysql -e 'create database tracy_test;'
+- composer self-update
+- composer install --no-interaction
+- php artisan passport:keys
 services:
-  - mysql
-
+- mysql
 script:
-  - cp .env.travis .env.testing
-  - vendor/bin/phpunit
-
+- cp .env.travis .env.testing
+- vendor/bin/phpunit
+before_deploy: git stash --all
 deploy:
   provider: script
   script: vendor/bin/dep deploy
   on:
     branch: develop
-
 notifications:
   email: false
+before_install:
+- openssl aes-256-cbc -K $encrypted_40647c782b71_key -iv $encrypted_40647c782b71_iv
+  -in deploy_rsa.enc -out deploy_rsa -d
