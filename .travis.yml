@@ -22,6 +22,6 @@ deploy:
   provider: script
   script: vendor/bin/dep deploy
   on:
-    branch: develop
+    branch: master
 notifications:
   email: false
