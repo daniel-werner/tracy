@@ -16,7 +16,7 @@ before_deploy:
   - eval "$(ssh-agent -s)"
   - chmod 600 /tmp/deploy_rsa
   - ssh-add /tmp/deploy_rsa
-  - echo -e "Host ${DEPLOY_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - echo -e "HostName wernerd.info\n\tStrictHostKeyChecking no\n\t"User deploy >> ~/.ssh/config
 deploy:
   skip_cleanup: true
   provider: script
