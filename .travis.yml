@@ -9,11 +9,20 @@ before_script:
   - composer self-update
   - composer install --no-interaction
   - php artisan passport:keys
+  - curl -LO https://deployer.org/deployer.phar
+  - mv deployer.phar /usr/local/bin/dep
+  - chmod +x /usr/local/bin/dep
 services:
   - mysql
 
 script:
   - vendor/bin/phpunit
+
+deploy:
+  provider: script
+  script: dep deploy
+  on:
+    branch: develop
 
 notifications:
   email: false
