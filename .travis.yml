@@ -16,7 +16,7 @@ script:
   - vendor/bin/phpunit
 
 before_deploy:
-  - rm .env.testing
+  - git checkout -- .
 
 deploy:
   provider: script
