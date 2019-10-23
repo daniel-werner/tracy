@@ -4468,16 +4468,16 @@
         },
         {
             "name": "daniel-werner/php-quality-tools",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/daniel-werner/php-quality-tools.git",
-                "reference": "942d69c2e3410bb50c6e79ffd9552ced99f08f84"
+                "reference": "267c3bf10107545516f5b873cee7f8f399c9c541"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/daniel-werner/php-quality-tools/zipball/942d69c2e3410bb50c6e79ffd9552ced99f08f84",
-                "reference": "942d69c2e3410bb50c6e79ffd9552ced99f08f84",
+                "url": "https://api.github.com/repos/daniel-werner/php-quality-tools/zipball/267c3bf10107545516f5b873cee7f8f399c9c541",
+                "reference": "267c3bf10107545516f5b873cee7f8f399c9c541",
                 "shasum": ""
             },
             "require": {
@@ -4520,7 +4520,7 @@
                 "daniel-werner",
                 "php-quality-tools"
             ],
-            "time": "2019-10-12T19:37:17+00:00"
+            "time": "2019-10-23T19:59:24+00:00"
         },
         {
             "name": "deployer/deployer",

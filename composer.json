@@ -66,14 +66,14 @@
             "@php artisan package:discover"
         ],
         "inspect": [
-            "vendor/bin/phpcs app",
-            "vendor/bin/phpstan analyze app"
+            "phpcs app",
+            "phpstan analyze app"
         ],
         "inspect-fix": [
-            "vendor/bin/php-cs-fixer fix app",
-            "vendor/bin/phpcbf app"
+            "php-cs-fixer fix app",
+            "phpcbf app"
         ],
-        "insights": "vendor/bin/phpmd app text phpmd.xml"
+        "insights": "phpmd app text phpmd.xml"
     },
     "config": {
         "preferred-install": "dist",
