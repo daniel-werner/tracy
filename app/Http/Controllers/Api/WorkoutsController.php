@@ -58,6 +58,7 @@ class WorkoutsController extends Controller
             ];
 
             $workout = Workout::create($workout);
+            $points = [];
 
             foreach ($data['points'] as $index => $point) {
                 $utcTime = Carbon::createFromTimestampMs($point['time']);
