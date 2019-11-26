@@ -15,7 +15,6 @@ or can be imported from the endomondo.com.
 
 The backend is written in Laravel framework, the frontend uses vue.js, and the analytics
 are created with open street maps, leafletjs, and Highcharts.
-The main goal of this application is to learn the Laravel framework.
 
 ### Demo
 Demo application can be found on the following address: [tracy.wernerd.info/demo](https://tracy.wernerd.info/demo),

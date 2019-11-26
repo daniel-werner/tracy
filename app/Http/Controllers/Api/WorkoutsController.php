@@ -35,19 +35,8 @@ class WorkoutsController extends Controller
         foreach ($workouts as $data) {
             $firstPoint = $data['points'][0] ?? [];
 
-
             $utcTime = Carbon::createFromTimestampMs($firstPoint['time']);
-            $title = '';
-            $hours = $utcTime->format('H');
-            if ($hours < 12) {
-                $title = 'Morning ';
-            } elseif ($hours < 19) {
-                $title = 'Afternoon ';
-            } elseif ($hours < 23) {
-                $title = 'Evening  ';
-            };
-
-            $title .= $request->type == Workout::TYPE_CYCLING ? 'ride' : 'run';
+            $title = Workout::createTitle($utcTime, $data['type']);
 
             $workout = [
                 'title' => $title,
@@ -58,6 +47,7 @@ class WorkoutsController extends Controller
             ];
 
             $workout = Workout::create($workout);
+            $points = [];
 
             foreach ($data['points'] as $index => $point) {
                 $utcTime = Carbon::createFromTimestampMs($point['time']);

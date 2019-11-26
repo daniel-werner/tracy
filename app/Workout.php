@@ -2,12 +2,17 @@
 
 namespace App;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class Workout
+ * @package App
+ */
 class Workout extends Model
 {
     protected $guarded = [];
@@ -182,5 +187,40 @@ class Workout extends Model
     {
         $time = new Carbon($time);
         return $time->setTimezone(Auth::user()->timezone)->format('Y-m-d H:i:s');
+    }
+
+    private static function getPartOfTheDay(int $hours): string
+    {
+        if ($hours < 12) {
+            return 'Morning';
+        }
+
+        if ($hours < 19) {
+            return 'Afternoon';
+        }
+
+        if ($hours <= 23) {
+            return 'Evening';
+        };
+    }
+
+    private static function getActivityName(int $type): string
+    {
+        switch ($type) {
+            case Workout::TYPE_CYCLING:
+                return 'ride';
+            case Workout::TYPE_RUNNING:
+                return 'run';
+        }
+
+        return '';
+    }
+
+    public static function createTitle(DateTime $time, int $type): string
+    {
+        $partOfTheDay = self::getPartOfTheDay($time->format('H'));
+        $activity = self::getActivityName($type);
+
+        return $partOfTheDay . ' ' . $activity;
     }
 }
