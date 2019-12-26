@@ -5,7 +5,7 @@
 @section( 'content' )
 <main role="main" class="container">
     <div class="mb-3">
-        <form method="POST"  action="{{action('WorkoutsController@update', [ 'id' => $workout->id ])}}">
+        <form method="POST"  action="{{action('WorkoutsController@update', [ 'workout' => $workout ])}}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="PUT"/>
             <input type="hidden" name="status" value="{{\App\Workout::STATUS_ACTIVE}}"/>
@@ -22,7 +22,7 @@
             <button type="submit" class="btn btn-primary pull-right m-2 pl-4 pr-4">Save</button>
         </form>
 
-        <form method="POST"  action="{{action('WorkoutsController@destroy', [ 'id' => $workout->id ])}}">
+        <form method="POST"  action="{{action('WorkoutsController@destroy', [ 'workout' => $workout ])}}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="DELETE" />
             <button type="submit" class="btn btn-danger pull-right m-2">Discard</button>

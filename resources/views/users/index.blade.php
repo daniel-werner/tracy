@@ -31,8 +31,8 @@
                 <td>{{$user->updated_at}}</td>
                 <td>
                     <div class="form-inline">
-                        <a href="{{action('UsersController@edit', [ 'id' => $user->id ])}}" class="btn btn-warning mr-2 btn-sm">Edit</a>
-                        <form method="POST"  action="{{action('UsersController@destroy', [ 'id' => $user->id ])}}">
+                        <a href="{{action('UsersController@edit', [ 'user' => $user ])}}" class="btn btn-warning mr-2 btn-sm">Edit</a>
+                        <form method="POST"  action="{{action('UsersController@destroy', [ 'user' => $user ])}}">
                             {{ csrf_field() }}
                             <input type="hidden" name="_method" value="DELETE"/>
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
