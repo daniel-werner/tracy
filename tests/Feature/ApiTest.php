@@ -15,7 +15,7 @@ class ApiTest extends TestCase
     /** @var User $user */
     protected $user;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
