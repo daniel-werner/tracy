@@ -43,7 +43,7 @@ class UsersController extends Controller
     {
         $user = $this->save($request);
 
-        return redirect(action('UsersController@edit', [ 'id' => $user->id ]));
+        return redirect(action('UsersController@edit', [ 'user' => $user ]));
     }
 
     /**

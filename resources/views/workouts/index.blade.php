@@ -26,15 +26,15 @@
         <tbody>
         @foreach ($workouts as $workout)
             <tr>
-                <td class="p-2"><a href="{{action('WorkoutsController@show', [ 'id' => $workout->id ])}}">{{$workout->title}}</a></td>
+                <td class="p-2"><a href="{{action('WorkoutsController@show', [ 'workout' => $workout ])}}">{{$workout->title}}</a></td>
                 <td class="p-2">{{$workout->type}}</td>
                 <td class="p-2">{{$workout->time}}</td>
                 <td class="p-2">{{$workout->distance}} km</td>
                 <td class="p-2">{{$workout->duration}}</td>
                 <td class="p-2">
                     <div class="form-inline">
-                        <a href="{{action('WorkoutsController@edit', [ 'id' => $workout->id ])}}" class="btn btn-warning mr-2 btn-sm">Edit</a>
-                        <form method="POST"  action="{{action('WorkoutsController@destroy', [ 'id' => $workout->id ])}}">
+                        <a href="{{action('WorkoutsController@edit', [ 'workout' => $workout ])}}" class="btn btn-warning mr-2 btn-sm">Edit</a>
+                        <form method="POST"  action="{{action('WorkoutsController@destroy', [ 'workout' => $workout ])}}">
                             {{ csrf_field() }}
                             <input type="hidden" name="_method" value="DELETE"/>
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -42,7 +42,6 @@
                     </div>
                 </td>
             </tr>
-            </div>
         @endforeach
         </tbody>
     </table>

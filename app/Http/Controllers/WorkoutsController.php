@@ -99,7 +99,7 @@ class WorkoutsController extends Controller
         $workout = Workout::create($workout);
         $workout->savePoints($parser);
 
-        return redirect(action('WorkoutsController@edit', [ 'id' => $workout->id ]));
+        return redirect(action('WorkoutsController@edit', [ 'workout' => $workout ]));
     }
 
     /**
@@ -174,7 +174,7 @@ class WorkoutsController extends Controller
             $request->session()->flash('status', 'Unable to save workout!');
         }
 
-        return redirect(action('WorkoutsController@edit', ['id' => $workout->id]));
+        return redirect(action('WorkoutsController@edit', ['workout' => $workout]));
     }
 
     /**

@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form method="POST" action="{{ action('UsersController@update', [ 'id' => $user->id ]) }}">
+                <form method="POST" action="{{ action('UsersController@update', [ 'user' => $user ]) }}">
                     @csrf
                     <input type="hidden" name="_method" value="PUT"/>
                     <input type="hidden" name="id" value="{{$user->id}}"/>
