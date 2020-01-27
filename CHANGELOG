@@ -3,5 +3,6 @@ VERSION 1  USE VERSIONING
 =========================
 
    Version 1.0 - Use versioning
+      27/01/2020 21:34  1.0.2  CI/CD
       27/01/2020 21:05  1.0.1  Versioning fixes
       27/01/2020 21:01  1.0.0  initial release
