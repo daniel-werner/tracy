@@ -1,6 +1,6 @@
 # Tracy
 
-[![Build Status](https://travis-ci.org/daniel-werner/tracy.svg?branch=master)](https://travis-ci.com/daniel-werner/tracy)
+![Build](https://github.com/daniel-werner/tracy/workflows/Build/badge.svg)
 
 ## Track Running And Cycling
 
