@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Create database
-      run:  mysql -uroot -e 'create database tracy_test;'
+      run:  mysql -uroot -ppassword -e 'create database tracy_test;'
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
     - name: Install Dependencies
