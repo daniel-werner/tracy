@@ -1,6 +1,7 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
+    "version": "1.0.1",
     "keywords": [
         "framework",
         "laravel"
@@ -34,7 +35,8 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^8.0",
-        "facade/ignition": "^1.4"
+        "facade/ignition": "^1.4",
+        "liip/rmt": "^1.5"
     },
     "autoload": {
         "classmap": [
