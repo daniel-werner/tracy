@@ -1,6 +1,7 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
+    "version": "1.0.0",
     "keywords": [
         "framework",
         "laravel"
