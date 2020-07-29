@@ -22,9 +22,9 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('wernerd.info')
+host('tracy.wdev.rs')
     ->set('user', 'deploy')
-    ->set('deploy_path', '/var/www/vhosts/tracy.wernerd.info');
+    ->set('deploy_path', '/var/www/vhosts/tracy.wdev.rs');
 
 // Tasks
 
@@ -40,7 +40,7 @@ after('deploy:failed', 'deploy:unlock');
 before('deploy:symlink', 'artisan:migrate');
 
 task('reload:php-fpm', function () {
-    run('sudo /usr/sbin/service php7.2-fpm reload');
+    run('sudo /usr/sbin/service php7.4-fpm reload');
 });
 
 after('deploy', 'reload:php-fpm');
