@@ -68,6 +68,8 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
         ],
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage",
         "inspect": [
             "phpcs app",
             "phpstan analyze app"
