@@ -134,5 +134,7 @@ class ImportEndomondo extends Command
             $importCount,
             count($data['workouts']) - $importCount
         ));
+
+        return 0;
     }
 }
