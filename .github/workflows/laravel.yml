@@ -20,8 +20,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4
-#    - name: Create database
-#      run:  mysql -uroot -proot -e 'create database tracy_test;'
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
     - name: Install Dependencies
