@@ -3,6 +3,7 @@ VERSION 1  USE VERSIONING
 =========================
 
    Version 1.1 - Upgrade to Laravel 7
+      27/04/2021 13:54  1.1.1  Fix route optimization
       27/04/2021 13:35  1.1.0  initial release
 
    Version 1.0 - Use versioning
