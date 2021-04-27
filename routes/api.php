@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +18,5 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::apiResource('/workouts', 'Api\WorkoutsController')->middleware('auth:api');
+Route::apiResource('/workouts', 'Api\WorkoutsController')->middleware('auth:api')->names('api-workouts');
 Route::post( '/login', 'Api\LoginController@login' );
