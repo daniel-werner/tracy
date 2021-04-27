@@ -15,7 +15,11 @@ jobs:
           - 3307:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
 #    - name: Create database
 #      run:  mysql -uroot -proot -e 'create database tracy_test;'
     - name: Copy .env
