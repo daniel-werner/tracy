@@ -36,7 +36,11 @@ jobs:
     needs: [laravel-tests]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
     - name: Deploy
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
