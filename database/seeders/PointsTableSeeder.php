@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PointsTableSeeder extends Seeder
 {
@@ -11,7 +14,7 @@ class PointsTableSeeder extends Seeder
      */
     public function run()
     {
-        \Illuminate\Support\Facades\DB::statement(
+        DB::statement(
             '
             INSERT INTO `points` (`id`, `workout_id`, `segment_index`, `index`, `coordinates`, `heart_rate`, `elevation`, `time`, `created_at`, `updated_at`)
 VALUES

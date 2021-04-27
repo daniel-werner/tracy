@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\User;
-use App\Workout;
+use App\Models\User;
+use App\Models\Workout;
+use Database\Factories\UserFactory;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Tests\TestCase;
@@ -19,8 +20,8 @@ class WorkoutTest extends TestCase
      */
     public function testSearch()
     {
-        $user = factory(User::class)->create();
-        $workouts = factory(Workout::class,2)->create([
+        $user = User::factory()->create();
+        $workouts = Workout::factory()->count(2)->create([
             'user_id' => $user->id,
             'type' => Workout::TYPE_RUNNING,
             'time' => '2018-07-28 14:01:01'
@@ -30,7 +31,7 @@ class WorkoutTest extends TestCase
             return ['id' => $workout->id];
         });
 
-        $workoutsBefore = factory(Workout::class,2)->create([
+        $workoutsBefore = Workout::factory()->count(2)->create([
             'user_id' => $user->id,
             'type' => Workout::TYPE_CYCLING,
             'time' => '2018-07-26 14:01:01'
@@ -40,7 +41,7 @@ class WorkoutTest extends TestCase
             return ['id' => $workout->id];
         });
 
-        $workoutsAfter = factory(Workout::class,2)->create([
+        $workoutsAfter = Workout::factory()->count(2)->create([
             'user_id' => $user->id,
             'type' => Workout::TYPE_CYCLING,
             'time' => '2018-07-30 14:01:01'
@@ -85,7 +86,7 @@ class WorkoutTest extends TestCase
 
     public function testImportGpx()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'timezone' => 'Europe/Budapest'
         ]);
         $this->actingAs($user);
@@ -107,7 +108,7 @@ class WorkoutTest extends TestCase
 
     public function testImportTcx()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'timezone' => 'Europe/Budapest'
         ]);
         $this->actingAs($user);

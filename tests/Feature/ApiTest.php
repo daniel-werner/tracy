@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\User;
-use App\Workout;
+use App\Models\User;
+use App\Models\Workout;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,7 +20,7 @@ class ApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create([
+        $this->user = User::factory()->create([
                 'timezone' => 'Europe/Budapest',
                 'password' => Hash::make('123456')
             ]
@@ -209,7 +210,7 @@ class ApiTest extends TestCase
      */
     protected function createOauthHeaders(): array
     {
-        $client = \DB::table('oauth_clients')->where('password_client', 1)->first();
+        $client = DB::table('oauth_clients')->where('password_client', 1)->first();
 
         $response = $this->post('/oauth/token', [
             'grant_type' => 'password',

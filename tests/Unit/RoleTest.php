@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\User;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -23,7 +23,7 @@ class RoleTest extends TestCase
 
     public function testRoles()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'role_id' => User::ROLE_ADMIN
         ]);
 

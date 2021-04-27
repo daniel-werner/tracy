@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\User;
-use App\Workout;
+use App\Models\User;
+use App\Models\Workout;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

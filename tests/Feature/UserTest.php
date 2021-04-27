@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\User;
-use App\Workout;
+use App\Models\User;
+use App\Models\Workout;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Tests\TestCase;
@@ -26,7 +26,7 @@ class UserTest extends TestCase
 
     public function testCreateUserAsUser()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'role_id' => User::ROLE_USER
         ]);
         $this->actingAs($user);
@@ -44,7 +44,7 @@ class UserTest extends TestCase
 
     public function testEditUserAsUser()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'role_id' => User::ROLE_USER
         ]);
         $this->actingAs($user);
@@ -61,7 +61,7 @@ class UserTest extends TestCase
 
     public function testCreateUser()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'role_id' => User::ROLE_ADMIN
         ]);
         $this->actingAs($user);
@@ -87,7 +87,7 @@ class UserTest extends TestCase
 
     public function testEditUser()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'role_id' => User::ROLE_ADMIN
         ]);
         $this->actingAs($user);
@@ -118,7 +118,7 @@ class UserTest extends TestCase
 
     public function testUserProfile()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'role_id' => User::ROLE_USER
         ]);
         $this->actingAs($user);

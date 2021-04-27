@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Point;
-use App\Workout;
+use App\Models\Point;
+use App\Models\Workout;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;

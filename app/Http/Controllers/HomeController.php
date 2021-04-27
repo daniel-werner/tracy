@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Workout;
+use App\Models\Workout;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

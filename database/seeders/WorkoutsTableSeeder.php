@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class WorkoutsTableSeeder extends Seeder
 {
@@ -14,9 +17,9 @@ class WorkoutsTableSeeder extends Seeder
     {
         
 
-        \DB::table('workouts')->delete();
+        DB::table('workouts')->delete();
         
-        \DB::table('workouts')->insert(array (
+        DB::table('workouts')->insert(array (
             0 => 
             array (
                 'id' => 1,
