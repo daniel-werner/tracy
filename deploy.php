@@ -12,6 +12,8 @@ set('repository', 'https://github.com/daniel-werner/tracy.git');
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', false);
 
+set('keep_releases', 2);
+
 // Shared files/dirs between deploys
 add('shared_files', []);
 add('shared_dirs', []);
